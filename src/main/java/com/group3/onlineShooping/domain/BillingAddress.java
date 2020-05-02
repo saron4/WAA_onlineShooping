@@ -1,14 +1,30 @@
 package com.group3.onlineShooping.domain;
 
 import javax.persistence.Embeddable;
+import java.util.Objects;
 
 @Embeddable
 public class BillingAddress {
     private String billStreet;
-    private String billCity;
-    private String billState;
-    private String billZip;
+    private String billCity ;
+    private String billState ;
+    private String billZip ;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BillingAddress that = (BillingAddress) o;
+        return Objects.equals(billStreet, that.billStreet) &&
+                Objects.equals(billCity, that.billCity) &&
+                Objects.equals(billState, that.billState) &&
+                Objects.equals(billZip, that.billZip);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(billStreet, billCity, billState, billZip);
+    }
 
     public String getBillStreet() {
         return billStreet;
