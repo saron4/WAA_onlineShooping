@@ -2,9 +2,10 @@ package com.group3.onlineShooping.domain;
 
 /**
  * @author sara4
+ * @param <Seller>
  *
  */
-public class Product {
+public class Product<Seller> {
 	
 	private Long id;
 	
@@ -26,7 +27,7 @@ public class Product {
 	
 	private long availableInStor;
 	
-	private Review review;
+	//private Review review;
 
 	public String getProductNumber() {
 		return productNumber;
@@ -100,13 +101,13 @@ public class Product {
 		this.availableInStor = availableInStor;
 	}
 
-	public Review getReview() {
-		return review;
-	}
-
-	public void setReview(Review review) {
-		this.review = review;
-	}
+//	public Review getReview() {
+//		return review;
+//	}
+//
+//	public void setReview(Review review) {
+//		this.review = review;
+//	}
 	 
 	 
 	
