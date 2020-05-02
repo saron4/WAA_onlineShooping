@@ -1,6 +1,8 @@
 package com.group3.onlineShooping.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
+
 @Entity
 public class ShippingAddress {
     @Id
@@ -66,6 +68,35 @@ public class ShippingAddress {
         this.billingAddress = billingAddress;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ShippingAddress that = (ShippingAddress) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(street, that.street) &&
+                Objects.equals(city, that.city) &&
+                Objects.equals(state, that.state) &&
+                Objects.equals(zip, that.zip) &&
+                Objects.equals(billingAddress, that.billingAddress) &&
+                Objects.equals(buyer, that.buyer);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, street, city, state, zip, billingAddress, buyer);
+    }
 
+    @Override
+    public String toString() {
+        return "ShippingAddress{" +
+                "id=" + id +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip='" + zip + '\'' +
+                ", billingAddress=" + billingAddress +
+                ", buyer=" + buyer +
+                '}';
+    }
 }
