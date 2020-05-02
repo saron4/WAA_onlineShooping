@@ -3,6 +3,8 @@ package com.group3.onlineShooping.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
+
 @Entity
 public class Buyer {
     @Id
@@ -43,5 +45,31 @@ public class Buyer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Buyer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Buyer buyer = (Buyer) o;
+        return Objects.equals(id, buyer.id) &&
+                Objects.equals(firstName, buyer.firstName) &&
+                Objects.equals(lastName, buyer.lastName) &&
+                Objects.equals(email, buyer.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email);
     }
 }
