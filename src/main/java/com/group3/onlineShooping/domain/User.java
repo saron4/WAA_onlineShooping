@@ -1,6 +1,6 @@
 package com.group3.onlineShooping.domain;
 
-import com.group3.onlineShooping.domain.Role;
+import javax.persistence.OneToOne;
 
 public class User {
 	
@@ -9,7 +9,8 @@ public class User {
 	private String userName;
 	
 	private String password;
-	
-	private Role role;
+
+	@OneToOne
+	private Role  role;
 
 }

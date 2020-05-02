@@ -1,9 +1,7 @@
 package com.group3.onlineShooping.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+
 @Entity
 public class Item {
     @Id
@@ -37,7 +35,6 @@ public class Item {
     }
     //@OneToOne
    // private Product product ;
-
 
 
 

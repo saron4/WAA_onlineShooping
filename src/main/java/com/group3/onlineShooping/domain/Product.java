@@ -1,11 +1,16 @@
 package com.group3.onlineShooping.domain;
 
+import javax.persistence.*;
+
 /**
  * @author sara4
  *
  */
+@Entity
 public class Product {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String productNumber;
@@ -19,13 +24,15 @@ public class Product {
 	private double discount;
 	
 	private double price;
-	
-	private Seller seller;
+
+	@ManyToOne
+	private SellerModel seller;
 	
 	private boolean isAvailable = true;
 	
 	private long availableInStor;
-	
+
+	@ManyToOne
 	private Review review;
 
 	public String getProductNumber() {
@@ -76,11 +83,11 @@ public class Product {
 		this.price = price;
 	}
 
-	public Seller getSeller() {
+	public SellerModel getSeller() {
 		return seller;
 	}
 
-	public void setSeller(Seller seller) {
+	public void setSeller(SellerModel seller) {
 		this.seller = seller;
 	}
 
