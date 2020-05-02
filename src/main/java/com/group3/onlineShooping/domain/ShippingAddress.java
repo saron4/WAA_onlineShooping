@@ -1,18 +1,19 @@
 package com.group3.onlineShooping.domain;
 
 import javax.persistence.*;
+
 @Entity
 public class ShippingAddress {
     @Id
     @GeneratedValue
-    private Long id ;
+    private Long id;
     private String street;
-    private String city ;
-    private String state ;
-    private String zip ;
+    private String city;
+    private String state;
+    private String zip;
 
     @Embedded
-    private  BillingAddress  billingAddress;
+    private BillingAddress billingAddress;
 
     @OneToOne
     private Buyer buyer;
@@ -65,7 +66,6 @@ public class ShippingAddress {
     public void setBillingAddress(BillingAddress billingAddress) {
         this.billingAddress = billingAddress;
     }
-
 
 
 }

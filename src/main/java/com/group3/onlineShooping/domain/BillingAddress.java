@@ -1,12 +1,13 @@
 package com.group3.onlineShooping.domain;
 
 import javax.persistence.Embeddable;
+
 @Embeddable
 public class BillingAddress {
     private String billStreet;
-    private String billCity ;
-    private String billState ;
-    private String billZip ;
+    private String billCity;
+    private String billState;
+    private String billZip;
 
 
     public String getBillStreet() {
