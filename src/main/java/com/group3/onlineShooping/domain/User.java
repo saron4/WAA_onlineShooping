@@ -1,6 +1,6 @@
 package com.group3.onlineShooping.domain;
 
-import com.group3.onlineShooping.domain.Role;
+//import com.group3.onlineShooping.domain.Role;
 
 public class User {
 	
@@ -10,6 +10,6 @@ public class User {
 	
 	private String password;
 	
-	private Role role;
+//	private Role role;
 
 }
