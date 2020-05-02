@@ -1,4 +1,4 @@
-ackage com.group3.onlineShooping.domain;
+package com.group3.onlineShooping.domain;
 
 import java.util.Set;
 
@@ -9,11 +9,13 @@ import com.group3.onlineShooping.domain.Product;
 @Entity
 public class Category {
 
+	private long id;
+	
     private Long categoryId;
 
     private String categoryName;
 
-    private Prdoduct products;
+    private Product products;
 
     public String getCategoryName() {
         return categoryName;
@@ -23,11 +25,11 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public Prdoduct getProducts() {
+    public Product getProducts() {
         return products;
     }
 
-    public void setProducts(Prdoduct products) {
+    public void setProducts(Product products) {
         this.products = products;
     }
 

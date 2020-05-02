@@ -1,11 +1,6 @@
 package com.group3.onlineShooping.domain;
 
-/**
- * @author sara4
- * @param <Seller>
- *
- */
-public class Product<Seller> {
+public class Product {
 	
 	private Long id;
 	
