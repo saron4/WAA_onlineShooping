@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
 @Entity
 public class Item {
     @Id
@@ -11,6 +12,10 @@ public class Item {
     private Long id ;
     private double price;
     private Long quantity ;
+
+    @OneToOne
+    private Product product ;
+
 
     public Long getId() {
         return id;
@@ -35,10 +40,28 @@ public class Item {
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
-    //@OneToOne
-   // private Product product ;
 
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return Double.compare(item.price, price) == 0 &&
+                Objects.equals(id, item.id) &&
+                Objects.equals(quantity, item.quantity);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, price, quantity);
+    }
 }
