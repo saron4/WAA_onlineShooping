@@ -15,13 +15,6 @@ public class Buyer {
     private String email ;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -45,6 +38,13 @@ public class Buyer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
