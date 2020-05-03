@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 import com.group3.onlineShooping.domain.Product;
 
-@Entity
+//@Entity
 public class Category {
 
     @Id

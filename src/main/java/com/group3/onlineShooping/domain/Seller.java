@@ -1,13 +1,13 @@
 package com.group3.onlineShooping.domain;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 import java.util.UUID;
 
+//@Entity
 public class Seller {
     @Id
     @GeneratedValue
@@ -26,7 +26,15 @@ public class Seller {
     @Valid
     private Address address;
 
+    @ManyToMany
+    private Buyer followUnfollow;
 
+    @OneToMany
+    private Product product;
+
+    /*   @OneToMany
+       private Order product;
+   */
     public Seller() {
     }
 
@@ -69,6 +77,22 @@ public class Seller {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Buyer getFollowUnfollow() {
+        return followUnfollow;
+    }
+
+    public void setFollowUnfollow(Buyer followUnfollow) {
+        this.followUnfollow = followUnfollow;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
