@@ -1,8 +1,11 @@
 package com.group3.onlineShooping.domain;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
+
+@Entity
 public class Address {
     @NotBlank
     private String street;

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 import java.util.UUID;
 
-//@Entity
+@Entity
 public class Seller {
     @Id
     @GeneratedValue
@@ -17,6 +17,7 @@ public class Seller {
     private String fullName;
 
     @Valid
+    @Embedded
     private PhoneNumber phoneNumber;
 
     @NotBlank
@@ -24,12 +25,15 @@ public class Seller {
     private String email;
 
     @Valid
+    @OneToOne
     private Address address;
 
-    @ManyToMany
+    //@OneToMany
+    @Transient
     private Buyer followUnfollow;
 
-    @OneToMany
+    //@OneToMany
+    @Transient
     private Product product;
 
     /*   @OneToMany
