@@ -15,10 +15,9 @@ public class Item {
     private double price;
     private Long quantity ;
 
-/*
-    @OneToOne
-    private Product product ;
-*/
+   // @OneToOne
+   
+   // private Product product ;
 
 
     public Long getId() {

@@ -1,22 +1,29 @@
 package com.group3.onlineShooping.domain;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 import java.util.UUID;
-
+@Entity
 public class Seller {
-    @Id
-    @GeneratedValue
+   @Id
+   @GeneratedValue
+   private Long serllerId; 
+   
     private UUID id;
 
     @NotBlank
     private String fullName;
 
     @Valid
+    @Embedded 
     private PhoneNumber phoneNumber;
 
     @NotBlank
@@ -24,6 +31,7 @@ public class Seller {
     private String email;
 
     @Valid
+    @OneToOne
     private Address address;
 
 
