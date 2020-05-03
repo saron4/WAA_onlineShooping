@@ -10,6 +10,7 @@ import com.group3.onlineShooping.domain.Product;
 
 @Entity
 public class Category {
+
     @Id
     @GeneratedValue
     private Long categoryId;
@@ -33,12 +34,5 @@ public class Category {
     public void setProducts(Product products) {
         this.products = products;
     }
-
-
-
-
-
-
-
 
 }

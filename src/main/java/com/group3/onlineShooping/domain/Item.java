@@ -15,8 +15,10 @@ public class Item {
     private double price;
     private Long quantity ;
 
+/*
     @OneToOne
     private Product product ;
+*/
 
 
     public Long getId() {
@@ -52,7 +54,7 @@ public class Item {
                 '}';
     }
 
-    @Override
+   /* @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -64,6 +66,6 @@ public class Item {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, price, quantity);
-    }
+        //return Objects.hash(id, price, quantity);
+    }*/
 }

@@ -1,7 +1,15 @@
 package com.group3.onlineShooping.domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+/**
+ * @author sara4
+ *
+ */
 public class Product {
-	
+	@Id
+	@GeneratedValue
 	private Long id;
 	
 	private String productNumber;
@@ -103,11 +111,5 @@ public class Product {
 //	public void setReview(Review review) {
 //		this.review = review;
 //	}
-	 
-	 
-	
-	
-	
-	 
-	 
+
 }
