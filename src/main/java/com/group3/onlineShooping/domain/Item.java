@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import java.util.Objects;
+import com.group3.onlineShooping.domain.Product;
 
 @Entity
 public class Item {
