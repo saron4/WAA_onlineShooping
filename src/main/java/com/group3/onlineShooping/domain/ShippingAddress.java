@@ -3,7 +3,7 @@ package com.group3.onlineShooping.domain;
 import javax.persistence.*;
 import java.util.Objects;
 
-//@Entity
+@Entity
 public class ShippingAddress {
     @Id
     @GeneratedValue

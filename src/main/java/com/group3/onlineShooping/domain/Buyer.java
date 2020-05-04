@@ -1,15 +1,13 @@
 package com.group3.onlineShooping.domain;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
-import java.util.List;
-import java.util.Objects;
-
-//@Entity
+@Entity
 public class Buyer {
 	@Id
 	@GeneratedValue
