@@ -3,36 +3,49 @@ package com.group3.onlineShooping.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  * @author sara4
  *
  */
-//@Entity
+@Entity
 public class Product {
-	//@Id
-	//@GeneratedValuepa
+	@Id
+	@GeneratedValue
 	private Long id;
-	
+
 	private String productNumber;
-	
+
 	private String title;
-	 
+
 	private String summary;
-	 
+
 	private String description;
-	
-	private double discount;
-	
+
 	private double price;
-	
-	private Seller seller;
-	
+
 	private boolean isAvailable = true;
-	
+
 	private long availableInStor;
-	
-	//private Review review;
+
+	@OneToOne
+	private Seller seller;
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", productNumber=" + productNumber + ", title=" + title + ", summary=" + summary
+				+ ", description=" + description + ", price=" + price + ", isAvailable=" + isAvailable
+				+ ", availableInStor=" + availableInStor + ", seller=" + seller + "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getProductNumber() {
 		return productNumber;
@@ -64,14 +77,6 @@ public class Product {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public double getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(double discount) {
-		this.discount = discount;
 	}
 
 	public double getPrice() {
