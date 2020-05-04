@@ -2,80 +2,86 @@ package com.group3.onlineShooping.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@Entity
 public class Payment {
-    @NotBlank
-    private String cardType;
-    @NotBlank
-    private String cardName;
-    @NotBlank
-    private String number;
-    @NotNull
-    @DateTimeFormat(pattern = "MM-yyyy")
-    private LocalDate expiryDate;
 
-    public Payment() {
-    }
+	@Id
+	@GeneratedValue
+	private Long paymentId;
+	@NotBlank
+	private String cardType;
+	@NotBlank
+	private String cardName;
+	@NotBlank
+	private String number;
+	@NotNull
+	@DateTimeFormat(pattern = "MM-yyyy")
+	private LocalDate expiryDate;
 
-    public String getCardType() {
-        return cardType;
-    }
+	public Payment() {
+	}
 
-    public void setCardType(String cardType) {
-        this.cardType = cardType;
-    }
+	public String getCardType() {
+		return cardType;
+	}
 
-    public String getCardName() {
-        return cardName;
-    }
+	public void setCardType(String cardType) {
+		this.cardType = cardType;
+	}
 
-    public void setCardName(String cardName) {
-        this.cardName = cardName;
-    }
+	public String getCardName() {
+		return cardName;
+	}
 
-    public String getNumber() {
-        return number;
-    }
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
+	}
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
+	public String getNumber() {
+		return number;
+	}
 
-    public LocalDate getExpiryDate() {
-        return expiryDate;
-    }
+	public void setNumber(String number) {
+		this.number = number;
+	}
 
-    public void setExpiryDate(LocalDate expiryDate) {
-        this.expiryDate = expiryDate;
-    }
+	public LocalDate getExpiryDate() {
+		return expiryDate;
+	}
 
-    @Override
-    public String toString() {
-        return "Payment{" +
-                "cardType='" + cardType + '\'' +
-                ", cardName='" + cardName + '\'' +
-                ", number='" + number + '\'' +
-                ", expiryDate=" + expiryDate +
-                '}';
-    }
+	public void setExpiryDate(LocalDate expiryDate) {
+		this.expiryDate = expiryDate;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Payment)) return false;
-        Payment payment = (Payment) o;
-        return Objects.equals(getCardType(), payment.getCardType()) &&
-                Objects.equals(getCardName(), payment.getCardName()) &&
-                Objects.equals(getNumber(), payment.getNumber()) &&
-                Objects.equals(getExpiryDate(), payment.getExpiryDate());
-    }
+	@Override
+	public String toString() {
+		return "Payment{" + "cardType='" + cardType + '\'' + ", cardName='" + cardName + '\'' + ", number='" + number
+				+ '\'' + ", expiryDate=" + expiryDate + '}';
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getCardType(), getCardName(), getNumber(), getExpiryDate());
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof Payment))
+			return false;
+		Payment payment = (Payment) o;
+		return Objects.equals(getCardType(), payment.getCardType())
+				&& Objects.equals(getCardName(), payment.getCardName())
+				&& Objects.equals(getNumber(), payment.getNumber())
+				&& Objects.equals(getExpiryDate(), payment.getExpiryDate());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getCardType(), getCardName(), getNumber(), getExpiryDate());
+	}
 }

@@ -1,22 +1,35 @@
 package com.group3.onlineShooping.domain;
 
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 public class Seller {
-    @Id
-    @GeneratedValue
+   @Id
+   @GeneratedValue
+   private Long serllerId; 
+   
     private UUID id;
 
     @NotBlank
     private String fullName;
 
     @Valid
+
     @Embedded
     private PhoneNumber phoneNumber;
 
@@ -27,18 +40,14 @@ public class Seller {
     @Valid
     @OneToOne
     private Address address;
+    
+    //@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable (name="Follower")
+    //@joinColumns={@JoinColumn(name="serllerId")} ) 
+    
+    private List<Buyer> buyer;
 
-    //@OneToMany
-    @Transient
-    private Buyer followUnfollow;
-
-    //@OneToMany
-    @Transient
-    private Product product;
-
-    /*   @OneToMany
-       private Order product;
-   */
     public Seller() {
     }
 
@@ -81,22 +90,6 @@ public class Seller {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public Buyer getFollowUnfollow() {
-        return followUnfollow;
-    }
-
-    public void setFollowUnfollow(Buyer followUnfollow) {
-        this.followUnfollow = followUnfollow;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     @Override

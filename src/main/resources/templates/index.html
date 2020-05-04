@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml"
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/dashboard_layout}"
       xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <meta charset="UTF-8">
     <title>Home Page</title>
-    <link href="css/main.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/main.css}" href="../css/main.css" />
 </head>
 <body>
 
 <div class="col" layout:fragment="main-content">
-    <h1>Welcome to , <span th:text="${firstName}" th:remove="tag"></span></h1>
+  <h1>Welcome to CS545, <span th:text="${firstName}" th:remove="tag"></span></h1>
+  
 </div>
-
 </body>
 </html>
