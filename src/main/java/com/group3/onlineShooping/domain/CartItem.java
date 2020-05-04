@@ -2,12 +2,7 @@ package com.group3.onlineShooping.domain;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class CartItem {
@@ -16,8 +11,8 @@ public class CartItem {
 	private Long cartId;
 	@OneToOne
 	private Buyer buyer;
-	@OneToMany
-	@JoinColumn(name = "cartId")
+	@OneToMany(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "cartItem_cartId")
 	private List<Item> item;
 	private double totalPrice;
 
@@ -31,6 +26,9 @@ public class CartItem {
 
 	public Buyer getBuyer() {
 		return buyer;
+	}
+
+	public CartItem() {
 	}
 
 	public void setBuyer(Buyer buyer) {
