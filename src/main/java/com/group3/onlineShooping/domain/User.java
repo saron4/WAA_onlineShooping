@@ -1,6 +1,7 @@
 package com.group3.onlineShooping.domain;
 
 import javax.persistence.Entity;
+<<<<<<< HEAD
 import javax.persistence.GeneratedValue;
 
 import javax.persistence.Id;
@@ -12,11 +13,20 @@ public class User {
 	
 	@Id
 	@GeneratedValue
+=======
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
+public class User {
+	@Id
+>>>>>>> 5518508ad4453260268e25de0a8b80a1c60cbcb6
 	private long id;
 	
 	private String userName;
 	
 	private String password;
+<<<<<<< HEAD
 	
 	@OneToOne
 	private Role role;
@@ -56,4 +66,13 @@ public class User {
 	
 	
 
+=======
+
+	@OneToOne
+	private Role  role;
+
+	public User() {
+
+	}
+>>>>>>> 5518508ad4453260268e25de0a8b80a1c60cbcb6
 }

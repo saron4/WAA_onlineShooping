@@ -1,8 +1,11 @@
 package com.group3.onlineShooping.domain;
 
 import javax.persistence.*;
+<<<<<<< HEAD
 import java.util.Objects;
 import com.group3.onlineShooping.domain.Product;
+=======
+>>>>>>> 5518508ad4453260268e25de0a8b80a1c60cbcb6
 
 @Entity
 public class Item {
@@ -53,7 +56,10 @@ public class Item {
 	}
 
 
+<<<<<<< HEAD
     
 
    
+=======
+>>>>>>> 5518508ad4453260268e25de0a8b80a1c60cbcb6
 }

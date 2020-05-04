@@ -1,9 +1,13 @@
 package com.group3.onlineShooping.domain;
 
+<<<<<<< HEAD
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+=======
+import javax.persistence.*;
+>>>>>>> 5518508ad4453260268e25de0a8b80a1c60cbcb6
 
 /**
  * @author sara4
@@ -11,8 +15,14 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Product {
+<<<<<<< HEAD
 	@Id
 	@GeneratedValue
+=======
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+>>>>>>> 5518508ad4453260268e25de0a8b80a1c60cbcb6
 	private Long id;
 
 	private String productNumber;
@@ -25,10 +35,17 @@ public class Product {
 
 	private double price;
 
+<<<<<<< HEAD
+=======
+	@ManyToOne
+	private SellerModel seller;
+	
+>>>>>>> 5518508ad4453260268e25de0a8b80a1c60cbcb6
 	private boolean isAvailable = true;
 
 	private long availableInStor;
 
+<<<<<<< HEAD
 	@OneToOne
 	private Seller seller;
 
@@ -46,6 +63,10 @@ public class Product {
 	public void setId(Long id) {
 		this.id = id;
 	}
+=======
+	@ManyToOne
+	private Review review;
+>>>>>>> 5518508ad4453260268e25de0a8b80a1c60cbcb6
 
 	public String getProductNumber() {
 		return productNumber;
@@ -87,11 +108,11 @@ public class Product {
 		this.price = price;
 	}
 
-	public Seller getSeller() {
+	public SellerModel getSeller() {
 		return seller;
 	}
 
-	public void setSeller(Seller seller) {
+	public void setSeller(SellerModel seller) {
 		this.seller = seller;
 	}
 
