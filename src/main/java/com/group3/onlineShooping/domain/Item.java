@@ -1,11 +1,6 @@
 package com.group3.onlineShooping.domain;
 
 import javax.persistence.*;
-<<<<<<< HEAD
-import java.util.Objects;
-import com.group3.onlineShooping.domain.Product;
-=======
->>>>>>> 5518508ad4453260268e25de0a8b80a1c60cbcb6
 
 @Entity
 public class Item {
@@ -54,12 +49,5 @@ public class Item {
 	public String toString() {
 		return "Item [id=" + id + ", itemPrice=" + itemPrice + ", quantity=" + quantity + ", product=" + product + "]";
 	}
-
-
-<<<<<<< HEAD
-    
-
-   
-=======
->>>>>>> 5518508ad4453260268e25de0a8b80a1c60cbcb6
+	
 }

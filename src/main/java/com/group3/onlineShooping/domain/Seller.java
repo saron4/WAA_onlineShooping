@@ -1,7 +1,5 @@
 package com.group3.onlineShooping.domain;
 
-<<<<<<< HEAD
-
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -119,8 +117,4 @@ public class Seller {
     public int hashCode() {
         return Objects.hash(getId(), getFullName(), getPhoneNumber(), getEmail(), getAddress());
     }
-=======
-class Seller {
-
->>>>>>> 5518508ad4453260268e25de0a8b80a1c60cbcb6
 }
