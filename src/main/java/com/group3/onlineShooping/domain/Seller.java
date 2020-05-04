@@ -2,6 +2,11 @@ package com.group3.onlineShooping.domain;
 
 
 import javax.persistence.CascadeType;
+
+import javax.persistence.*;
+
+import javax.persistence.Embeddable;
+
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -16,7 +22,12 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+
+//@Entity
+
 @Entity
+
 public class Seller {
    @Id
    @GeneratedValue
@@ -47,6 +58,17 @@ public class Seller {
     
     private List<Buyer> buyer;
     
+
+    @ManyToMany
+    private Buyer followUnfollow;
+
+    @OneToMany
+    private Product product;
+
+    /*   @OneToMany
+       private Order product;
+   */
+
     public Seller() {
     }
 
@@ -89,6 +111,22 @@ public class Seller {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Buyer getFollowUnfollow() {
+        return followUnfollow;
+    }
+
+    public void setFollowUnfollow(Buyer followUnfollow) {
+        this.followUnfollow = followUnfollow;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override

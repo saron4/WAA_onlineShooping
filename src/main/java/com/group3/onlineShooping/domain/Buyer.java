@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+//@Entity
 public class Buyer {
 	@Id
 	@GeneratedValue

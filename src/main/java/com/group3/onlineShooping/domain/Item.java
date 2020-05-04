@@ -7,7 +7,7 @@ import javax.persistence.OneToOne;
 import java.util.Objects;
 import com.group3.onlineShooping.domain.Product;
 
-@Entity
+//@Entity
 public class Item {
     @Id
     @GeneratedValue
