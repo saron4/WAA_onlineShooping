@@ -15,7 +15,8 @@ public class Payment {
 
 	@Id
 	@GeneratedValue
-	private Long paymentId;
+	private Long Id;
+
 	@NotBlank
 	private String cardType;
 	@NotBlank
