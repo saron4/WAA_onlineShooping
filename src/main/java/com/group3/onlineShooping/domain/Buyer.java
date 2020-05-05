@@ -1,94 +1,111 @@
 package com.group3.onlineShooping.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import com.group3.onlineShooping.customvalidation.PasswordMatches;
+import com.group3.onlineShooping.customvalidation.ValidEmail;
+import org.hibernate.validator.constraints.Email;
 
-import java.util.List;
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
-//@Entity
+@Entity
+@PasswordMatches
 public class Buyer {
-	@Id
-	@GeneratedValue
-	private Long id;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private int coupons = 0;
+    @Id
+    @GeneratedValue
+    private Long id;
+    @Size(min = 4, max = 50, message = "{Size.validation}")
+    private String firstName;
+    @Size(min = 4, max = 50, message = "{Size.validation}")
+    private String lastName;
 
-	@OneToOne
-	private User user;
+    @Email(message = "{email.validation}")
+    @ValidEmail(message = "{email.customerValidation}")
+    private String email;
 
-	public int getCoupons() {
-		return coupons;
-	}
+    private int coupons = 0;
 
-	public void setCoupons(int coupons) {
-		this.coupons = coupons;
-	}
+    @OneToOne(fetch = FetchType.EAGER)
+    @Valid
+    private User user;
 
-	public User getUser() {
-		return user;
-	}
+    public Buyer() {
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    @Override
+    public String toString() {
+        return "Buyer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", coupons=" + coupons +
+                ", user=" + user +
+                '}';
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public int getCoupons() {
+        return coupons;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setCoupons(int coupons) {
+        this.coupons = coupons;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	@Override
-	public String toString() {
-		return "Buyer{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\''
-				+ ", email='" + email + '\'' + '}';
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-		Buyer buyer = (Buyer) o;
-		return Objects.equals(id, buyer.id) && Objects.equals(firstName, buyer.firstName)
-				&& Objects.equals(lastName, buyer.lastName) && Objects.equals(email, buyer.email);
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, firstName, lastName, email);
-	}
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Buyer buyer = (Buyer) o;
+        return Objects.equals(id, buyer.id) && Objects.equals(firstName, buyer.firstName)
+                && Objects.equals(lastName, buyer.lastName) && Objects.equals(email, buyer.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email);
+    }
 }

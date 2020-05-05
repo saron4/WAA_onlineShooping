@@ -31,5 +31,7 @@ public class Role {
 	
 	
 	
-
+ enum RoleType{
+		ADMIN ,SELLER,BUYER
+ }
 }

@@ -14,11 +14,14 @@ public class CartItem {
 	@Id
 	@GeneratedValue
 	private Long cartId;
+
 	@OneToOne
 	private Buyer buyer;
+
 	@OneToMany
 	@JoinColumn(name = "cartId")
 	private List<Item> item;
+
 	private double totalPrice;
 
 	public Long getCartId() {

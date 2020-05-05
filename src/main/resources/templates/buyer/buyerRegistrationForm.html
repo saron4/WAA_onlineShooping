@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/dashboard_layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Buyer Registration</title>
+</head>
+<style>
+    row {
+        padding-top: 80px;
+        margin: 10%;
+    }
+</style>
+<body >
+<div layout:fragment="main-content" class="container" style="margin:auto; margin-left:20%;">
+    <div class="row">
+        <div class="col-md-6"  style="background-color: #f2f2f2;padding: 20px;">
+            <form action="#" th:action="@{/buyer/registration}" th:object="${buyer}"
+                  method="post" 　>
+                 <!--
+                <div class="validation-message alert alert-danger" role="alert">
+                    <ul th:if="${#fields.hasErrors('*')}">
+                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input
+                            is incorrect
+                        </li>
+                    </ul>
+                </div>-->
+
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" th:field="*{firstName}"
+                           placeholder="First Name" class="form-control"/>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}">
+                    <span th:if="${#fields.hasErrors('firstName')}"
+                          th:errors="*{firstName}" class="validation-message"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" th:field="*{lastName}"
+                           placeholder="Last Name" class="form-control"/>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}">
+                    <span th:if="${#fields.hasErrors('lastName')}"
+                          th:errors="*{lastName}" class="validation-message"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" th:field="*{email}"
+                           placeholder="Email" class="form-control"/>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}">
+                    <span th:if="${#fields.hasErrors('email')}"
+                          th:errors="*{email}" class="validation-message"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" th:field="*{user.password}"
+                           placeholder="Password" class="form-control"/>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('user.password')}">
+                    <span th:if="${#fields.hasErrors('user.password')}"
+                          th:errors="*{user.password}" class="validation-message"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" th:field="*{user.matchingPassword}"
+                           placeholder="Confirm Password" class="form-control"/>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('user.matchingPassword')}">
+                    <span th:if="${#fields.hasErrors('user.matchingPassword')}"
+                          th:errors="*{user.matchingPassword}" class="validation-message"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
