@@ -4,7 +4,8 @@ public enum ShippingStatus {
     PURCHASED,
     SHIPPED,
     TRANSIT,
-    DELIVERED
+    DELIVERED,
+    ORDERED
 
 }
 

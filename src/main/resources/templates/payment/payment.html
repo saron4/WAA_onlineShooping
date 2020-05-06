@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/dashboard_layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="/css/payment.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--    https://www.w3schools.com/howto/howto_css_checkout_form.asp-->
+</head>
+
+<body>
+<div class="row">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card" style="width: 50%;" layout:fragment="main-content">
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="row">
+                                <div class="col-50">
+                                    <div class="container">
+                                        <form action="#" th:action="@{/payment}" th:object="${payment}" method="post">
+
+                                            <div class="row">
+
+                                                <div class="col-100">
+                                                    <h3>Payment</h3>
+                                                    <label for="fname">Accepted Cards</label>
+                                                    <div class="icon-container">
+                                                        <i class="fa fa-cc-visa" style="color:navy;"></i>
+                                                        <i class="fa fa-cc-amex" style="color:blue;"></i>
+                                                        <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                                                        <i class="fa fa-cc-discover" style="color:orange;"></i>
+                                                    </div>
+
+                                                    <label for="cardName">Name on Card</label>
+                                                    <input type="text" id="cardName" name="cardName"
+                                                           th:value="*{cardName}" placeholder="John More Doe"/>
+
+                                                    <label for="cardNumber">Credit card number</label>
+                                                    <input type="text" id="cardNumber" name="cardNumber"
+                                                           th:value="*{cardNumber}"
+                                                           placeholder="1111-2222-3333-4444">
+
+                                                    <div class="row">
+                                                        <div class="col-50">
+                                                            <label for="expYear">Exp Year</label>
+                                                            <input type="number" id="expYear" name="expYear"
+                                                                   th:value="*{expYear}"
+                                                                   placeholder="2022">
+                                                        </div>
+                                                        <div class="col-50">
+                                                            <label for="expMonth">Exp Month</label>
+                                                            <input type="number" id="expMonth" name="expMonth"
+                                                                   th:value="*{expMonth}"
+                                                                   placeholder="September">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-50">
+                                                        <label for="cvv">CVV</label>
+                                                        <input type="text" id="CVV" name="CVV"
+                                                               th:value="*{CVV}" placeholder="352">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-100">
+                                                    <h3><b>Billing Address</b></h3>
+                                                    <label for="shippingAddress.fullName">
+                                                        <i class="fa fa-user"></i>
+                                                        Full Name</label>
+                                                    <input type="text" id="shippingAddress.fullName"
+                                                           name="shippingAddress.fullName"
+                                                           th:value="*{shippingAddress.fullName}"
+                                                           placeholder="John More Doe"/>
+
+                                                    <label for="shippingAddress.email">
+                                                        <i class="fa fa-envelope"></i> Email</label>
+                                                    <input type="text" id="shippingAddress.email"
+                                                           name="shippingAddress.email"
+                                                           th:value="*{shippingAddress.email}"
+                                                           placeholder="john@example.com">
+
+                                                    <label for="shippingAddress.street"><i
+                                                            class="fa fa-address-card-o"></i>
+                                                        Address</label>
+                                                    <input type="text" id="shippingAddress.street"
+                                                           th:value="*{shippingAddress.street}"
+                                                           name="shippingAddress.street"
+                                                           placeholder="542 W. 15th Street">
+
+                                                    <label for="shippingAddress.city"><i class="fa fa-institution"></i>
+                                                        City</label>
+                                                    <input type="text" id="shippingAddress.city"
+                                                           name="shippingAddress.city"
+                                                           th:value="*{shippingAddress.city}"
+                                                           placeholder="New York">
+
+                                                    <div class="row">
+                                                        <div class="col-50">
+                                                            <label for="shippingAddress.state">State</label>
+                                                            <input type="text" id="shippingAddress.state"
+                                                                   th:value="*{shippingAddress.state}"
+                                                                   name="shippingAddress.state"
+                                                                   placeholder="NY">
+                                                        </div>
+                                                        <div class="col-50">
+                                                            <label for="zip">Zip</label>
+                                                            <input type="text" id="shippingAddress.zip"
+                                                                   name="shippingAddress.zip"
+                                                                   th:value="*{shippingAddress.zip}"
+                                                                   placeholder="10001">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <label>
+                                                <input type="checkbox" checked="checked" name="sameadr"> Shipping
+                                                address same as billing?
+                                            </label>
+
+                                            <div class="col-100">
+                                                <h3><b>Shipping Address</b></h3>
+                                                <label for="shippingAddress.billingAddress.billFullName">
+                                                    <i class="fa fa-user"></i> Full Name</label>
+                                                <input type="text" id="shippingAddress.billingAddress.billFullName"
+                                                       name="shippingAddress.billingAddress.billFullName"
+                                                       th:value="*{shippingAddress.billingAddress.billFullName}"
+                                                       placeholder="John M. Doe">
+
+                                                <label for="shippingAddress.billingAddress.billEmail">
+                                                    <i class="fa fa-envelope"></i> Email</label>
+                                                <input type="text" id="shippingAddress.billingAddress.billEmail"
+                                                       name="shippingAddress.billingAddress.billEmail"
+                                                       th:value="*{shippingAddress.billingAddress.billEmail}"
+                                                       placeholder="john@example.com">
+
+                                                <label for="shippingAddress.billingAddress.billStreet">
+                                                    <i class="fa fa-address-card-o"></i>
+                                                    Address</label>
+                                                <input type="text" id="shippingAddress.billingAddress.billStreet"
+                                                       name="shippingAddress.billingAddress.billStreet"
+                                                       th:value="*{shippingAddress.billingAddress.billStreet}"
+                                                       placeholder="542 W. 15th Street">
+
+                                                <label for="shippingAddress.billingAddress.billCity">
+                                                    <i class="fa fa-institution"></i> City</label>
+                                                <input type="text" id="shippingAddress.billingAddress.billCity"
+                                                       name="shippingAddress.billingAddress.billCity"
+                                                       th:value="*{shippingAddress.billingAddress.billCity}"
+                                                       placeholder="New York">
+
+                                                <div class="row">
+                                                    <div class="col-50">
+                                                        <label for="shippingAddress.billingAddress.billState">State</label>
+                                                        <input type="text" id="shippingAddress.billingAddress.billState"
+                                                               name="shippingAddress.billingAddress.billState"
+                                                               th:value="*{shippingAddress.billingAddress.billState}"
+                                                               placeholder="NY">
+                                                    </div>
+                                                    <div class="col-50">
+                                                        <label for="shippingAddress.billingAddress.billZip">Zip</label>
+                                                        <input type="text" id="shippingAddress.billingAddress.billZip"
+                                                               name="shippingAddress.billingAddress.billZip"
+                                                               th:value="*{shippingAddress.billingAddress.billZip}"
+                                                               placeholder="10001">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <input type="submit" value="Continue to checkout" class="btn">
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="w-100"></div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

@@ -21,7 +21,7 @@ public class SellerServiceImpl implements SellerService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void addSerller(Seller seller) {
-            sellerRepository.save(seller);
+        sellerRepository.save(seller);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class SellerServiceImpl implements SellerService {
     public List<Seller> getAll() {
         Iterable<Seller> sellersIterable = sellerRepository.findAll();
         List<Seller> sellers = new ArrayList<>();
-        while(sellersIterable.iterator().hasNext()){
+        while (sellersIterable.iterator().hasNext()) {
             sellers.add(sellersIterable.iterator().next());
         }
         return sellers;
@@ -39,8 +39,7 @@ public class SellerServiceImpl implements SellerService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Seller getSeller(Long id) throws Exception {
         Optional<Seller> seller = sellerRepository.findById(id);
-        if(!seller.isPresent())
-        {
+        if (!seller.isPresent()) {
             // a cusmtom excepttion has to be thrown
             System.out.println("Seller not found");
             throw new Exception("Seller not found");

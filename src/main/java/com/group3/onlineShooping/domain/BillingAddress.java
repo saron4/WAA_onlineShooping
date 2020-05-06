@@ -1,14 +1,25 @@
 package com.group3.onlineShooping.domain;
 
 import javax.persistence.Embeddable;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Embeddable
 public class BillingAddress {
+    @NotBlank
+    private String billFullName;
+    @Email
+    @NotBlank
+    private String billEmail;
+    @NotBlank
     private String billStreet;
-    private String billCity ;
-    private String billState ;
-    private String billZip ;
+    @NotBlank
+    private String billCity;
+    @NotBlank
+    private String billState;
+    @NotBlank
+    private String billZip;
 
     @Override
     public boolean equals(Object o) {
@@ -19,6 +30,22 @@ public class BillingAddress {
                 Objects.equals(billCity, that.billCity) &&
                 Objects.equals(billState, that.billState) &&
                 Objects.equals(billZip, that.billZip);
+    }
+
+    public String getBillFullName() {
+        return billFullName;
+    }
+
+    public void setBillFullName(String billFullName) {
+        this.billFullName = billFullName;
+    }
+
+    public String getBillEmail() {
+        return billEmail;
+    }
+
+    public void setBillEmail(String billEmail) {
+        this.billEmail = billEmail;
     }
 
     @Override
@@ -56,5 +83,17 @@ public class BillingAddress {
 
     public void setBillZip(String billZip) {
         this.billZip = billZip;
+    }
+
+    @Override
+    public String toString() {
+        return "BillingAddress{" +
+                "billFullName='" + billFullName + '\'' +
+                ", billEmail='" + billEmail + '\'' +
+                ", billStreet='" + billStreet + '\'' +
+                ", billCity='" + billCity + '\'' +
+                ", billState='" + billState + '\'' +
+                ", billZip='" + billZip + '\'' +
+                '}';
     }
 }
