@@ -40,7 +40,7 @@ public enum OrderStatus {
         }
         OrderStatus finalEnd = end;
         List<String> result = Arrays.stream(list)
-                .filter(shippingStatus -> shippingStatus.val > start.getVal() && shippingStatus.val <= finalEnd.getVal())
+                .filter(shippingStatus -> shippingStatus.val >= start.getVal() && shippingStatus.val <= finalEnd.getVal())
                 .map(x -> x.toString()).collect(Collectors.toList());
         return result;
     }
