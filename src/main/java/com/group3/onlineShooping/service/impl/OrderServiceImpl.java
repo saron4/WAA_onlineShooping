@@ -2,6 +2,7 @@ package com.group3.onlineShooping.service.impl;
 
 import com.group3.onlineShooping.domain.Notification;
 import com.group3.onlineShooping.domain.Order;
+import com.group3.onlineShooping.domain.OrderStatus;
 import com.group3.onlineShooping.repository.OrderRepository;
 import com.group3.onlineShooping.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteOrder(Long id) {
         Order order = getOrder(id);
-        orderRepository.delete(order);
+        order.setOrderStatus(OrderStatus.CANCELD);
+        editOrder(order);
     }
 
     @Override
