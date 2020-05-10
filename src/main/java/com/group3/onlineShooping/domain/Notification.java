@@ -19,6 +19,8 @@ public class Notification {
     @ManyToOne
     private Order order;
 
+    private Boolean seen;
+
 //    @OneToOne
 //    private Buyer buyer;
 
@@ -53,5 +55,13 @@ public class Notification {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public Boolean getSeen() {
+        return seen == null ? false : seen;
+    }
+
+    public void setSeen(Boolean seen) {
+        this.seen = seen;
     }
 }

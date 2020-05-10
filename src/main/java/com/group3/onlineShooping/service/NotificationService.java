@@ -9,6 +9,7 @@ public interface NotificationService {
     public Notification addNotification(Notification notification);
 
     public List<Notification> getAll();
+    public List<Notification> getAllUnSeen();
 
     public Notification getNotification(Long id);
 

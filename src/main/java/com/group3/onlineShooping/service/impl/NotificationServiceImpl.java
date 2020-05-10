@@ -13,8 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-@Service
+@Service("NotificationService")
 @Transactional
 public class NotificationServiceImpl implements NotificationService {
 
@@ -37,6 +38,14 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public List<Notification> getAllUnSeen() {
+        return getAll()
+                .stream()
+                .filter(notif -> notif.getSeen() != true)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Notification getNotification(Long id) {
         Optional<Notification> notification = notificationRepository.findById(id);
@@ -53,8 +62,8 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void deleteNotification(Long id) {
-        Notification order = getNotification(id);
-        notificationRepository.delete(order);
+        Notification notification = getNotification(id);
+        editNotification(notification);
     }
 
     @Override
@@ -66,11 +75,8 @@ public class NotificationServiceImpl implements NotificationService {
             Optional<Notification> existingEntity = notificationRepository.findById(notification.getId());
             if (existingEntity.isPresent()) {
                 Notification newEntity = existingEntity.get();
-                //newEntity.setShippingStatus(notification.getShippingStatus());
-
+                newEntity.setSeen(notification.getSeen());
                 newEntity = notificationRepository.save(newEntity);
-
-
                 return newEntity;
             } else {
                 notification = notificationRepository.save(notification);
