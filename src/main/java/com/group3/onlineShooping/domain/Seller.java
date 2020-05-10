@@ -12,17 +12,15 @@ import java.util.UUID;
 
 @Entity
 public class Seller implements Serializable {
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   private Long serllerId; 
-
-    private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @NotBlank
     private String fullName;
 
     @Valid
-    @Embedded 
+    @Embedded
     private PhoneNumber phoneNumber;
 
     @NotBlank
@@ -30,26 +28,26 @@ public class Seller implements Serializable {
     private String email;
 
     @Valid
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
-    
+
     //@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ManyToMany
     @JoinTable// (name="Follower")
     //@joinColumns={@JoinColumn(name="serllerId")} ) 
-    
+
     private List<Buyer> buyer;
-    
+
     public Seller() {
     }
 
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

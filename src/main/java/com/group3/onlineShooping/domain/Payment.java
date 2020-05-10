@@ -24,6 +24,9 @@ public class Payment {
     private String cardName;
     @NotBlank
     private String cardNumber;
+    @NotNull
+    private Double totalPrice;
+
     //@NotNull
     //@DateTimeFormat(pattern = "MM-yyyy")
     private String expiryDate;
@@ -46,9 +49,6 @@ public class Payment {
     @OneToOne(cascade = CascadeType.ALL)
     private ShippingAddress shippingAddress;
 
-    private ShippingStatus shippingStatus = ShippingStatus.ORDERED;
-
-
     public Payment() {
     }
 
@@ -66,6 +66,14 @@ public class Payment {
 
     public void setExpYear(Integer expYear) {
         this.expYear = expYear;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Integer getExpMonth() {
@@ -90,14 +98,6 @@ public class Payment {
 
     public void setShippingAddress(ShippingAddress shippingAddress) {
         this.shippingAddress = shippingAddress;
-    }
-
-    public ShippingStatus getShippingStatus() {
-        return shippingStatus;
-    }
-
-    public void setShippingStatus(ShippingStatus shippingStatus) {
-        this.shippingStatus = shippingStatus;
     }
 
     public String getCardType() {
@@ -144,7 +144,6 @@ public class Payment {
                 ", expMonth=" + expMonth +
                 ", CVV=" + CVV +
                 ", shippingAddress=" + shippingAddress +
-                ", shippingStatus=" + shippingStatus +
                 '}';
     }
 

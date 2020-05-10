@@ -6,7 +6,6 @@ public enum ShippingStatus {
     TRANSIT,
     DELIVERED,
     ORDERED
-
 }
 
 

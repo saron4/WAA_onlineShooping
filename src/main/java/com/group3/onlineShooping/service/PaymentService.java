@@ -6,7 +6,7 @@ import com.group3.onlineShooping.domain.Seller;
 import java.util.List;
 
 public interface PaymentService {
-    public void addPayment(Payment payment);
+    public Payment addPayment(Payment payment);
 
     public List<Payment> getAll();
 

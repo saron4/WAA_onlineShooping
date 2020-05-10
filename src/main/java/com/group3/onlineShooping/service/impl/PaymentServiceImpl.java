@@ -16,6 +16,7 @@ import java.util.Optional;
 
 
 @Service
+@Transactional
 public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
@@ -23,8 +24,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void addPayment(Payment payment) {
-        paymentRepository.save(payment);
+    public Payment addPayment(Payment payment) {
+       return paymentRepository.save(payment);
     }
 
     @Override

@@ -5,12 +5,14 @@ import com.group3.onlineShooping.domain.Payment;
 import com.group3.onlineShooping.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
+import java.util.List;
 
 @Controller
 @RequestMapping("/order")
@@ -23,15 +25,52 @@ public class OrderController {
     }
 
     @GetMapping
-    public String payment() {
-        return "order/order";
+    public String index(Model model) {
+        List<Order> orders = orderService.getAll();
+        model.addAttribute("orders", orders);
+        return "order/index";
     }
 
-    @PostMapping
-    public String payment(@Valid Order order, BindingResult result) {
-        if (result.hasErrors()) {
-
-        }
-        return "order/order";
+    @GetMapping("/{id}")
+    public ModelAndView details(@PathVariable("id") Long id) {
+        Order order = orderService.getOrder(id);
+        ModelAndView mv = new ModelAndView("order/details");
+        mv.addObject("order", order);
+        return mv;
     }
+
+    @GetMapping("/delete/{id}")
+    public ModelAndView delete(@PathVariable("id") Long id) {
+        Order order = orderService.getOrder(id);
+        ModelAndView modelAndView = new ModelAndView("order/delete");
+        modelAndView.addObject("order", order);
+        return modelAndView;
+    }
+
+    @PostMapping("/delete")
+    public String delete(Order order) {
+        orderService.deleteOrder(order.getId());
+        return "redirect:/order";
+    }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView changeStatus(@PathVariable("id") Long id) {
+        Order order = orderService.getOrder(id);
+        ModelAndView modelAndView = new ModelAndView("order/edit");
+        modelAndView.addObject("order", order);
+        return modelAndView;
+    }
+
+    @PostMapping("/edit")
+    public String changeStatus(Order order) {
+        Order orderUpdated = orderService.editOrder(order);
+        return "redirect:/order";
+    }
+
+    @PostMapping("/export")
+    public String exportPDF(@RequestParam Long id) {
+        //boolean order = orderService.deleteOrder(id);
+        return "order/index";
+    }
+
 }
