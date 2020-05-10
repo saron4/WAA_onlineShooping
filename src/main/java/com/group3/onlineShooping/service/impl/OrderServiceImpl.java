@@ -13,15 +13,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
-@Service
+@Service("OrderServiceImpl")
 @Transactional
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private NotificationServiceImpl notificationService;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    OrderHistoryServiceImpl orderHistoryService;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -35,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
         Iterable<Order> orderIterable = orderRepository.findAll();
         List<Order> orders = new ArrayList<>();
         orderIterable.forEach(orders::add);
-        return orders;
+        return orders.stream().filter(order -> order.getOrderHistory() == null).collect(Collectors.toList());
     }
 
     @Override
@@ -68,17 +71,30 @@ public class OrderServiceImpl implements OrderService {
         } else {
             Optional<Order> existingEntity = orderRepository.findById(order.getId());
             if (existingEntity.isPresent()) {
+                //  Status update
                 Order newEntity = existingEntity.get();
-                newEntity.setShippingStatus(order.getShippingStatus());
-
+                newEntity.setOrderStatus(order.getOrderStatus());
                 newEntity = orderRepository.save(newEntity);
 
+                //  Notification
                 Notification notification = new Notification();
                 notification.setOrder(order);
                 notification.setMessage("Order status updated!");
-                notification.setShippingStatus(order.getShippingStatus());
+                notification.setOrderStatus(order.getOrderStatus());
                 notificationService.addNotification(notification);
 
+                // Record History
+                Order existingOrderEntity = existingEntity.get();
+                Order orderHistory = new Order();
+                orderHistory.setOrderDate(existingOrderEntity.getOrderDate());
+                orderHistory.setOrderStatus(existingOrderEntity.getOrderStatus());
+                orderHistory.setCartItem(existingOrderEntity.getCartItem());
+                orderHistory.setBuyer(existingOrderEntity.getBuyer());
+                orderHistory.setOrderHistory(existingOrderEntity.getOrderHistory());
+                orderHistory.setPayment(existingOrderEntity.getPayment());
+                orderHistory.getSubordinates().add(existingOrderEntity);
+                orderHistory.setOrderHistory(existingOrderEntity);
+                orderHistoryService.addOrder(orderHistory);
                 return newEntity;
             } else {
                 order = orderRepository.save(order);

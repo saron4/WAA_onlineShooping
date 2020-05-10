@@ -11,7 +11,8 @@ public enum OrderStatus {
     PURCHASED(2),
     SHIPPED(3),
     TRANSIT(4),
-    DELIVERED(5);
+    DELIVERED(5),
+    CANCELD(6);
 
     Integer val;
 
@@ -33,7 +34,7 @@ public enum OrderStatus {
 
     private static OrderStatus[] list = OrderStatus.values();
 
-    public static List<String> getShippingStatus(OrderStatus start, OrderStatus end) {
+    public static List<String> getOrderStatus(OrderStatus start, OrderStatus end) {
         if (end == null) {
             end = EndOrderStatus();
         }

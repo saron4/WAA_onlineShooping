@@ -4,6 +4,7 @@ import com.group3.onlineShooping.domain.*;
 import com.group3.onlineShooping.service.OrderService;
 import com.group3.onlineShooping.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ public class PaymentController {
     @Autowired
     PaymentService paymentService;
     @Autowired
+    @Qualifier("OrderServiceImpl")
     OrderService orderService;
 
     @GetMapping

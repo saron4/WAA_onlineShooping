@@ -11,10 +11,10 @@ public class Notification {
     private Long id;
 
     @NotBlank
-    private  String message;
+    private String message;
 
     @NotNull
-    private  ShippingStatus shippingStatus;
+    private OrderStatus orderStatus;
 
     @ManyToOne
     private Order order;
@@ -39,12 +39,12 @@ public class Notification {
         this.message = message;
     }
 
-    public ShippingStatus getShippingStatus() {
-        return shippingStatus;
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setShippingStatus(ShippingStatus shippingStatus) {
-        this.shippingStatus = shippingStatus;
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public Order getOrder() {

@@ -4,7 +4,9 @@ package com.group3.onlineShooping.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity(name = "Orders")
@@ -26,15 +28,23 @@ public class Order implements Serializable {
     //private Integer quantity;
 
     private LocalDate orderDate;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne//(cascade = CascadeType.MERGE)
     private Payment payment;
+
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "orderHistory_id")
+    private Order orderHistory;
+
+    @OneToMany(mappedBy = "orderHistory")
+    private Set<Order> subordinates = new HashSet<Order>();
+
 
 //    @OneToOne
 //    private ShippingAddress shippingAddress;
 //    private ShippingStatus shippingStatus;
 //
 
-    private ShippingStatus shippingStatus;
+    private OrderStatus orderStatus;
 
     public Order() {
     }
@@ -59,12 +69,12 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public ShippingStatus getShippingStatus() {
-        return shippingStatus;
+    public OrderStatus getOrderStatus() {
+        return orderStatus == null ? OrderStatus.InitOrderStatus() : orderStatus;
     }
 
-    public void setShippingStatus(ShippingStatus shippingStatus) {
-        this.shippingStatus = shippingStatus;
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public void setCartItem(CartItem cartItem) {
@@ -85,6 +95,22 @@ public class Order implements Serializable {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public Order getOrderHistory() {
+        return orderHistory;
+    }
+
+    public void setOrderHistory(Order orderHistory) {
+        this.orderHistory = orderHistory;
+    }
+
+    public Set<Order> getSubordinates() {
+        return subordinates;
+    }
+
+    public void setSubordinates(Set<Order> subordinates) {
+        this.subordinates = subordinates;
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.group3.onlineShooping.controller;
 
 import com.group3.onlineShooping.domain.Order;
+import com.group3.onlineShooping.domain.OrderStatus;
 import com.group3.onlineShooping.domain.Payment;
 import com.group3.onlineShooping.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +22,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(@Qualifier("OrderServiceImpl") OrderService orderService) {
         this.orderService = orderService;
     }
 
@@ -58,6 +60,8 @@ public class OrderController {
         Order order = orderService.getOrder(id);
         ModelAndView modelAndView = new ModelAndView("order/edit");
         modelAndView.addObject("order", order);
+        modelAndView.addObject("orderStatus", OrderStatus.getOrderStatus(order.getOrderStatus(), OrderStatus.EndOrderStatus()));
+
         return modelAndView;
     }
 
@@ -67,8 +71,8 @@ public class OrderController {
         return "redirect:/order";
     }
 
-    @PostMapping("/export")
-    public String exportPDF(@RequestParam Long id) {
+    @PostMapping("/export/{id}")
+    public String exportPDF(@PathVariable("id") Long id) {
         //boolean order = orderService.deleteOrder(id);
         return "order/index";
     }

@@ -44,12 +44,15 @@
                                         <tr>
                                             <td>Shipping Status</td>
                                             <td>
-                                                <select class="form-control" th:field="*{shippingStatus}" required>
+                                                <select class="form-control" th:field="*{orderStatus}" required>
                                                     <option value=""> -- Select One --</option>
-                                                    <option th:each="status : ${T(com.group3.onlineShooping.domain.ShippingStatus).values()}"
+                                                    <!-- <option th:each="status : ${T(com.group3.onlineShooping.domain.ShippingStatus).values()}"
+                                                             th:value="${status}"
+                                                             th:text="${status}">
+                                                     </option>-->
+                                                    <option th:each="status: ${orderStatus}"
                                                             th:value="${status}"
-                                                            th:text="${status}">
-                                                    </option>
+                                                            th:text="${status}"/>
                                                 </select>
                                             </td>
                                         </tr>
@@ -57,7 +60,7 @@
                                     </table>
 
                                     <input type="hidden" id="id" th:field="*{id}">
-                                    <input type="hidden" id="shippingStatus" th:field="*{shippingStatus}">
+                                    <input type="hidden" id="orderStatus" th:field="*{orderStatus}">
                                     <div class="col-md-6">
                                         <input type="submit" class="btn btn-success" value=" Edit ">
                                     </div>
