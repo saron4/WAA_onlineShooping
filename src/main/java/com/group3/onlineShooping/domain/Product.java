@@ -1,18 +1,22 @@
 package com.group3.onlineShooping.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
-/**
- * @author sara4
- *
- */
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
 @Entity
 public class Product {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private String productNumber;
@@ -23,21 +27,28 @@ public class Product {
 
 	private String description;
 
-	private double price;
+	private BigDecimal price;
 
 	private boolean isAvailable = true;
 
 	private long availableInStor;
 
-	@OneToOne
-	private Seller seller;
+	@Transient
+	private long cartQuantity;
 
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", productNumber=" + productNumber + ", title=" + title + ", summary=" + summary
-				+ ", description=" + description + ", price=" + price + ", isAvailable=" + isAvailable
-				+ ", availableInStor=" + availableInStor + ", seller=" + seller + "]";
-	}
+	@Transient
+	private MultipartFile productImage;
+
+	//@OneToOne(mappedBy = "product")
+	//private Item item  ;
+
+	@ManyToOne
+	@JoinColumn(name = "product_category")
+	private Category category;
+
+	//@OneToOne
+	@Transient
+	private Seller seller;
 
 	public Long getId() {
 		return id;
@@ -79,28 +90,20 @@ public class Product {
 		this.description = description;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
-	}
-
-	public Seller getSeller() {
-		return seller;
-	}
-
-	public void setSeller(Seller seller) {
-		this.seller = seller;
 	}
 
 	public boolean isAvailable() {
 		return isAvailable;
 	}
 
-	public void setAvailable(boolean isAvailable) {
-		this.isAvailable = isAvailable;
+	public void setAvailable(boolean available) {
+		isAvailable = available;
 	}
 
 	public long getAvailableInStor() {
@@ -111,12 +114,28 @@ public class Product {
 		this.availableInStor = availableInStor;
 	}
 
-//	public Review getReview() {
-//		return review;
-//	}
-//
-//	public void setReview(Review review) {
-//		this.review = review;
-//	}
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
 
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
+	}
+
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Seller getSeller() {
+		return seller;
+	}
+
+	public void setSeller(Seller seller) {
+		this.seller = seller;
+	}
 }

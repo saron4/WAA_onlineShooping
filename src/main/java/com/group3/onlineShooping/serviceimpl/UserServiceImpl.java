@@ -4,14 +4,21 @@ import com.group3.onlineShooping.domain.User;
 import com.group3.onlineShooping.repository.UserRepository;
 import com.group3.onlineShooping.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -26,6 +33,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user ) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setMatchingPassword(user.getPassword());
         return userRepository.save(user);
     }
 
@@ -35,8 +44,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUserName(String userName) {
-        return userRepository.findByUserName(userName);
+    public Optional<User> findByUserName(String userName) {
+        return userRepository.findByUsername(userName);
     }
     @Override
     public User put(User user) {

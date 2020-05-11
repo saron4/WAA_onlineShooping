@@ -6,8 +6,11 @@ import com.group3.onlineShooping.service.BuyerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+
 @Service
+@Transactional
 public class BuyerServiceImpl implements BuyerService {
 
     private BuyerRepository buyerRepository;
@@ -41,6 +44,7 @@ public class BuyerServiceImpl implements BuyerService {
     public Buyer findByEmail(String email) {
         return buyerRepository.findByEmail(email);
     }
+
     @Override
     public Buyer put(Buyer buyer) {
         return buyerRepository.save(buyer);

@@ -3,11 +3,7 @@ package com.group3.onlineShooping.domain;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.group3.onlineShooping.domain.Product;
 
@@ -20,11 +16,19 @@ public class Category {
 
     private String categoryName;
 
-    @OneToMany
-    @JoinColumn(name="categoryId") 
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products;
 
-    public String getCategoryName() {
+	@Override
+	public String toString() {
+		return "Category{" +
+				"categoryId=" + categoryId +
+				", categoryName='" + categoryName + '\'' +
+
+				'}';
+	}
+
+	public String getCategoryName() {
         return categoryName;
     }
 
@@ -47,12 +51,6 @@ public class Category {
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
-
-	@Override
-	public String toString() {
-		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + ", products=" + products + "]";
-	}
-
 
 
 }

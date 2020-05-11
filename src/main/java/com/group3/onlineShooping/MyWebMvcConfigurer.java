@@ -13,7 +13,8 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
 
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/img/**").addResourceLocations("file:uploads/");
+        registry.addResourceHandler("/img/**").addResourceLocations("file:images/");
+
         }
 
     @Bean

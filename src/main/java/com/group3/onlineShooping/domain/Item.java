@@ -1,62 +1,33 @@
 package com.group3.onlineShooping.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import java.util.Objects;
-import com.group3.onlineShooping.domain.Product;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
 @Entity
 public class Item {
+    //created means it is inside shopping cart
+    public enum ItemStatus {
+        Created, Processing, Paid, Finished, Cancelled
+    }
+
     @Id
-    @GeneratedValue
-    private Long id ;
-    private double itemPrice;
-    private Long quantity ;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private BigDecimal itemPrice;
+    private Long quantity;
+    @Enumerated(EnumType.STRING)
+    private ItemStatus itemStatus = ItemStatus.Created;
+    @ManyToOne
+    @JoinColumn(name="product_id")
+    private Product product;
 
-    @OneToOne
-    private Product product ;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public double getItemPrice() {
-		return itemPrice;
-	}
-
-	public void setItemPrice(double itemPrice) {
-		this.itemPrice = itemPrice;
-	}
-
-	public Long getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Long quantity) {
-		this.quantity = quantity;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	@Override
-	public String toString() {
-		return "Item [id=" + id + ", itemPrice=" + itemPrice + ", quantity=" + quantity + ", product=" + product + "]";
-	}
-
-
-    
-
-   
 }

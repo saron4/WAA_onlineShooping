@@ -1,85 +1,43 @@
 package com.group3.onlineShooping.domain;
 
+import lombok.*;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
 @Entity
 public class User {
 	@Id
-	@GeneratedValue
-	private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
+	private Long id;
 
-	@Email(message = "{email.validation}")
-	private String userName;
+	@Column(name = "username")
+	private String username;
 
-
-	@Size(min = 6, max = 50, message = "{Size.validation}")
+	@Size(min = 6, message = "{Size.validation}")
+	@Column(name = "password")
 	private String password;
 
+	@Column(name = "active")
+	private int active;
 
 	@Transient
-	@Size(min = 6, max = 50, message = "{Size.validation}")
+	@Size(min = 6, message = "{Size.validation}")
 	private String matchingPassword;
 
-//	@OneToOne
-	@Transient
-	private Role role;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
 
 
-	public String getMatchingPassword() {
-		return matchingPassword;
-	}
-
-	public void setMatchingPassword(String matchingPassword) {
-		this.matchingPassword = matchingPassword;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-
-	@Override
-	public String toString() {
-		return "User{" +
-				"id=" + id +
-				", userName='" + userName + '\'' +
-				", password='" + password + '\'' +
-				", matchingPassword='" + matchingPassword + '\'' +
-				", role=" + role +
-				'}';
-	}
 }
