@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -46,8 +47,13 @@ public class Payment {
     @Pattern(regexp = "^[0-9]{3,4}$")
     private String CVV;
 
+    @Valid
     @OneToOne(cascade = CascadeType.ALL)
     private ShippingAddress shippingAddress;
+
+    @JoinColumn
+    @OneToOne(cascade = CascadeType.MERGE)
+    private CartItem cartItem;
 
     public Payment() {
     }
@@ -130,6 +136,14 @@ public class Payment {
 
     public void setExpiryDate(String expiryDate) {
         this.expiryDate = getExpMonth() + "/" + getExpYear();
+    }
+
+    public CartItem getCartItem() {
+        return cartItem;
+    }
+
+    public void setCartItem(CartItem cartItem) {
+        this.cartItem = cartItem;
     }
 
     @Override

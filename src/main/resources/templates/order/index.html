@@ -26,6 +26,7 @@
                                     <thead>
                                     <tr>
                                         <th>Order Date</th>
+<!--                                        <th>Order Title</th>-->
                                         <th>Total Price</th>
                                         <th>Order Status</th>
 
@@ -35,6 +36,7 @@
                                     <tbody>
                                     <tr th:each="order : ${orders}">
                                         <td th:text="${order.orderDate}"></td>
+<!--                                        <td th:text="${order.payment.cartItem.getTotalPrice()}"></td>-->
                                         <td th:text="${order.payment.getTotalPrice()}"></td>
                                         <td th:text="${order.orderStatus}"></td>
                                         <td>
@@ -46,7 +48,7 @@
 
                                             <a th:href="@{/order/{id}(id=${order.getId()})}"
                                                class="btn btn-primary">
-                                                <i class="glyphicon glyphicon-info-sign ml-2"></i>
+                                                <i class="fas fa-info sign ml-2"></i>
                                             </a>
 
                                             <a th:if="${order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).CANCELD && order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).DELIVERED}"

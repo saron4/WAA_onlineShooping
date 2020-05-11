@@ -1,6 +1,8 @@
 package com.group3.onlineShooping.domain;
 
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,7 +23,6 @@ public class Order implements Serializable {
     //@OneToOne
     //private Seller seller;
     @Transient
-    @OneToOne
     private CartItem cartItem;
     // @Transient
     // private Product product;

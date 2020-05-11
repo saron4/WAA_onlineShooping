@@ -1,6 +1,7 @@
 package com.group3.onlineShooping.domain;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
@@ -24,6 +25,7 @@ public class ShippingAddress {
     @NotBlank
     private String zip;
 
+    @Valid
     @Embedded
     private BillingAddress billingAddress;
 
