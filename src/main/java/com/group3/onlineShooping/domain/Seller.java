@@ -1,5 +1,6 @@
 package com.group3.onlineShooping.domain;
 
+
 import javax.persistence.*;
 
 
@@ -20,11 +21,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+
 @Entity
 public class Seller implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long serllerId; 
+
+@Entity
+public class Seller {
+   @Id
+   @GeneratedValue
+   private Long serllerId; 
+
    
     private UUID id;
 
@@ -46,12 +55,20 @@ public class Seller implements Serializable {
 
     //@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ManyToMany
+     
     @JoinTable// (name="Follower")
     //@joinColumns={@JoinColumn(name="serllerId")} )
 
     private List<Buyer> buyer;
 
 
+    
+
+
+    @JoinTable (name="Follower")
+    //@joinColumns={@JoinColumn(name="serllerId")} ) 
+    
+    private List<Buyer> buyer;
     
 
     public Seller() {

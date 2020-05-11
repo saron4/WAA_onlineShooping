@@ -5,11 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
-import javax.persistence.*;
-
 import java.util.List;
-
 
 import javax.persistence.*;
 @NoArgsConstructor
@@ -25,15 +21,17 @@ public class CartItem {
 	@OneToOne
 	private Buyer buyer;
 
-
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "cartId")
-
 	private List<Item> item;
-
 
 	private double totalPrice;
 
+	@Override
+	public String toString() {
+		return "CartItem [cartId=" + cartId + ", buyer=" + buyer + ", item=" + item + ", totalPrice=" + totalPrice
+				+ "]";
+	}
 
-
+	
 }

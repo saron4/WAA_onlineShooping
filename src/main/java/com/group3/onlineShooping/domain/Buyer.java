@@ -37,5 +37,4 @@ public class Buyer {
     private User user;
 
 
-
 }

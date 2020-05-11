@@ -1,9 +1,9 @@
 package com.group3.onlineShooping.domain;
 
 
-
 import javax.persistence.*;
 import java.io.Serializable;
+
 
  
 
@@ -22,6 +22,8 @@ public class Order implements Serializable {
 
  
 
+ 
+
 public class Order {
 
     @Id
@@ -32,6 +34,7 @@ public class Order {
     @Transient
 
    //   Orders: ID, Client, Product, Quantity, Price, Date, OrderShipped
+
 
     private Buyer buyer;
     //@OneToOne
@@ -49,10 +52,12 @@ public class Order {
     private Payment payment;
 
 
+
     private Payment payment;
     private BillingAddress billingAddress;
     private ShippingAddress shippingAddress;
     private ShippingStatus shippingStatus; 
+
 
 
     @ManyToOne(cascade = {CascadeType.MERGE})
@@ -76,6 +81,8 @@ public class Order {
 
  
 
+ 
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -92,6 +99,7 @@ public class Order {
         this.buyer = buyer;
     }
 
+ 
 
     public CartItem getCartItem() {
         return cartItem;
@@ -160,6 +168,7 @@ public class Order {
     }
 
 
+
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
@@ -177,6 +186,7 @@ public class Order {
     }
 
 
+
     public Order getOrderHistory() {
         return orderHistory;
     }
@@ -191,6 +201,7 @@ public class Order {
 
     public void setSubordinates(Set<Order> subordinates) {
         this.subordinates = subordinates;
+
 
  
 
@@ -230,10 +241,22 @@ public class Order {
 
  
 
-  
 
- 
-
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", buyer=" + buyer +
+                ", seller=" + seller +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                ", orderDate=" + orderDate +
+                ", payment=" + payment +
+                ", billingAddress=" + billingAddress +
+                ", shippingAddress=" + shippingAddress +
+                ", shippingStatus=" + shippingStatus +
+                '}';
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -251,17 +274,4 @@ public class Order {
     public int hashCode() {
         return Objects.hash(getBuyer(), getCartItem(), getOrderDate(), getPayment());
     }
-
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", buyer=" + buyer +
-                ", cartItem=" + cartItem +
-                ", orderDate=" + orderDate +
-                ", payment=" + payment +
-                '}';
-    }
-
 }
