@@ -2,11 +2,7 @@ package com.group3.onlineShooping.domain;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 @Entity
 public class Review {
@@ -15,11 +11,11 @@ public class Review {
 	private Long reviewId;
 	
 	@ManyToMany
-	@JoinColumn(name="reviewId") 
+	//@JoinColumn(name="buyer_reviewId")
 	private List<Buyer> buyer ; 
 	
 	@ManyToMany
-	@JoinColumn(name="reviewId") 
+	//@JoinColumn(name="buyer_reviewId")
 	private List<Product> product ; 
 	
 	private String comment ;

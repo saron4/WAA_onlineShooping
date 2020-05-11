@@ -1,0 +1,71 @@
+<!--   <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> -->
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<body>
+
+
+</body>
+<h3>Add your product </h3>
+
+
+
+<form action="/market/saveProduct" th:object= "${product}" method="POST" enctype="multipart/form-data">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="productID">Product number</label>
+            <input type="number" class="form-control" id="inputEmail4" th:field="${product.productNumber}">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="inputPassword4" th:field="${product.title}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlTextarea2">Description</label>
+        <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" th:field="${product.description}"></textarea>
+    </div>
+
+
+
+    <div class="form-group">
+        <label for="price"> Price</label>
+        <input type="number" class="form-control" id="inputAddress2" th:field="${product.price}">
+    </div>
+
+
+
+
+
+    <!--  <label class="radio-inline"><input type="radio" name="optradio" th:field="${product.isAvailable}">not available</label>
+  <label class="radio-inline"><input type="radio" name="optradio" th:field="${product.isAvailable}">not available</label>-->
+
+
+
+
+
+    <div class="form-group col-md-2">
+        <label for="inputZip">availableInStore</label>
+        <input type="number" class="form-control" id="inputZip" th:field="${product.availableInStor}">
+    </div>
+
+
+    <div class="form-group" >
+
+        <p><input  type="file" th:field="${product.productImage}" /></p>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Product</button>
+</form>
+
+
+
+</html>

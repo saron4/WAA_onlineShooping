@@ -1,6 +1,16 @@
 package com.group3.onlineShooping.domain;
 
 import javax.persistence.*;
+
+
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -14,7 +24,9 @@ import java.util.UUID;
 public class Seller implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long serllerId; 
+   
+    private UUID id;
 
     @NotBlank
     private String fullName;
@@ -35,9 +47,12 @@ public class Seller implements Serializable {
     //@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ManyToMany
     @JoinTable// (name="Follower")
-    //@joinColumns={@JoinColumn(name="serllerId")} ) 
+    //@joinColumns={@JoinColumn(name="serllerId")} )
 
     private List<Buyer> buyer;
+
+
+    
 
     public Seller() {
     }

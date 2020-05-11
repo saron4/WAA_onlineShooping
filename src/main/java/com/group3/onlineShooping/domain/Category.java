@@ -17,8 +17,31 @@ public class Category {
 	@ManyToOne
 	private Product products;
 
+    private String categoryName;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Product> products;
+
+	@Override
+	public String toString() {
+		return "Category{" +
+				"categoryId=" + categoryId +
+				", categoryName='" + categoryName + '\'' +
+
+				'}';
+	}
+
 	public String getCategoryName() {
-		return categoryName;
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+	public Long getCategoryId() {
+		return categoryId;
+
 	}
 
 	public void setCategoryId(Long categoryId) {
@@ -33,12 +56,6 @@ public class Category {
 
 		this.products = products;
 	}
-
-	@Override
-	public String toString() {
-		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + ", products=" + products + "]";
-	}
-
 
 
 }
