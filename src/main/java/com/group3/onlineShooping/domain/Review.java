@@ -15,11 +15,11 @@ public class Review {
 	private Long reviewId;
 	
 	@ManyToMany
-	@JoinColumn(name="reviewId") 
+	@JoinColumn(name="reviewId")
 	private List<Buyer> buyer ; 
 	
 	@ManyToMany
-	@JoinColumn(name="reviewId") 
+	@JoinColumn(name="reviewId")
 	private List<Product> product ; 
 	
 	private String comment ;
