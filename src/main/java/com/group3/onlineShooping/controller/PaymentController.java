@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,13 +70,13 @@ public class PaymentController {
         cartItem.setTotalPrice(23423);
         List<Item> itemList = new ArrayList<>();
         Item item = new Item();
-        item.setItemPrice(1222);
+        item.setItemPrice(new BigDecimal(12121));
         item.setQuantity(2L);
         Product product = new Product();
         product.setAvailable(true);
         product.setAvailableInStor(10);
         product.setDescription("this is description");
-        product.setPrice(232233);
+        product.setPrice(new BigDecimal(23432423));
         product.setProductNumber("12312312");
         product.setSummary("this is summary");
         product.setTitle("title");
