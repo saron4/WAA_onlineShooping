@@ -35,7 +35,7 @@ public class Seller implements Serializable {
     //@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ManyToMany
     @JoinTable// (name="Follower")
-    //@joinColumns={@JoinColumn(name="serllerId")} ) 
+    //@joinColumns={@JoinColumn(name="serllerId")} )
 
     private List<Buyer> buyer;
 
