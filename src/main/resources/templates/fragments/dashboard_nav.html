@@ -29,11 +29,13 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Notifications
-                            <span class="badge badge-light" th:text="${unSeenNotifications.size()}"></span>
+                            <span th:if="${unreadNotifications.size() > 0}"
+                                  th:text="${unreadNotifications.size()}"
+                                  class="badge badge-light"></span>
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownDropdown">
-                            <a class="dropdown-item" th:each="notif : ${unSeenNotifications}"
+                            <a class="dropdown-item" th:each="notif : ${unreadNotifications}"
                                th:href="@{/notif/{id}(id=${notif.getId()})}">
                                 <span th:text="${notif.message}"></span>
                                 (<span th:text="${notif.orderStatus}"></span>)

@@ -1,6 +1,7 @@
 package com.group3.onlineShooping.controller;
 
 import com.group3.onlineShooping.domain.*;
+import com.group3.onlineShooping.service.BuyerService;
 import com.group3.onlineShooping.service.CartItemService;
 import com.group3.onlineShooping.service.OrderService;
 import com.group3.onlineShooping.service.PaymentService;
@@ -29,12 +30,14 @@ public class PaymentController {
     private final PaymentService paymentService;
     private final OrderService orderService;
     private final CartItemService cartItemService;
+    private final BuyerService buyerService;
 
     @Autowired
-    public PaymentController(PaymentService paymentService, @Qualifier("OrderServiceImpl") OrderService orderService, CartItemService cartItemService) {
+    public PaymentController(PaymentService paymentService, @Qualifier("OrderServiceImpl") OrderService orderService, CartItemService cartItemService, BuyerService buyerService) {
         this.paymentService = paymentService;
         this.orderService = orderService;
         this.cartItemService = cartItemService;
+        this.buyerService = buyerService;
     }
 
     @GetMapping("/{id}")
@@ -67,8 +70,16 @@ public class PaymentController {
         Order order = new Order();
         order.setOrderDate(LocalDateTime.now());
         order.setPayment(paymentResult);
-        order.setCartItem(cartItem);
 
+        //  Update Buyer Coupons
+        Buyer buyer = buyerService.find(cartItem.getBuyer().getId());
+        buyer.setCoupons(buyer.getCoupons() + 1);
+        User user = buyer.getUser();
+        user.setMatchingPassword(user.getPassword());
+        buyer.setUser(user);
+        buyerService.put(buyer);
+
+        order.setCartItem(cartItem);
         orderService.addOrder(order);
         return "redirect:/payment/paymentsuccess/" + order.getId();
     }

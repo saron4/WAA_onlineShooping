@@ -15,7 +15,7 @@ public class ControllerAdvisor {
         this.notificationService = notificationService;
     }
 
-    @ModelAttribute("unSeenNotifications")
+    @ModelAttribute("unreadNotifications")
     public List<Notification> notifications() {
         List<Notification> notifications = notificationService.getAllUnSeen();
         return notifications;
