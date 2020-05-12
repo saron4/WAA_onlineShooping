@@ -17,8 +17,9 @@
                     <div th:switch="${order}" class="container my-5">
                         <p class="my-5">
                             <a href="/order" class="btn btn-primary">
-                                <i class="glyphicon glyphicon-arrow-left ml-2"> list </i></a>
+                                <i class="fas fa-arrow-left glyphicon glyphicon-arrow-left ml-2"> list </i></a>
                         </p>
+
                         <div class="col-md-10">
                             <h2 th:case="null">No record found !!</h2>
                             <div th:case="*">
@@ -33,12 +34,8 @@
                                             <td th:text="${order.orderDate}"></td>
                                         </tr>
                                         <tr>
-                                            <td>Order Date</td>
-                                            <td th:text="${order.orderDate}"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Order Date</td>
-                                            <td th:text="${order.orderDate}"></td>
+                                            <td>Total Price</td>
+                                            <td th:text="${order.payment.totalPrice}"></td>
                                         </tr>
 
                                         <tr>
@@ -59,10 +56,31 @@
                                         </tbody>
                                     </table>
 
+                                    <div class="col-50">
+                                        <fieldset>
+                                            <legend>Product Items</legend>
+                                            <hr/>
+                                            <div th:each="itm : ${order.payment.cartItem.item}">
+                                                <p><b>Product Title</b>: <span th:text="${itm.product.title}"></span>
+                                                </p>
+                                                <p><b>Product Description</b>: <span
+                                                        th:text="${itm.product.description}"></span></p>
+                                                <p><b>Product Price</b>: <span th:text="${itm.product.price}"></span>
+                                                </p>
+                                                <p><b>Product qnt</b>: <span th:text="${itm.quantity}"></span></p>
+                                                <p><b>Product Category</b>: <span
+                                                        th:text="${itm.product.category.categoryName}"></span></p>
+                                                <p><b>Product Seller</b>: <span th:text="${itm.product.seller}"></span>
+                                                </p>
+                                                <hr/>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
                                     <input type="hidden" id="id" th:field="*{id}">
                                     <input type="hidden" id="orderStatus" th:field="*{orderStatus}">
                                     <div class="col-md-6">
-                                        <input type="submit" class="btn btn-success" value=" Edit ">
+                                        <input type="submit" class="btn btn-success" value=" Update ">
                                     </div>
 
                                 </form>

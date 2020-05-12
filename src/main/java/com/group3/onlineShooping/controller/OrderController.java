@@ -3,6 +3,7 @@ package com.group3.onlineShooping.controller;
 import com.group3.onlineShooping.domain.Order;
 import com.group3.onlineShooping.domain.OrderStatus;
 import com.group3.onlineShooping.domain.Payment;
+import com.group3.onlineShooping.service.OrderHistoryService;
 import com.group3.onlineShooping.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,10 +21,12 @@ import java.util.List;
 @RequestMapping("/order")
 public class OrderController {
     private final OrderService orderService;
+    private final OrderHistoryService orderHistoryService;
 
     @Autowired
-    public OrderController(@Qualifier("OrderServiceImpl") OrderService orderService) {
+    public OrderController(@Qualifier("OrderServiceImpl") OrderService orderService, @Qualifier("OrderHistoryServiceImpl") OrderHistoryService orderHistoryService) {
         this.orderService = orderService;
+        this.orderHistoryService = orderHistoryService;
     }
 
     @GetMapping
@@ -77,4 +80,15 @@ public class OrderController {
         return "order/index";
     }
 
+
+    @GetMapping("/hostory/{id}")
+    public ModelAndView orderHistory(@PathVariable("id") Long id) {
+        List<Order> orders = orderHistoryService.getAllHistory(id);
+        Order order = orderService.getOrder(id);
+
+        ModelAndView mv = new ModelAndView("order/hostoryDetails");
+        mv.addObject("orders", orders);
+        mv.addObject("order", order);
+        return mv;
+    }
 }

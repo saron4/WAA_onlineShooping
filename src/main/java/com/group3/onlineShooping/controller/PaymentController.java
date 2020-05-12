@@ -9,16 +9,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/payment")
@@ -63,7 +65,7 @@ public class PaymentController {
 
         Payment paymentResult = paymentService.addPayment(payment);
         Order order = new Order();
-        order.setOrderDate(LocalDate.now());
+        order.setOrderDate(LocalDateTime.now());
         order.setPayment(paymentResult);
         order.setCartItem(cartItem);
 
@@ -76,4 +78,40 @@ public class PaymentController {
         return "payment/paymentsuccess";
     }
 
+
+    @ModelAttribute("months")
+    public List<String> months() {
+        List<String> months = new ArrayList<>();
+        months.add("September");
+        months.add("October");
+        months.add("November");
+        months.add("December");
+        months.add("January");
+        months.add("February");
+        months.add("March");
+        months.add("April");
+        months.add("May");
+        months.add("June");
+        months.add("July");
+        months.add("August");
+        return months;
+    }
+
+    @ModelAttribute("days")
+    public List<Integer> days() {
+        return IntStream
+                .iterate(1, i -> i + 1)
+                .limit(31)
+                .boxed()
+                .collect(Collectors.toList());
+    }
+
+    @ModelAttribute("years")
+    public List<Integer> years() {
+        return IntStream
+                .iterate(LocalDate.now().getYear(), i -> i + 1)
+                .limit(10)
+                .boxed()
+                .collect(Collectors.toList());
+    }
 }

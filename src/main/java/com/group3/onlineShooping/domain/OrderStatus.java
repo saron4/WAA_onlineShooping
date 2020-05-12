@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 public enum OrderStatus {
     ORDERED(1),
-    PURCHASED(2),
     SHIPPED(3),
     TRANSIT(4),
     DELIVERED(5),

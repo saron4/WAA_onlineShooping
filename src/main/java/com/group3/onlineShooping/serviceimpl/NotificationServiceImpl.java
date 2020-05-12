@@ -1,4 +1,4 @@
-package com.group3.onlineShooping.service.impl;
+package com.group3.onlineShooping.serviceimpl;
 
 import com.group3.onlineShooping.domain.Notification;
 import com.group3.onlineShooping.domain.Order;
@@ -39,10 +39,11 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public List<Notification> getAllUnSeen() {
-        return getAll()
+        List<Notification> notifications = getAll()
                 .stream()
                 .filter(notif -> notif.getSeen() != true)
                 .collect(Collectors.toList());
+        return notifications;
     }
 
     @Override

@@ -26,7 +26,6 @@
                                     <thead>
                                     <tr>
                                         <th>Order Date</th>
-<!--                                        <th>Order Title</th>-->
                                         <th>Total Price</th>
                                         <th>Order Status</th>
 
@@ -42,19 +41,24 @@
                                         <td>
                                             <a th:if="${order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).CANCELD && order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).DELIVERED}"
                                                th:href="@{/order/edit/{id}(id=${order.getId()})}"
-                                               class="btn btn-primary">
+                                               class="btn btn-primary" title="Update order status">
                                                 <i class="fas fa-edit"> </i>
                                             </a>
 
                                             <a th:href="@{/order/{id}(id=${order.getId()})}"
-                                               class="btn btn-primary">
+                                               class="btn btn-primary" title="Order Detail">
                                                 <i class="fas fa-info sign ml-2"></i>
                                             </a>
 
                                             <a th:if="${order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).CANCELD && order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).DELIVERED}"
                                                th:href="@{/order/delete/{id}(id=${order.getId()})}"
-                                               class="btn btn-danger">
+                                               class="btn btn-danger" title="Cancel order">
                                                 <i class="fas fa-times ml-2"></i>
+                                            </a>
+
+                                            <a th:href="@{/order/hostory/{id}(id=${order.getId()})}"
+                                               class="btn btn-success" title="Order History">
+                                                <i class="fas fa-th-list glyphicon glyphicon-th-list sign ml-2"></i>
                                             </a>
                                         </td>
                                     </tr>

@@ -1,9 +1,9 @@
-package com.group3.onlineShooping.service.impl;
+package com.group3.onlineShooping.serviceimpl;
 
 import com.group3.onlineShooping.domain.Notification;
 import com.group3.onlineShooping.domain.Order;
-import com.group3.onlineShooping.domain.OrderStatus;
 import com.group3.onlineShooping.repository.OrderRepository;
+import com.group3.onlineShooping.service.OrderHistoryService;
 import com.group3.onlineShooping.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,21 +11,15 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
-@Service("OrderServiceImpl")
+@Service("OrderHistoryServiceImpl")
 @Transactional
-public class OrderServiceImpl implements OrderService {
-    @Autowired
-    private NotificationServiceImpl notificationService;
+public class OrderHistoryServiceImpl implements OrderHistoryService {
     @Autowired
     private OrderRepository orderRepository;
-    @Autowired
-    OrderHistoryServiceImpl orderHistoryService;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -39,7 +33,27 @@ public class OrderServiceImpl implements OrderService {
         Iterable<Order> orderIterable = orderRepository.findAll();
         List<Order> orders = new ArrayList<>();
         orderIterable.forEach(orders::add);
-        return orders.stream().filter(order -> order.getOrderHistory() == null).collect(Collectors.toList());
+        return orders;
+    }
+
+    @Override
+    public List<Order> getAllHistory(Long id) {
+        Optional<Order> order = orderRepository.findById(id);
+        Iterable<Order> orderIterable = orderRepository.findAll();
+        List<Order> orders = new ArrayList<>();
+        orderIterable.forEach(orders::add);
+
+        return orders.stream()
+                .filter(o -> o.getOrderHistory() != null && id.equals(o.getOrderHistory().getId()))
+                .sorted((o1, o2) -> o1.getId().compareTo(o2.getId()))
+                .collect(Collectors.toList());
+
+//        if (order.isPresent()) {
+//            historyOrders.add(order.get());
+//        }
+//        return historyOrders.stream()
+//                .sorted((o1, o2) -> o1.getId().compareTo(o2.getId()))
+//                .collect(Collectors.toList());
     }
 
     @Override
@@ -60,8 +74,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteOrder(Long id) {
         Order order = getOrder(id);
-        order.setOrderStatus(OrderStatus.CANCELD);
-        editOrder(order);
+        orderRepository.delete(order);
     }
 
     @Override
@@ -73,30 +86,9 @@ public class OrderServiceImpl implements OrderService {
         } else {
             Optional<Order> existingEntity = orderRepository.findById(order.getId());
             if (existingEntity.isPresent()) {
-                //  Status update
                 Order newEntity = existingEntity.get();
                 newEntity.setOrderStatus(order.getOrderStatus());
                 newEntity = orderRepository.save(newEntity);
-
-                //  Notification
-                Notification notification = new Notification();
-                notification.setOrder(order);
-                notification.setMessage("Order status updated!");
-                notification.setOrderStatus(order.getOrderStatus());
-                notificationService.addNotification(notification);
-
-                // Record History
-                Order existingOrderEntity = existingEntity.get();
-                Order orderHistory = new Order();
-                orderHistory.setOrderDate(existingOrderEntity.getOrderDate());
-                orderHistory.setOrderStatus(existingOrderEntity.getOrderStatus());
-                orderHistory.setCartItem(existingOrderEntity.getCartItem());
-                orderHistory.setBuyer(existingOrderEntity.getBuyer());
-                orderHistory.setOrderHistory(existingOrderEntity.getOrderHistory());
-                orderHistory.setPayment(existingOrderEntity.getPayment());
-                orderHistory.getSubordinates().add(existingOrderEntity);
-                orderHistory.setOrderHistory(existingOrderEntity);
-                orderHistoryService.addOrder(orderHistory);
                 return newEntity;
             } else {
                 order = orderRepository.save(order);

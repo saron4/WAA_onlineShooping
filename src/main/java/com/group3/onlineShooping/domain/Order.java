@@ -2,10 +2,12 @@ package com.group3.onlineShooping.domain;
 
 
 import org.hibernate.annotations.Cascade;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -28,7 +30,12 @@ public class Order implements Serializable {
     // private Product product;
     //private Integer quantity;
 
-    private LocalDate orderDate;
+    @DateTimeFormat(pattern="yyyy-MMM-dd HH:mm")
+    private LocalDateTime orderDate;
+
+    @DateTimeFormat(pattern="yyyy-MMM-dd HH:mm")
+    private LocalDateTime lastUpdatedDate;
+
     @OneToOne//(cascade = CascadeType.MERGE)
     private Payment payment;
 
@@ -82,11 +89,11 @@ public class Order implements Serializable {
         this.cartItem = cartItem;
     }
 
-    public LocalDate getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDate orderDate) {
+    public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -112,6 +119,14 @@ public class Order implements Serializable {
 
     public void setSubordinates(Set<Order> subordinates) {
         this.subordinates = subordinates;
+    }
+
+    public LocalDateTime getLastUpdatedDate() {
+        return lastUpdatedDate;
+    }
+
+    public void setLastUpdatedDate(LocalDateTime lastUpdatedDate) {
+        this.lastUpdatedDate = lastUpdatedDate;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.group3.onlineShooping.service.impl;
+package com.group3.onlineShooping.serviceimpl;
 
 import com.group3.onlineShooping.domain.Seller;
 import com.group3.onlineShooping.repository.SellerRepository;

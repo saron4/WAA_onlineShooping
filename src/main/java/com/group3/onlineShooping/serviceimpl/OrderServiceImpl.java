@@ -1,7 +1,8 @@
-package com.group3.onlineShooping.service.impl;
+package com.group3.onlineShooping.serviceimpl;
 
 import com.group3.onlineShooping.domain.Notification;
 import com.group3.onlineShooping.domain.Order;
+import com.group3.onlineShooping.domain.OrderStatus;
 import com.group3.onlineShooping.repository.OrderRepository;
 import com.group3.onlineShooping.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +10,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-@Service("OrderHistoryServiceImpl")
+
+@Service("OrderServiceImpl")
 @Transactional
-public class OrderHistoryServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService {
+    @Autowired
+    private NotificationServiceImpl notificationService;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    OrderHistoryServiceImpl orderHistoryService;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -31,7 +39,7 @@ public class OrderHistoryServiceImpl implements OrderService {
         Iterable<Order> orderIterable = orderRepository.findAll();
         List<Order> orders = new ArrayList<>();
         orderIterable.forEach(orders::add);
-        return orders;
+        return orders.stream().filter(order -> order.getOrderHistory() == null).collect(Collectors.toList());
     }
 
     @Override
@@ -52,7 +60,8 @@ public class OrderHistoryServiceImpl implements OrderService {
     @Override
     public void deleteOrder(Long id) {
         Order order = getOrder(id);
-        orderRepository.delete(order);
+        order.setOrderStatus(OrderStatus.CANCELD);
+        editOrder(order);
     }
 
     @Override
@@ -64,9 +73,31 @@ public class OrderHistoryServiceImpl implements OrderService {
         } else {
             Optional<Order> existingEntity = orderRepository.findById(order.getId());
             if (existingEntity.isPresent()) {
+                //  Status update
                 Order newEntity = existingEntity.get();
                 newEntity.setOrderStatus(order.getOrderStatus());
                 newEntity = orderRepository.save(newEntity);
+
+                //  Notification
+                Notification notification = new Notification();
+                notification.setOrder(order);
+                notification.setMessage("Order status updated!");
+                notification.setOrderStatus(order.getOrderStatus());
+                notificationService.addNotification(notification);
+
+                // Record History
+                Order existingOrderEntity = existingEntity.get();
+                Order orderHistory = new Order();
+                orderHistory.setLastUpdatedDate(LocalDateTime.now());
+                orderHistory.setOrderDate(existingOrderEntity.getOrderDate());
+                orderHistory.setOrderStatus(existingOrderEntity.getOrderStatus());
+                orderHistory.setCartItem(existingOrderEntity.getCartItem());
+                orderHistory.setBuyer(existingOrderEntity.getBuyer());
+                orderHistory.setOrderHistory(existingOrderEntity.getOrderHistory());
+                orderHistory.setPayment(existingOrderEntity.getPayment());
+                orderHistory.getSubordinates().add(existingOrderEntity);
+                orderHistory.setOrderHistory(existingOrderEntity);
+                orderHistoryService.addOrder(orderHistory);
                 return newEntity;
             } else {
                 order = orderRepository.save(order);

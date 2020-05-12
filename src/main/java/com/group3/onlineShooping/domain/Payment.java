@@ -24,28 +24,20 @@ public class Payment {
     @NotBlank
     private String cardName;
     @NotBlank
+    @Size(min = 10, max = 20,message = "{size.cardNumber}")
     private String cardNumber;
     @NotNull
     private Double totalPrice;
 
-    //@NotNull
-    //@DateTimeFormat(pattern = "MM-yyyy")
-    private String expiryDate;
-
-    @Transient
     @NotNull
-    @Range(min = 2020, max = 2030)
     private Integer expYear;
 
-    @Transient
-    @NotNull
-    @Range(min = 1, max = 12)
-    private Integer expMonth;
-
     @NotBlank
-    @Size(min = 3, max = 4)
-    @Pattern(regexp = "^[0-9]{3,4}$")
-    private String CVV;
+    private String expMonth;
+
+    @NotNull
+    @Range(min = 3, max = 4,message = "{size.CVV}")
+    private Integer CVV;
 
     @Valid
     @OneToOne(cascade = CascadeType.ALL)
@@ -82,19 +74,19 @@ public class Payment {
         this.totalPrice = totalPrice;
     }
 
-    public Integer getExpMonth() {
+    public String getExpMonth() {
         return expMonth;
     }
 
-    public void setExpMonth(Integer expMonth) {
+    public void setExpMonth(String expMonth) {
         this.expMonth = expMonth;
     }
 
-    public String getCVV() {
+    public Integer getCVV() {
         return CVV;
     }
 
-    public void setCVV(String CVV) {
+    public void setCVV(Integer CVV) {
         this.CVV = CVV;
     }
 
@@ -130,14 +122,6 @@ public class Payment {
         this.cardNumber = cardNumber;
     }
 
-    public String getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(String expiryDate) {
-        this.expiryDate = getExpMonth() + "/" + getExpYear();
-    }
-
     public CartItem getCartItem() {
         return cartItem;
     }
@@ -153,7 +137,6 @@ public class Payment {
                 ", cardType='" + cardType + '\'' +
                 ", cardName='" + cardName + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
-                ", expiryDate=" + expiryDate +
                 ", expYear=" + expYear +
                 ", expMonth=" + expMonth +
                 ", CVV=" + CVV +
@@ -170,12 +153,11 @@ public class Payment {
         Payment payment = (Payment) o;
         return Objects.equals(getCardType(), payment.getCardType())
                 && Objects.equals(getCardName(), payment.getCardName())
-                && Objects.equals(getCardNumber(), payment.getCardNumber())
-                && Objects.equals(getExpiryDate(), payment.getExpiryDate());
+                && Objects.equals(getCardNumber(), payment.getCardNumber());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCardType(), getCardName(), getCardNumber(), getExpiryDate());
+        return Objects.hash(getCardType(), getCardName(), getCardNumber());
     }
 }
