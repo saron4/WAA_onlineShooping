@@ -1,6 +1,7 @@
 package com.group3.onlineShooping.domain;
 
 
+import com.group3.onlineShooping.constants.Constants;
 import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,16 +25,17 @@ public class Order implements Serializable {
     private Buyer buyer;
     //@OneToOne
     //private Seller seller;
-    @Transient
+    @JoinColumn
+    @OneToOne(cascade = CascadeType.MERGE)
     private CartItem cartItem;
     // @Transient
     // private Product product;
     //private Integer quantity;
 
-    @DateTimeFormat(pattern="yyyy-MMM-dd HH:mm")
+    @DateTimeFormat(pattern = Constants.DATE_FORMATTER)
     private LocalDateTime orderDate;
 
-    @DateTimeFormat(pattern="yyyy-MMM-dd HH:mm")
+    @DateTimeFormat(pattern = Constants.DATE_FORMATTER)
     private LocalDateTime lastUpdatedDate;
 
     @OneToOne//(cascade = CascadeType.MERGE)

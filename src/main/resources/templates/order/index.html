@@ -35,7 +35,7 @@
                                     <tbody>
                                     <tr th:each="order : ${orders}">
                                         <td th:text="${order.orderDate}"></td>
-<!--                                        <td th:text="${order.payment.cartItem.getTotalPrice()}"></td>-->
+                                        <!--                                        <td th:text="${order.payment.cartItem.getTotalPrice()}"></td>-->
                                         <td th:text="${order.payment.getTotalPrice()}"></td>
                                         <td th:text="${order.orderStatus}"></td>
                                         <td>
@@ -59,6 +59,11 @@
                                             <a th:href="@{/order/hostory/{id}(id=${order.getId()})}"
                                                class="btn btn-success" title="Order History">
                                                 <i class="fas fa-th-list glyphicon glyphicon-th-list sign ml-2"></i>
+                                            </a>
+
+                                            <a th:href="@{/orderreceipt/{id}(id=${order.getId()})}"
+                                               target="_blank" class="btn btn-success" title="Order Receipt">
+                                                <i class="fas fa-file-invoice glyphicon glyphicon-file-invoice"></i>
                                             </a>
                                         </td>
                                     </tr>

@@ -70,11 +70,13 @@ public class PaymentController {
         order.setCartItem(cartItem);
 
         orderService.addOrder(order);
-        return "redirect:/payment/paymentsuccess";
+        return "redirect:/payment/paymentsuccess/" + order.getId();
     }
 
-    @GetMapping("/paymentsuccess")
-    public String paymentSuccess() {
+    @GetMapping("/paymentsuccess/{id}")
+    public String paymentSuccess(@PathVariable("id") Long id, Model model) {
+        Order order = orderService.getOrder(id);
+        model.addAttribute("order", order);
         return "payment/paymentsuccess";
     }
 

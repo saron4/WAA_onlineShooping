@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Payment Success Page</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
 </head>
 <body>
 <div class="row">
@@ -17,6 +19,11 @@
                     <p>We are delighted to inform you that we received your payments</p>
                     <a href="/order" class="btn-view-orders btn btn-primary">View Orders</a>
                     <a href="/cartItem/productList" class="btn btn-primary">Continue Shopping</a>
+                    <a th:href="@{/orderreceipt/{id}(id=${order.getId()})}"
+                       target="_blank" class="btn btn-success" title="Order Receipt">
+                        <i class="fas fa-file-invoice glyphicon glyphicon-file-invoice"></i>
+                        Generate Receipt
+                    </a>
                 </div>
             </div>
         </div>

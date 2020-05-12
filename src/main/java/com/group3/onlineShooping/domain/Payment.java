@@ -36,7 +36,7 @@ public class Payment {
     private String expMonth;
 
     @NotNull
-    @Range(min = 3, max = 4,message = "{size.CVV}")
+    @Range(min = 100, max = 9999, message = "{size.CVV}")
     private Integer CVV;
 
     @Valid
