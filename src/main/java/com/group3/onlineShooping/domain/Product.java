@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * @author sara4
@@ -27,7 +28,8 @@ public class Product {
 
 	private String description;
 
-	private double price;
+	private BigDecimal price;
+	private Long quantity;
 
 	@ManyToOne
 	private Seller seller;
@@ -38,6 +40,17 @@ public class Product {
 
 	@ManyToOne
 	private Review review;
+
+	public Long getId() {
+		return id;
+	}
+	public Long getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Long quantity) {
+		 this.quantity=quantity;
+	}
+
 
 	public String getProductNumber() {
 		return productNumber;
@@ -71,11 +84,11 @@ public class Product {
 		this.description = description;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
