@@ -1,62 +1,37 @@
 package com.group3.onlineShooping.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
+import javax.persistence.*;
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
 @Entity
 public class CartItem {
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long cartId;
+
 	@OneToOne
 	private Buyer buyer;
-	@OneToMany
+
+	@OneToMany(cascade  = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "cartItem")
 	private List<Item> item;
+
 	private double totalPrice;
+	@Enumerated(EnumType.STRING)
+	private  CartItemStatus cartItemStatus = CartItemStatus.Created;
 
-	public Long getCartId() {
-		return id;
+	public enum CartItemStatus {
+		Created, Processing, Paid, Finished, Cancelled
 	}
 
-	public void setCartId(Long cartId) {
-		this.id = cartId;
-	}
 
-	public Buyer getBuyer() {
-		return buyer;
-	}
 
-	public void setBuyer(Buyer buyer) {
-		this.buyer = buyer;
-	}
-
-	public List<Item> getItem() {
-		return item;
-	}
-
-	public void setItem(List<Item> item) {
-		this.item = item;
-	}
-
-	public double getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	@Override
-	public String toString() {
-		return "CartItem [cartId=" + id + ", buyer=" + buyer + ", item=" + item + ", totalPrice=" + totalPrice
-				+ "]";
-	}
-
-	
 }

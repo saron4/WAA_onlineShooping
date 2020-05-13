@@ -1,31 +1,20 @@
 package com.group3.onlineShooping.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
 public class ShippingAddress {
     @Id
     @GeneratedValue
-    private Long id;
-    @NotBlank
-    private String fullName;
-    @Email
-    @NotBlank
-    private String email;
-    @NotBlank
+    private Long id ;
     private String street;
-    @NotBlank
-    private String city;
-    @NotBlank
-    private String state;
-    @NotBlank
-    private String zip;
+    private String city ;
+    private String state ;
+    private String zip ;
 
     @Embedded
-    private BillingAddress billingAddress;
+    private  BillingAddress  billingAddress;
 
     @OneToOne
     private Buyer buyer;
@@ -37,30 +26,6 @@ public class ShippingAddress {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Buyer getBuyer() {
-        return buyer;
-    }
-
-    public void setBuyer(Buyer buyer) {
-        this.buyer = buyer;
     }
 
     public String getStreet() {
@@ -126,8 +91,6 @@ public class ShippingAddress {
     public String toString() {
         return "ShippingAddress{" +
                 "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", email='" + email + '\'' +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +

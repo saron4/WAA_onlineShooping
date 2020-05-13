@@ -1,55 +1,43 @@
 package com.group3.onlineShooping.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import lombok.*;
+import org.hibernate.validator.constraints.Email;
 
+import javax.persistence.*;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Set;
+
+
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
 @Entity
 public class User {
 	@Id
-	private long id;
-	
-	private String userName;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
+	private Long id;
+
+	@Column(name = "username")
+	private String username;
+
+	@Size(min = 6, message = "{password}")
+	@Column(name = "password")
 	private String password;
-	
-	@OneToOne
-	private Role role;
 
-	public long getId() {
-		return id;
-	}
+	@Column(name = "active")
+	private int active;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+	@Transient
+	@Size(min = 6, message = "{password}")
+	private String matchingPassword;
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
 
 
-	public User() {
-
-	}
 }

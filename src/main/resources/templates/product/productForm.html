@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/dashboard_layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+    <title>Shopping Cart</title>
+</head>
+<body>
+<div layout:fragment="main-content"class="container" style="margin:2%;margin-left: 30%">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Product Registration</h4>
+            <form th:action="@{/seller/saveProduct}" th:object="${product}"
+                  method="post"  enctype="multipart/form-data" >
+
+                <input type="hidden" th:field="*{id}" />
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon7"><i class="fas fa-user-lock">Category</i></span>
+                    </div>
+                    <select th:readonly="${product.id != null}" class="form-control" id="roles" th:field="*{category.categoryId}" >
+                        <option th:each="category: ${categoryList}" th:value="${category.categoryId}" th:text="${category.categoryName}">
+                        </option>
+                    </select>
+                         </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-lock">Product number</i></span>
+                    </div>
+                    <input type="text" th:readonly="${product.id != null}"
+                           th:field="${product.productNumber}" class="form-control" aria-describedby="basic-addon1">
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('productNumber')}">
+                        <span th:if="${#fields.hasErrors('productNumber')}" th:errors="*{productNumber}"
+                              class="validation-message"> </span></div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon2"><i class="fas fa-user-lock">Title </i></span>
+                    </div>
+                    <input type="text"
+                           th:field="${product.title}" class="form-control" aria-describedby="basic-addon2">
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('Title')}">
+                        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
+                              class="validation-message"> </span></div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon10"><i class="fas fa-user-lock">summary </i></span>
+                    </div>
+                    <input type="text"
+                           th:field="${product.summary}" class="form-control" aria-describedby="basic-addon10">
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('summary')}">
+                        <span th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}"
+                              class="validation-message"> </span></div>
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon4"><i class="fas fa-user-lock">Description </i></span>
+                    </div>
+                    <input type="text"
+                           th:field="${product.description}" class="form-control" aria-describedby="basic-addon4">
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('description')}">
+                        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                              class="validation-message"> </span></div>
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon5"><i class="fas fa-user-lock">Available InStore </i></span>
+                    </div>
+                    <input type="text"
+                           th:field="${product.availableInStor}" class="form-control" aria-describedby="basic-addon5">
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('availableInStor')}">
+                        <span th:if="${#fields.hasErrors('availableInStor')}" th:errors="*{availableInStor}"
+                              class="validation-message"> </span></div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon6"><i class="fas fa-user-lock">Price </i></span>
+                    </div>
+
+                        <input type="text"  class="form-control" th:field="${product.price}" aria-describedby="basic-addon6">
+
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('price')}">
+                        <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"  class="validation-message"> </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label >Image URL</label>
+                    <input  type="file" th:field="${product.productImage}"  class="form-control" />
+                    </div>
+                <button  class="btn btn-primary">Save</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <product-card [product]="product" [show-actions]="false"></product-card>
+        </div>
+    </div>
+</div>
+</body>
+</html>

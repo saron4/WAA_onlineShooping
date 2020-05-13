@@ -1,167 +1,87 @@
 package com.group3.onlineShooping.domain;
 
-import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
 public class Payment {
 
-    @Id
-    @GeneratedValue
-    private Long Id;
+	@Id
+	@GeneratedValue
+	private Long paymentId;
+	@NotBlank
+	private String cardType;
+	@NotBlank
+	private String cardName;
+	@NotBlank
+	private String number;
+	@NotNull
+	@DateTimeFormat(pattern = "MM-yyyy")
+	private LocalDate expiryDate;
 
-    @NotBlank
-    private String cardType = "VISA";
-    @NotBlank
-    private String cardName;
-    @NotBlank
-    private String cardNumber;
-    @NotNull
-    private Double totalPrice;
+	public Payment() {
+	}
 
-    //@NotNull
-    //@DateTimeFormat(pattern = "MM-yyyy")
-    private String expiryDate;
+	public String getCardType() {
+		return cardType;
+	}
 
-    @Transient
-    @NotNull
-    @Range(min = 2020, max = 2030)
-    private Integer expYear;
+	public void setCardType(String cardType) {
+		this.cardType = cardType;
+	}
 
-    @Transient
-    @NotNull
-    @Range(min = 1, max = 12)
-    private Integer expMonth;
+	public String getCardName() {
+		return cardName;
+	}
 
-    @NotBlank
-    @Size(min = 3, max = 4)
-    @Pattern(regexp = "^[0-9]{3,4}$")
-    private String CVV;
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
+	}
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private ShippingAddress shippingAddress;
+	public String getNumber() {
+		return number;
+	}
 
-    public Payment() {
-    }
+	public void setNumber(String number) {
+		this.number = number;
+	}
 
-    public Long getId() {
-        return Id;
-    }
+	public LocalDate getExpiryDate() {
+		return expiryDate;
+	}
 
-    public void setId(Long id) {
-        Id = id;
-    }
+	public void setExpiryDate(LocalDate expiryDate) {
+		this.expiryDate = expiryDate;
+	}
 
-    public Integer getExpYear() {
-        return expYear;
-    }
+	@Override
+	public String toString() {
+		return "Payment{" + "cardType='" + cardType + '\'' + ", cardName='" + cardName + '\'' + ", number='" + number
+				+ '\'' + ", expiryDate=" + expiryDate + '}';
+	}
 
-    public void setExpYear(Integer expYear) {
-        this.expYear = expYear;
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof Payment))
+			return false;
+		Payment payment = (Payment) o;
+		return Objects.equals(getCardType(), payment.getCardType())
+				&& Objects.equals(getCardName(), payment.getCardName())
+				&& Objects.equals(getNumber(), payment.getNumber())
+				&& Objects.equals(getExpiryDate(), payment.getExpiryDate());
+	}
 
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public Integer getExpMonth() {
-        return expMonth;
-    }
-
-    public void setExpMonth(Integer expMonth) {
-        this.expMonth = expMonth;
-    }
-
-    public String getCVV() {
-        return CVV;
-    }
-
-    public void setCVV(String CVV) {
-        this.CVV = CVV;
-    }
-
-    public ShippingAddress getShippingAddress() {
-        return shippingAddress;
-    }
-
-    public void setShippingAddress(ShippingAddress shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
-
-    public String getCardType() {
-        return cardType;
-    }
-
-    public void setCardType(String cardType) {
-        this.cardType = cardType;
-    }
-
-    public String getCardName() {
-        return cardName;
-    }
-
-    public void setCardName(String cardName) {
-        this.cardName = cardName;
-    }
-
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
-    public String getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(String expiryDate) {
-        this.expiryDate = getExpMonth() + "/" + getExpYear();
-    }
-
-    @Override
-    public String toString() {
-        return "Payment{" +
-                "Id=" + Id +
-                ", cardType='" + cardType + '\'' +
-                ", cardName='" + cardName + '\'' +
-                ", cardNumber='" + cardNumber + '\'' +
-                ", expiryDate=" + expiryDate +
-                ", expYear=" + expYear +
-                ", expMonth=" + expMonth +
-                ", CVV=" + CVV +
-                ", shippingAddress=" + shippingAddress +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof Payment))
-            return false;
-        Payment payment = (Payment) o;
-        return Objects.equals(getCardType(), payment.getCardType())
-                && Objects.equals(getCardName(), payment.getCardName())
-                && Objects.equals(getCardNumber(), payment.getCardNumber())
-                && Objects.equals(getExpiryDate(), payment.getExpiryDate());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getCardType(), getCardName(), getCardNumber(), getExpiryDate());
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(getCardType(), getCardName(), getNumber(), getExpiryDate());
+	}
 }

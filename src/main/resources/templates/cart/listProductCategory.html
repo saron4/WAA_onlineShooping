@@ -1,25 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/dashboard_layout}"
       xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <head>
     <title>Shopping Cart</title>
 </head>
 <body>
-<div class="row">
+<div layout:fragment="main-content" class="row" style="margin:2%;margin-left: 4%">
+
+    <div class="col-3" style="width: 15rem;">
+        <a class="list-group-item list-group-item-action">
+            Category
+        </a>
+        <div class="list-group" th:each="category :${categoryList}">
+            <a class="list-group-item list-group-item-action" th:href="${category.categoryId}"
+               th:text="${category.categoryName}"></a>
+        </div>
+    </div>
     <!-- for each part using expression language  Iteration th:each   -->
     <div class="col">
-        <div class="card" style="width: 18rem;" layout:fragment="main-content">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the
-                    card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Add to Cart</a>
+        <div class="row">
+            <div th:each="product,iStat : ${productList}">
+                <div th:class="${iStat.even}? 'col' : 'w-100' " style="margin:2%;">
+                    <div class="card" style="width:15rem;">
+                        <img th:src="@{'/img/' + ${product.productNumber}+'.png'}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${product.title}">Card title</h5>
+                            <p class="card-text" th:text="${product.description}">Some quick example text to build
+                                on the
+                                card title and make up the bulk of the card's content.</p>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">$</span>
+                                </div>
+                                <input type="text" readonly
+                                       th:value="${product.price}" class="form-control"
+                                       aria-describedby="basic-addon3"></input>
+                            </div>
+                            <a class="btn btn-primary"
+                               th:href="@{'/cartItem/viewDetails' (productId=${product.id})}">
+                                View Details &raquo;</a>
+                        </div>
+
+                    </div>
+                </div>
+                </form>
             </div>
         </div>
     </div>
-    <div class="w-100"></div>
-    <!-- for each part using expression language  Iteration th:each   -->
 </div>
+
 </body>
 </html>

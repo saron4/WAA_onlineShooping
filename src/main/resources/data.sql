@@ -1,21 +1,30 @@
-insert into ROLE(ID, ROLE_NAME) values(1, 'Admin');
+INSERT INTO Role VALUES (1, 'ADMIN');
+INSERT INTO Role VALUES (2, 'BUYER');
+INSERT INTO Role VALUES (3, 'SELLER');
 
-insert into USER(ID, Password, user_name, role_id)  values (1, 'password', 'admin', 1);
 
-insert into Buyer(ID, first_Name, last_Name, email, coupons,user_id) values (1, 'first name', 'last name', 'email@gmail.com','2',1);
+INSERT INTO User (user_id, active, password, username)VALUES (3, 1,'$2a$10$OwJ59e2wB42l1JjePYHg6.N8Gg17W8Dmy3xwAm.QKJA47bTYpnu7e', 'buyer@gmail.com');
+INSERT INTO user_role (user_id, role_id) VALUES(3,2);
+INSERT INTO buyer (coupons, email, first_name, last_name, user_id, id)  VALUES(0,'buyer@gmail.com','seller','seller last',3,1);
 
-insert into review(review_id, comment) values (1, 'good');
 
-insert into address(id, city, state, street, zip) values(1, 'Fair field', 'IA', '1000N 4th', 52557);
 
-/*
+INSERT INTO User (user_id, active, password, username)VALUES (2, 1,'$2a$10$OwJ59e2wB42l1JjePYHg6.N8Gg17W8Dmy3xwAm.QKJA47bTYpnu7e', 'seller@gmail.com');
+INSERT INTO user_role (user_id, role_id) VALUES(2,3);
+INSERT INTO  Seller (SERLLER_ID,EMAIL,FULL_NAME,AREA_CODE,PHONE_NUMBER,USER_ID) VALUES(1,'seller@gmail.com','seller','112','111',2);
 
-insert into seller(id, email, full_name, area_code, number, prefix, address_id) values (1, 'email@gmail.com', 'full name', '234','23423423','234',1);
 
-insert into product(id, AVAILABLE_IN_STOR, description, is_available, price, product_number, summary, title, review_review_id, seller_id) values (1, 1, 'this is description', 1, 345.43,4,'this is summary message', 'product title', 1,1);
 
-insert into category(category_id, category_name, products_id) values (1, 'category name', 1);
+INSERT INTO Category VALUES (1, 'Phone');
+INSERT INTO Category VALUES (2, 'Computer');
 
-*/
+INSERT INTO Product VALUES ( 2,3 , 'Phone the lightest 7 inch tablet with a quad-core S4',true, 13,'123','iPhone ','iPhone 7s',1,1);
+INSERT INTO Product VALUES ( 3,3 , 'Google Nexus 7 is the lightest 7 inch tablet with a',false, 134.7,'P1235','Dell Inspirit','Dell Inspiron',2,1);
 
+
+INSERT INTO Product VALUES ( 4,3 , 'Phone the lightest 7 inch tablet with a quad-core S',true, 1986.6,'123','iPhone 6s','iPhone 7s',1,1);
+INSERT INTO Product VALUES ( 5,3 , 'Google Nexus 7 is the lightest 7 inch tablet with a',true, 1254.5,'P1235','Dell Inspirit','Dell Inspiron',2,1);
+
+INSERT INTO Product VALUES ( 6,3 , 'Phone the lightest 7 inch tablet with a quad-core S4',true, 1244.5,'123','iPhone 6s','iPhone 7s',1,1);
+INSERT INTO Product VALUES ( 7,3 , 'Google Nexus 7 is the lightest 7 inch tablet with',true, 562.5,'P1235','Dell Inspirit','Dell Inspiron',2,1);
 

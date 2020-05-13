@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/dashboard_layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+<link rel="stylesheet"
+href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div class="col" layout:fragment="main-content" style="margin:2%;margin-left: 4%; width: 60%">
+    <div class="jumbotron">
+        <div class="container">
+            <section>
+                <div class="jumbotron">
+                    <div class="col-md">
+                        <p class="alert alert-danger" ><span th:text="${message}" th:remove="tag"></span></p>
+                        <!---<p class="alert alert-danger" ><span th:text="${url}" th:remove="tag"></span></p>-->
+                       </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                </div>
+                <div class="container">
+                    <a class="btn btn-danger"  th:href="@{/index}"  role="button">&laquo;Home</a></p>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

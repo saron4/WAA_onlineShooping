@@ -1,22 +1,22 @@
 package com.group3.onlineShooping.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
-/**
- * @author sara4
- *
- */
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
 @Entity
 public class Product {
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private String productNumber;
@@ -27,88 +27,27 @@ public class Product {
 
 	private String description;
 
-	private double price;
-
-	@ManyToOne
-	private Seller seller;
+	private BigDecimal price;
 
 	private boolean isAvailable = true;
 
 	private long availableInStor;
 
+	@Transient
+	private long cartQuantity;
+
+	@Transient
+	private MultipartFile productImage;
+
 	@ManyToOne
-	private Review review;
+	@JoinColumn(name = "product_category")
+	private Category category;
 
-	public String getProductNumber() {
-		return productNumber;
-	}
 
-	public void setProductNumber(String productNumber) {
-		this.productNumber = productNumber;
-	}
 
-	public String getTitle() {
-		return title;
-	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+	@OneToOne
+	private Seller seller;
 
-	public String getSummary() {
-		return summary;
-	}
-
-	public void setSummary(String summary) {
-		this.summary = summary;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-	public Seller getSeller() {
-		return seller;
-	}
-
-	public void setSeller(Seller seller) {
-		this.seller = seller;
-	}
-
-	public boolean isAvailable() {
-		return isAvailable;
-	}
-
-	public void setAvailable(boolean isAvailable) {
-		this.isAvailable = isAvailable;
-	}
-
-	public long getAvailableInStor() {
-		return availableInStor;
-	}
-
-	public void setAvailableInStor(long availableInStor) {
-		this.availableInStor = availableInStor;
-	}
-
-//	public Review getReview() {
-//		return review;
-//	}
-//
-//	public void setReview(Review review) {
-//		this.review = review;
-//	}
 
 }
