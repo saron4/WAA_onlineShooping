@@ -21,17 +21,17 @@ public class CartItem {
 	@OneToOne
 	private Buyer buyer;
 
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinColumn(name = "cartId")
+	@OneToMany(cascade  = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "cartItem")
 	private List<Item> item;
 
 	private double totalPrice;
+	@Enumerated(EnumType.STRING)
+	private  CartItemStatus cartItemStatus = CartItemStatus.Created;
 
-	@Override
-	public String toString() {
-		return "CartItem [cartId=" + cartId + ", buyer=" + buyer + ", item=" + item + ", totalPrice=" + totalPrice
-				+ "]";
+	public enum CartItemStatus {
+		Created, Processing, Paid, Finished, Cancelled
 	}
 
-	
+
+
 }

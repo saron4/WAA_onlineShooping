@@ -1,9 +1,7 @@
 package com.group3.onlineShooping.serviceimpl;
 
 
-import com.group3.onlineShooping.domain.Category;
-import com.group3.onlineShooping.domain.Item;
-import com.group3.onlineShooping.domain.Product;
+import com.group3.onlineShooping.domain.*;
 import com.group3.onlineShooping.repository.ItemRepository;
 import com.group3.onlineShooping.repository.ProductRepository;
 import com.group3.onlineShooping.service.ItemService;
@@ -50,8 +48,17 @@ public class ItemServiceImpl implements ItemService {
    }
 
    @Override
-   public void delete(Item item) {
-       itemRepository.delete(item);
+   public void delete(Item item) { itemRepository.deleteById(item.getId()); }
+
+   @Override
+   public void deleteItemByCartItem(Long cartId) {
+      itemRepository.deleteItemByCartItem(cartId);
    }
+
+   @Override
+   public List<Product> findAllByItemStatusAndProduct(Item.ItemStatus itemStatus, Product product) {
+      return itemRepository.findAllByItemStatusAndProduct(itemStatus,product);
+   }
+
 
 }

@@ -7,9 +7,11 @@
 </head>
 <body>
 <div layout:fragment="main-content" class="row" style="margin-left: 4%">
-    <h1>Shopping Cart</h1>
+
     <div class="card"  style="width: 80%;">
+
         <div class="card-body">
+            <h4>Shopping Cart</h4>
             <p>
                 You have   items in your shopping cart.
                 <button  class="float-right btn btn-light btn-sm">Clear Shopping Cart</button>
@@ -29,14 +31,15 @@
                 <td>
                     <img th:src="@{'/img/' + ${item.product.productNumber}+'.png'}"  class="img-fluid img-thumbnail"
                          width="200" height="200"  alt="...">
-
                 </td>
                     <td th:text="${item.product.description}" style="text-align: center; vertical-align: middle">Text ...</td>
                     <td class="text-center" th:text="${item.quantity}" style="text-align: center; vertical-align: middle">Text ...</td>
                     <td class="text-right"th:text="${item.itemPrice}" style="text-align: center; vertical-align: middle"> Text ...</td>
-                    <td style="text-align: center; vertical-align: middle"><a th:href="@{'/shoppingCart/removeProduct/{id}'(id=${item.id})}" class="btn btn-light btn-sm">
-                        Remove
-                    </a></td>
+                    <td style="text-align: center; vertical-align: middle">
+                        <a th:href="@{'/shoppingCart/removeItemCart' (itemID=${item.id})}" class="btn btn-light btn-sm">
+                            &laquo;Remove&raquo;
+                    </a>
+                    </td>
             </tr>
             </tbody>
             <tfoot>
@@ -48,8 +51,7 @@
             </tr>
             <tr>
                 <th colspan="4">
-                    <a th:href="@{'/payment/2'}"
-                       routerLink="/check-out" class="btn btn-primary">Check Out</a>
+                    <a  routerLink="/check-out" class="btn btn-primary">Check Out</a>
                 </th>
             </tr>
             </tfoot>

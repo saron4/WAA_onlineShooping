@@ -9,17 +9,27 @@
 href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-<section>
+<div class="col" layout:fragment="main-content" style="margin:2%;margin-left: 4%; width: 60%">
     <div class="jumbotron">
-        <div class="col-md-10">
-        <h3>OPPSSS!!!! Sorry...</h3>
-            <p>Sorry your access is refused due to security reasons of our server and also our sensitive data.<br/>Please go back to the previous page to continue browsing.</p>
-            &raquo;
-            <a class="btn btn-danger"  th:href="@{/}"  role="button">Homer&raquo;</a></p>
-
-
+        <div class="container">
+            <section>
+                <div class="jumbotron">
+                    <div class="col-md">
+                        <p class="alert alert-danger" ><span th:text="${message}" th:remove="tag"></span></p>
+                        <!---<p class="alert alert-danger" ><span th:text="${url}" th:remove="tag"></span></p>-->
+                       </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                </div>
+                <div class="container">
+                    <a class="btn btn-danger"  th:href="@{/index}"  role="button">&laquo;Home</a></p>
+                </div>
+            </section>
+        </div>
     </div>
-    </div>
-</section>
+</div>
 </body>
 </html>
+

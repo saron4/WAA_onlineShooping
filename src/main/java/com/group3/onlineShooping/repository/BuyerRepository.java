@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface BuyerRepository extends CrudRepository <Buyer, Long> {
+
      Buyer findByEmail(String email);
     @Query(value = "select b from Buyer b left join fetch b.user")
     List<Buyer> getAllBuyer();

@@ -1,5 +1,5 @@
 package com.group3.onlineShooping.serviceimpl;
-
+import com.group3.onlineShooping.domain.Buyer;
 import com.group3.onlineShooping.domain.Seller;
 import com.group3.onlineShooping.repository.SellerRepository;
 import com.group3.onlineShooping.service.SellerService;
@@ -8,13 +8,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class SellerServiceImpl implements SellerService {
+public class SellerServiceImpl implements SellerService{
 
     @Autowired
     private SellerRepository sellerRepository;
@@ -54,4 +55,11 @@ public class SellerServiceImpl implements SellerService {
         Seller updatedSerller = sellerRepository.save(seller);
         return updatedSerller;
     }
+
+    @Override
+    public Seller findByEmail(String email) {
+
+        return sellerRepository.findByEmail(email);
+    }
+
 }

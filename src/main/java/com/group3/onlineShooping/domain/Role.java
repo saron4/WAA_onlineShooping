@@ -18,6 +18,7 @@ public class Role {
 	@GeneratedValue
 	private Long id;
 	private String roleName;
+
  enum RoleType{
 		ADMIN ,SELLER,BUYER
  }

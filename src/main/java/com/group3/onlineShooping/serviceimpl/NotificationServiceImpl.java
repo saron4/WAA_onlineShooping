@@ -3,7 +3,7 @@ package com.group3.onlineShooping.serviceimpl;
 import com.group3.onlineShooping.domain.Notification;
 import com.group3.onlineShooping.domain.Order;
 import com.group3.onlineShooping.repository.NotificationRepository;
-import com.group3.onlineShooping.repository.OrderRepository;
+//import com.group3.onlineShooping.repository.OrderRepository;
 import com.group3.onlineShooping.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

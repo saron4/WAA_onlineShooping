@@ -24,7 +24,7 @@ public class User {
 	@Column(name = "username")
 	private String username;
 
-	@Size(min = 6, message = "{Size.validation}")
+	@Size(min = 6, message = "{password}")
 	@Column(name = "password")
 	private String password;
 
@@ -32,7 +32,7 @@ public class User {
 	private int active;
 
 	@Transient
-	@Size(min = 6, message = "{Size.validation}")
+	@Size(min = 6, message = "{password}")
 	private String matchingPassword;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

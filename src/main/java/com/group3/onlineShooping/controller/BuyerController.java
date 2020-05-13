@@ -43,16 +43,14 @@ public class BuyerController {
             return "buyer/buyerRegistrationForm";
         }
         Role role = roleService.findByRoleName("BUYER");
-        System.out.println(role);
         Set<Role> roles = new HashSet<>();
         roles.add(role);
-        roles.forEach(x -> System.out.println(x));
         buyer.getUser().setUsername(buyer.getEmail());
         buyer.getUser().setActive(1);
         buyer.getUser().setRoles(roles);
         userService.save(buyer.getUser());
         Buyer buyerResult = buyerService.save(buyer);
-        redirectAttributes.addAttribute("buyer",buyer);
+        redirectAttributes.addFlashAttribute("firstName",buyer.getFirstName());
         return "redirect:/login";
     }
 

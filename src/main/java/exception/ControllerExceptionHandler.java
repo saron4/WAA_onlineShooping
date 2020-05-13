@@ -6,33 +6,25 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(ProductNotFoundException.class)
-    public ModelAndView handleError(HttpServletRequest req, ProductNotFoundException exception) {
+    @ExceptionHandler(ProductNotORCategoryFoundException.class)
+    public ModelAndView handleError(HttpServletRequest req, ProductNotORCategoryFoundException exception) {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("invalidCategoryId", exception.getProductId());
+        mav.addObject("invalidCategoryId", exception.getCategoryId());
         mav.addObject("exception", exception);
         mav.addObject("url", req.getRequestURL() + "?" + req.getQueryString());
-        mav.setViewName("productNotFound");
+        mav.setViewName("error/errorAccess");
         return mav;
     }
   @ExceptionHandler(Exception.class)
     public ModelAndView handleError(HttpServletRequest req, Exception exception) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", exception.getMessage());
-        mav.setViewName("errorUploadImage");
+      mav.setViewName("error/errorAccess");
         return mav;
     }
-/*
-	@ExceptionHandler(UploadImageFailException.class)
-	public ModelAndView handleError(HttpServletRequest req, UploadImageFailException exception) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("exception", exception);
-		mav.setViewName("errorUploadImage");
-		return mav;
-	}*/
 
 
 }
