@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/dashboard_layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+    <title>Product</title>
+</head>
+<body>
+<div layout:fragment="main-content" class="row" style="margin-left: 4%">
+
+    <div class="card"  style="width: 80%;">
+
+        <div class="card-body">
+            <a th:href="@{/seller/addProduct}"
+               class="btn btn-primary btn-sm mb-3">
+                Add Product
+            </a>
+            <h4>List of Product</h4>
+        </div>
+
+        <div th:if="${successMessage}" >
+            <p class="alert alert-success" > <span th:text="${successMessage}" th:remove="tag" ></span></p>
+        </div>
+        <div  th:if="${errorMessage}">
+            <p class="alert alert-danger" > <span th:text="${errorMessage}" th:remove="tag" ></span></p>
+        </div>
+        <table class="table ">
+
+            <thead>
+            <tr>
+                <th></th>
+                <th>Product</th>
+                <th class="text-center" >Quantity</th>
+                <th class="text-right" >Price</th>
+                <th class="text-right" ></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="product,iStat : ${listProduct}">
+                <td>
+                    <img th:src="@{'/img/' + ${product.productNumber}+'.png'}"  class="img-fluid img-thumbnail"
+                         width="100" height="100"  alt="...">
+                </td>
+                    <td th:text="${product.description}" style="text-align: center; vertical-align: middle">Text ...</td>
+                    <td class="text-center" th:text="${product.price}" style="text-align: center; vertical-align: middle">Text ...</td>
+                    <td class="text-right"th:text="${product.price}" style="text-align: center; vertical-align: middle"> Text ...</td>
+                    <td style="text-align: center; vertical-align: middle">
+                        <a th:href="@{/seller/showFormForUpdate(productId=${product.id})}"
+                           class="btn btn-primary btn-sm">
+                            Update
+                        </a>
+                        <a th:href="@{/seller/delete(productId=${product.id})}"
+                           class="btn btn-danger btn-sm"
+                           onclick="if (!(confirm('Are you sure you want to delete this Product?'))) return false">
+                            Delete
+                        </a>
+
+                    </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
