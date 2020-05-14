@@ -20,9 +20,9 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Transient
-    @OneToOne
-    private Buyer buyer;
+    //    @Transient
+//    @OneToOne
+//    private Buyer buyer;
     //@OneToOne
     //private Seller seller;
     @JoinColumn
@@ -59,13 +59,13 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Buyer getBuyer() {
-        return buyer;
-    }
-
-    public void setBuyer(Buyer buyer) {
-        this.buyer = buyer;
-    }
+//    public Buyer getBuyer() {
+//        return buyer;
+//    }
+//
+//    public void setBuyer(Buyer buyer) {
+//        this.buyer = buyer;
+//    }
 
     public CartItem getCartItem() {
         return cartItem;
@@ -136,22 +136,21 @@ public class Order implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Order)) return false;
         Order order = (Order) o;
-        return getBuyer().equals(order.getBuyer()) &&
+        return
                 getCartItem().equals(order.getCartItem()) &&
-                getOrderDate().equals(order.getOrderDate()) &&
-                getPayment().equals(order.getPayment());
+                        getOrderDate().equals(order.getOrderDate()) &&
+                        getPayment().equals(order.getPayment());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getBuyer(), getCartItem(), getOrderDate(), getPayment());
+        return Objects.hash(getCartItem(), getOrderDate(), getPayment());
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", buyer=" + buyer +
                 ", cartItem=" + cartItem +
                 ", orderDate=" + orderDate +
                 ", payment=" + payment +
