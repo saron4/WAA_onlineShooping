@@ -98,6 +98,18 @@
             </ul>
         </div>
 
+        <div sec:authorize="hasAuthority('ADMIN')">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" th:href="@{/admin/seller_approval}">Seller Approval</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/admin/commet_approval}">
+                        <i class="fad fa-shopping-cart"></i>Review Approval</a>
+                </li>
+            </ul>
+        </div>
+
 
     </div>
 
