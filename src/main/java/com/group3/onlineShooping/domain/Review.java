@@ -1,56 +1,50 @@
 package com.group3.onlineShooping.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+@Getter
+@Setter
 
 @Entity
 public class Review {
+	public enum ReviewStatus {
+		Created,
+		approved,
+	}
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long reviewId;
+
+	@ManyToOne
+	@JoinColumn(name="buyer_id")
+	private Buyer buyer ;
 	
-	@ManyToMany
-	//@JoinColumn(name="buyer_reviewId")
-	private List<Buyer> buyer ; 
-	
-	@ManyToMany
-	//@JoinColumn(name="buyer_reviewId")
-	private List<Product> product ; 
-	
+	@ManyToOne
+	@JoinColumn(name="product_id")
+	private Product product ;
+
+	@NotBlank(message = "comment can't empty!")
 	private String comment ;
-	
-	
-	public Long getReviewId() {
-		return reviewId;
-	}
-	public void setReviewId(Long reviewId) {
-		this.reviewId = reviewId;
-	}
-	public List<Buyer> getBuyer() {
-		return buyer;
-	}
-	public void setBuyer(List<Buyer> buyer) {
-		this.buyer = buyer;
-	}
-	
-	public List<Product> getProduct() {
-		return product;
-	}
-	public void setProduct(List<Product> product) {
-		this.product = product;
-	}
-	public String getComment() {
-		return comment;
-	}
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+
+
+	@Enumerated(EnumType.STRING)
+	private ReviewStatus  reviewStatus = ReviewStatus.Created;
+
+	@Column(name = "comment_time", columnDefinition = "TIMESTAMP")
+	private LocalDateTime commentTime = LocalDateTime.now();
+
 	@Override
 	public String toString() {
-		return "Review [reviewId=" + reviewId + ", buyer=" + buyer + ", product=" + product + ", comment=" + comment
-				+ "]";
+		return "Review{" +
+				"reviewId=" + reviewId +
+				", comment='" + comment + '\'' +
+				'}';
 	}
-	
-
 }

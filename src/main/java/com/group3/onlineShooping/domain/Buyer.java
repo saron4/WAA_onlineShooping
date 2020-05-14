@@ -41,4 +41,7 @@ public class Buyer {
     @JoinTable (name="Follower")
     private List<Seller> seller;
 
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Review> reviews;
+
 }

@@ -24,14 +24,17 @@ public class CartController {
     private BuyerService buyerService;
     private CartItemService cartItemService;
     private ItemService itemService;
+    private ReviewService reviewService;
 
     @Autowired
-    public CartController(ProductService productService, CategoryService categoryService, BuyerService buyerService, CartItemService cartItemService, ItemService itemService) {
+    public CartController(ReviewService reviewService,ProductService productService, CategoryService categoryService,
+                          BuyerService buyerService, CartItemService cartItemService, ItemService itemService) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.buyerService = buyerService;
         this.itemService = itemService;
         this.cartItemService = cartItemService;
+        this.reviewService=reviewService;
     }
 
     @RequestMapping("/{category}")
@@ -65,7 +68,13 @@ public class CartController {
     public String displayDetailProduct(Model model, @RequestParam("productId") Long productId, @ModelAttribute("product")
             Product product) {
         Product productResult = productService.find(productId);
+        List<Review> reviewList;
+        reviewList=reviewService.findAllByProductAndReviewStatus(productResult, Review.ReviewStatus.approved);
+        model.addAttribute("reviewList",reviewList);
+        Review review = new Review();
+        review.setProduct(productResult);
         model.addAttribute(productResult);
+        model.addAttribute(review);
         return "cart/addShoppingCart";
     }
 

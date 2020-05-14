@@ -5,7 +5,7 @@ INSERT INTO Role VALUES (3, 'SELLER');
 
 INSERT INTO User (user_id, active, password, username)VALUES (3, 1,'$2a$10$OwJ59e2wB42l1JjePYHg6.N8Gg17W8Dmy3xwAm.QKJA47bTYpnu7e', 'buyer@gmail.com');
 INSERT INTO user_role (user_id, role_id) VALUES(3,2);
-INSERT INTO buyer (coupons, email, first_name, last_name, user_id, id)  VALUES(0,'buyer@gmail.com','seller','seller last',3,1);
+INSERT INTO buyer (coupons, email, first_name, last_name, user_id, id)  VALUES(0,'buyer@gmail.com','Mahlet','Saron',3,1);
 
 
 

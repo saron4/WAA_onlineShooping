@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @NoArgsConstructor
 @Setter
@@ -43,11 +44,12 @@ public class Product {
 	@JoinColumn(name = "product_category")
 	private Category category;
 
-
-
-
 	@OneToOne
 	private Seller seller;
+
+
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<Review> reviews;
 
 
 }

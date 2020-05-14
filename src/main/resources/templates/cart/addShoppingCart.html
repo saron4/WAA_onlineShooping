@@ -5,9 +5,18 @@
 <head>
     <title>Shopping Cart</title>
 </head>
+<link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script type="text/javascript"
+        src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript"
+        src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
 <body>
 <div layout:fragment="main-content" class="row" style="margin:2%;margin-left: 4%">
-    <div class="col">
+
+    <div class="col-3" style="width: 15rem;">
         <div class="row">
             <div>
                 <div class="col" style="margin:2%;">
@@ -42,14 +51,52 @@
                                 </div>
                                 <div>
                                     <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i>
-                                Add to Cart</button>
+                                        Add to Cart
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
+
             </div>
+
         </div>
+    </div>
+
+    <div class="col">
+        <div class="card-body">
+            <div id="feedback"></div>
+            <form class="form-horizontal" th:action="@{/review/listReview}"  method="post" th:object="${review}">
+             <h4>
+                Comments
+            </h4>
+                <input   th:field="*{product.id}" type="hidden">
+            <div class="input-group mb-3" style="height:70px; width:500px;">
+                <input type="text" id="comment" th:field="${review.comment}"
+                       class="form-control" aria-describedby="basic-addon4" placeholder="Write something.."
+                       style="height:70px; width:20px;"></div>
+              <button class="btn btn-primary btn-sm" id="btn-comment" >Submit &raquo;</button>
+            </form>
+
+            <table class="table table-borderless">
+                <thead>
+                <tr>
+                    <th scope="col">User Name</th>
+                    <th scope="col" >Comment</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="reviewDisplay,iStat : ${reviewList}">
+                    <td  th:text="${reviewDisplay.getBuyer().firstName}" >Text ...</td>
+                    <td th:text="${reviewDisplay.comment}" >Text ...</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+
     </div>
 </div>
 </body>
