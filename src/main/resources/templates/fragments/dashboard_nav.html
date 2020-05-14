@@ -107,6 +107,25 @@
                     <a class="nav-link" href="#" th:href="@{/admin/commet_approval}">
                         <i class="fad fa-shopping-cart"></i>Review Approval</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
+
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <span sec:authentication="name"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-item" href="#"><span sec:authentication="principal.authorities"></span>
+                            </div>
+                            <div class="dropdown-item" href="#">
+                                <form action="#" th:action="@{/logout}" method="post">
+                                    <input type="submit" value="Logout"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
 
