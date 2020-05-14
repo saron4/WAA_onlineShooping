@@ -3,6 +3,7 @@ package com.group3.onlineShooping.util;
 import com.group3.onlineShooping.constants.Constants;
 import com.group3.onlineShooping.domain.Item;
 import com.group3.onlineShooping.domain.Order;
+
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -18,8 +19,9 @@ import java.util.logging.Logger;
 public class GeneratePdf {
     public static ByteArrayInputStream orderReport(List<Order> orders) {
         Order oneOrder = orders.stream().findFirst().get();
-        Document document = new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        Document document = new Document();
         try {
             Font topHeaderFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
             topHeaderFont.setColor(BaseColor.BLACK);
@@ -177,7 +179,6 @@ public class GeneratePdf {
         } catch (DocumentException ex) {
             Logger.getLogger(GeneratePdf.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return new ByteArrayInputStream(out.toByteArray());
     }
 }

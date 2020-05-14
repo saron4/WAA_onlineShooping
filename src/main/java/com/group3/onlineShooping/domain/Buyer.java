@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @NoArgsConstructor
 @Setter
@@ -36,5 +37,8 @@ public class Buyer {
     @Valid
     private User user;
 
+    @ManyToMany
+    @JoinTable (name="Follower")
+    private List<Seller> seller;
 
 }
