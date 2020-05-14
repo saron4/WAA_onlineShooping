@@ -34,7 +34,10 @@
                                         </tr>
                                         <tr>
                                             <td>Total Price</td>
-                                            <td th:text="${order.payment.totalPrice}"></td>
+                                            <td th:if="${order.payment!=null}"
+                                                th:text="${order.payment.totalPrice}"></td>
+                                            <td th:if="${order.couponPayment!=null}"
+                                                th:text="${order.couponPayment.totalPrice}"></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -44,16 +47,44 @@
                                         <fieldset>
                                             <legend>Product Items</legend>
                                             <hr/>
-                                            <div th:each="itm : ${order.payment.cartItem.item}">
-                                                <p><b>Product Title</b>: <span th:text="${itm.product.title}"></span></p>
-                                                <p><b>Product Description</b>: <span
-                                                        th:text="${itm.product.description}"></span></p>
-                                                <p><b>Product Price</b>: <span th:text="${itm.product.price}"></span></p>
-                                                <p><b>Product qnt</b>: <span th:text="${itm.quantity}"></span></p>
-                                                <p><b>Product Category</b>: <span
-                                                        th:text="${itm.product.category.categoryName}"></span></p>
-                                                <p><b>Product Seller</b>: <span th:text="${itm.product.seller}"></span></p>
-                                                <hr/>
+                                            <div th:if="${order.payment!=null}">
+                                                <div th:each="itm : ${order.payment.cartItem.item}">
+                                                    <p><b>Product Title</b>: <span
+                                                            th:text="${itm.product.title}"></span>
+                                                    </p>
+                                                    <p><b>Product Description</b>: <span
+                                                            th:text="${itm.product.description}"></span></p>
+                                                    <p><b>Product Price</b>: <span
+                                                            th:text="${itm.product.price}"></span>
+                                                    </p>
+                                                    <p><b>Product qnt</b>: <span th:text="${itm.quantity}"></span></p>
+                                                    <p><b>Product Category</b>: <span
+                                                            th:text="${itm.product.category.categoryName}"></span></p>
+                                                    <p><b>Product Seller</b>:
+                                                        <span th:if="${itm.product.seller!=null}"
+                                                              th:text="${itm.product.seller.fullName}"></span></p>
+                                                    <hr/>
+                                                </div>
+                                            </div>
+
+                                            <div th:if="${order.couponPayment != null}">
+                                                <div th:each="itm : ${order.couponPayment.cartItem.item}">
+                                                    <p><b>Product Title</b>: <span
+                                                            th:text="${itm.product.title}"></span>
+                                                    </p>
+                                                    <p><b>Product Description</b>: <span
+                                                            th:text="${itm.product.description}"></span></p>
+                                                    <p><b>Product Price</b>: <span
+                                                            th:text="${itm.product.price}"></span>
+                                                    </p>
+                                                    <p><b>Product qnt</b>: <span th:text="${itm.quantity}"></span></p>
+                                                    <p><b>Product Category</b>: <span
+                                                            th:text="${itm.product.category.categoryName}"></span></p>
+                                                    <p><b>Product Seller</b>:
+                                                        <span th:if="${itm.product.seller!=null}"
+                                                              th:text="${itm.product.seller.fullName}"></span></p>
+                                                    <hr/>
+                                                </div>
                                             </div>
                                         </fieldset>
                                     </div>

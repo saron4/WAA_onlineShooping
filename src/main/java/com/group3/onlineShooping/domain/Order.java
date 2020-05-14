@@ -2,6 +2,10 @@ package com.group3.onlineShooping.domain;
 
 
 import com.group3.onlineShooping.constants.Constants;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,7 +17,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
 @Entity(name = "Orders")
 public class Order implements Serializable {
     @Id
@@ -41,6 +48,9 @@ public class Order implements Serializable {
     @OneToOne//(cascade = CascadeType.MERGE)
     private Payment payment;
 
+    @OneToOne//(cascade = CascadeType.MERGE)
+    private CouponPayment couponPayment;
+
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "orderHistory_id")
     private Order orderHistory;
@@ -54,106 +64,6 @@ public class Order implements Serializable {
 //    private ShippingStatus shippingStatus;
 //
 
-    private OrderStatus orderStatus;
+    private OrderStatus orderStatus = OrderStatus.ORDERED;
 
-    public Order() {
-    }
-
-//    public Buyer getBuyer() {
-//        return buyer;
-//    }
-//
-//    public void setBuyer(Buyer buyer) {
-//        this.buyer = buyer;
-//    }
-
-    public CartItem getCartItem() {
-        return cartItem;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public OrderStatus getOrderStatus() {
-        return orderStatus == null ? OrderStatus.InitOrderStatus() : orderStatus;
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public void setCartItem(CartItem cartItem) {
-        this.cartItem = cartItem;
-    }
-
-    public LocalDateTime getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
-    public Order getOrderHistory() {
-        return orderHistory;
-    }
-
-    public void setOrderHistory(Order orderHistory) {
-        this.orderHistory = orderHistory;
-    }
-
-    public Set<Order> getSubordinates() {
-        return subordinates;
-    }
-
-    public void setSubordinates(Set<Order> subordinates) {
-        this.subordinates = subordinates;
-    }
-
-    public LocalDateTime getLastUpdatedDate() {
-        return lastUpdatedDate;
-    }
-
-    public void setLastUpdatedDate(LocalDateTime lastUpdatedDate) {
-        this.lastUpdatedDate = lastUpdatedDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Order)) return false;
-        Order order = (Order) o;
-        return
-                getCartItem().equals(order.getCartItem()) &&
-                        getOrderDate().equals(order.getOrderDate()) &&
-                        getPayment().equals(order.getPayment());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getCartItem(), getOrderDate(), getPayment());
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", cartItem=" + cartItem +
-                ", orderDate=" + orderDate +
-                ", payment=" + payment +
-                '}';
-    }
 }

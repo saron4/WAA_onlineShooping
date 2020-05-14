@@ -1,9 +1,10 @@
 package com.group3.onlineShooping.serviceimpl;
 
-import com.group3.onlineShooping.domain.Order;
+import com.group3.onlineShooping.domain.CouponPayment;
 import com.group3.onlineShooping.domain.Payment;
-import com.group3.onlineShooping.repository.OrderRepository;
+import com.group3.onlineShooping.repository.CouponPaymentRepository;
 import com.group3.onlineShooping.repository.PaymentRepository;
+import com.group3.onlineShooping.service.CouponPaymentService;
 import com.group3.onlineShooping.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,33 +19,29 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class PaymentServiceImpl implements PaymentService {
+public class CouponPaymentServiceImpl implements CouponPaymentService {
 
     @Autowired
-    private PaymentRepository paymentRepository;
+    private CouponPaymentRepository paymentRepository;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Payment addPayment(Payment payment) {
+    public CouponPayment addPayment(CouponPayment payment) {
         return paymentRepository.save(payment);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public List<Payment> getAll() {
-        Iterable<Payment> paymentIterable = paymentRepository.findAll();
-        List<Payment> payments = new ArrayList<>();
+    public List<CouponPayment> getAll() {
+        Iterable<CouponPayment> paymentIterable = paymentRepository.findAll();
+        List<CouponPayment> payments = new ArrayList<>();
         paymentIterable.forEach(payments::add);
         return payments;
     }
 
     @Override
-    public List<Payment> getAllByUserName(String username) {
-        Iterable<Payment> paymentIterable = paymentRepository.findAll();
-
-        List<Payment> payments = new ArrayList<>();
-        paymentIterable.forEach(payments::add);
-
+    public List<CouponPayment> getAllByUserName(String username) {
+        List<CouponPayment> payments = getAll();
         return payments.stream()
                 //.filter(payment -> payment.getCartItem().getBuyer().getEmail() == username)
                 .collect(Collectors.toList());
@@ -52,8 +49,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Payment getPayment(Long id) {
-        Optional<Payment> payment = paymentRepository.findById(id);
+    public CouponPayment getPayment(Long id) {
+        Optional<CouponPayment> payment = paymentRepository.findById(id);
         if (!payment.isPresent()) {
             // a cusmtom excepttion has to be thrown
             System.out.println("Payment not found");
@@ -64,8 +61,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Payment editPayment(Payment payment) {
-        Payment updatedPayment = paymentRepository.save(payment);
+    public CouponPayment editPayment(CouponPayment payment) {
+        CouponPayment updatedPayment = paymentRepository.save(payment);
         return updatedPayment;
     }
 }

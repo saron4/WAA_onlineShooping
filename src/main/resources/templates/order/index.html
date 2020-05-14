@@ -35,7 +35,10 @@
                                     <tbody>
                                     <tr th:each="order : ${orders}">
                                         <td th:text="${order.orderDate}"></td>
-                                        <td th:text="${order.payment.getTotalPrice()}"></td>
+                                        <td th:if="${order.payment!=null}"
+                                            th:text="${order.payment.getTotalPrice()}"></td>
+                                        <td th:if="${order.couponPayment!=null}"
+                                            th:text="${order.couponPayment.getTotalPrice()}"></td>
                                         <td th:text="${order.orderStatus}"></td>
 
                                         <td>
@@ -60,7 +63,7 @@
                                             </a>
 
                                             <a sec:authorize="hasAuthority('BUYER')"
-                                               th:if="${order.orderStatus == T(com.group3.onlineShooping.domain.OrderStatus).ORDERED}"
+                                               th:if="${order.orderStatus == T(com.group3.onlineShooping.domain.OrderStatus).ORDERED || order.orderStatus == null}"
                                                th:href="@{/order/delete/{id}(id=${order.getId()})}"
                                                class="btn btn-danger" title="Cancel order">
                                                 <i class="fas fa-times ml-2"></i>
@@ -76,6 +79,7 @@
                                                 <i class="fas fa-file-invoice glyphicon glyphicon-file-invoice"></i>
                                             </a>
                                         </td>
+
                                     </tr>
 
                                     </tbody>
