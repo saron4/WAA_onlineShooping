@@ -39,7 +39,7 @@
                                             <a th:href="@{'/cartItem/viewDetails?productId={id}'(id=${payment.cartItem.cartId})}"
                                                th:text="${itm.product.title}"></a>
                                             (<span th:text="${itm.quantity}"></span>)
-                                            <span class="price" th:text="${itm.product.price}"></span>
+                                            <span class="price" th:text="${itm.product.price*itm.quantity}"></span>
                                         </p>
 
                                         <hr>

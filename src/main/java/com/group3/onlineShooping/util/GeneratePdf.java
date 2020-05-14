@@ -11,6 +11,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
@@ -93,12 +94,15 @@ public class GeneratePdf {
             tableBody.addCell(hcell);
 
 
+            BigDecimal totalPrice = new BigDecimal(0);
             Integer index = 0;
             for (Order order : orders) {
 
                 PdfPCell cell;
 
                 for (Item itm : order.getCartItem().getItem()) {
+                    BigDecimal price = itm.getProduct().getPrice().multiply(new BigDecimal(itm.getQuantity()));
+                    totalPrice = totalPrice.add(price);
 
                     cell = new PdfPCell(new Phrase((++index).toString()));
                     cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -126,9 +130,22 @@ public class GeneratePdf {
 //                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 //                    cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 //                    cell.setPaddingRight(5);
-                    tableBody.addCell(cell);
+//                    tableBody.addCell(cell);
                 }
             }
+
+            hcell = new PdfPCell(new Phrase("Total"));
+            hcell.setPaddingLeft(5);
+            hcell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            hcell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            hcell.setColspan(3);
+            tableBody.addCell(hcell);
+
+            hcell = new PdfPCell(new Phrase(totalPrice.toString()));
+            hcell.setPaddingLeft(5);
+            hcell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tableBody.addCell(hcell);
 
 
             Font footerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);

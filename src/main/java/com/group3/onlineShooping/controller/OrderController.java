@@ -31,6 +31,7 @@ public class OrderController {
     }
 
     @GetMapping
+//    @PreAuthorize(value = "hasRole(SELLER) and hasRole(BUYER)")
     public String index(Model model) {
         List<Order> orders = orderService.getAll();
         model.addAttribute("orders", orders);
@@ -38,6 +39,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
+//    @PreAuthorize(value = "hasRole(SELLER) and hasRole(BUYER)")
     public ModelAndView details(@PathVariable("id") Long id) {
         Order order = orderService.getOrder(id);
         ModelAndView mv = new ModelAndView("order/details");
@@ -46,6 +48,7 @@ public class OrderController {
     }
 
     @GetMapping("/delete/{id}")
+//    @PreAuthorize(value = "hasRole(SELLER) and hasRole(BUYER)")
     public ModelAndView delete(@PathVariable("id") Long id) {
         Order order = orderService.getOrder(id);
         ModelAndView modelAndView = new ModelAndView("order/delete");
@@ -54,12 +57,14 @@ public class OrderController {
     }
 
     @PostMapping("/delete")
+//    @PreAuthorize(value = "hasRole(SELLER) and hasRole(BUYER)")
     public String delete(Order order) {
         orderService.deleteOrder(order.getId());
         return "redirect:/order";
     }
 
     @GetMapping("/edit/{id}")
+   // @PreAuthorize(value = "hasRole(SELLER)")
     public ModelAndView changeStatus(@PathVariable("id") Long id) {
         Order order = orderService.getOrder(id);
         ModelAndView modelAndView = new ModelAndView("order/edit");
@@ -70,19 +75,14 @@ public class OrderController {
     }
 
     @PostMapping("/edit")
+   // @PreAuthorize(value = "hasRole(SELLER)")
     public String changeStatus(Order order) {
         Order orderUpdated = orderService.editOrder(order);
         return "redirect:/order";
     }
 
-    @PostMapping("/export/{id}")
-    public String exportPDF(@PathVariable("id") Long id) {
-        //boolean order = orderService.deleteOrder(id);
-        return "order/index";
-    }
-
-
     @GetMapping("/hostory/{id}")
+//    @PreAuthorize(value = "hasRole(SELLER) and hasRole(BUYER)")
     public ModelAndView orderHistory(@PathVariable("id") Long id) {
         List<Order> orders = orderHistoryService.getAllHistory(id);
         Order order = orderService.getOrder(id);

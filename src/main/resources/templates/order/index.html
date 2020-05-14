@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div class="row">
+<div class="row" sec:authorize="isAuthenticated()">
     <!-- for each part using expression language  Iteration th:each   -->
     <div class="col">
         <div class="card" style="width: 100%;" layout:fragment="main-content">
@@ -35,11 +35,12 @@
                                     <tbody>
                                     <tr th:each="order : ${orders}">
                                         <td th:text="${order.orderDate}"></td>
-                                        <!--                                        <td th:text="${order.payment.cartItem.getTotalPrice()}"></td>-->
                                         <td th:text="${order.payment.getTotalPrice()}"></td>
                                         <td th:text="${order.orderStatus}"></td>
+
                                         <td>
-                                            <a th:if="${order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).CANCELD && order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).DELIVERED}"
+                                            <a sec:authorize="hasAuthority('SELLER')"
+                                               th:if="${order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).CANCELD && order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).DELIVERED}"
                                                th:href="@{/order/edit/{id}(id=${order.getId()})}"
                                                class="btn btn-primary" title="Update order status">
                                                 <i class="fas fa-edit"> </i>
@@ -50,7 +51,16 @@
                                                 <i class="fas fa-info sign ml-2"></i>
                                             </a>
 
-                                            <a th:if="${order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).CANCELD && order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).DELIVERED}"
+                                            <a sec:authorize="hasAuthority('SELLER')"
+                                               th:if="${order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).CANCELD &&
+                                                        order.orderStatus != T(com.group3.onlineShooping.domain.OrderStatus).DELIVERED}"
+                                               th:href="@{/order/delete/{id}(id=${order.getId()})}"
+                                               class="btn btn-danger" title="Cancel order">
+                                                <i class="fas fa-times ml-2"></i>
+                                            </a>
+
+                                            <a sec:authorize="hasAuthority('BUYER')"
+                                               th:if="${order.orderStatus == T(com.group3.onlineShooping.domain.OrderStatus).ORDERED}"
                                                th:href="@{/order/delete/{id}(id=${order.getId()})}"
                                                class="btn btn-danger" title="Cancel order">
                                                 <i class="fas fa-times ml-2"></i>
@@ -67,6 +77,7 @@
                                             </a>
                                         </td>
                                     </tr>
+
                                     </tbody>
                                 </table>
                             </div>
