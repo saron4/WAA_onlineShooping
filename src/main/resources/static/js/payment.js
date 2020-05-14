@@ -9,13 +9,12 @@ $(document).ready(function () {
 
     $('input[id^="sameadr"]').click(function () {
         if ($(this).prop('checked')) {
-            var billFullName = $("#shippingAddress\\.billingAddress\\.billFullName").val();
-            var billEmail = $("#shippingAddress\\.billingAddress\\.billEmail").val();
-            var billStreet = $("#shippingAddress\\.billingAddress\\.billStreet").val();
-            var billCity = $("#shippingAddress\\.billingAddress\\.billCity").val();
-            var billState = $("#shippingAddress\\.billingAddress\\.billState").val();
-            var billZip = $("#shippingAddress\\.billingAddress\\.billZip").val();
-            //alert(billFullName + "|" + billEmail + "|" + billStreet + "|" + billCity + "|" + billState + "|" + billZip);
+            var billFullName = $("#billingAddress\\.billFullName").val();
+            var billEmail = $("#billingAddress\\.billEmail").val();
+            var billStreet = $("#billingAddress\\.billStreet").val();
+            var billCity = $("#billingAddress\\.billCity").val();
+            var billState = $("#billingAddress\\.billState").val();
+            var billZip = $("#billingAddress\\.billZip").val();
 
             $("#shippingAddress\\.fullName").val(billFullName);
             $("#shippingAddress\\.email").val(billEmail);

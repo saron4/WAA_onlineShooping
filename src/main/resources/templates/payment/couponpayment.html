@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/dashboard_layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<head>
+    <title>Payment With Coupon Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script type="text/javascript" th:src="@{/js/payment.js}"></script>
+        
+    <link th:href="@{/css/payment.css}" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<div class="row">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card" style="width: 100%;" layout:fragment="main-content">
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="row">
+
+                                <div class="col-25">
+                                </div>
+
+                                <div class="col-50">
+                                    <div class="container">
+                                        <form action="#" th:action="@{/payment/coupon}" th:object="${payment}" method="post">
+
+                                            <div class="col-100">
+                                                <h3><b>Shipping Address</b></h3>
+
+                                                <label for="shippingAddress.state">
+                                                    <i class="fa fa-envelope"></i> Full Name</label>
+                                                <input type="text" id="shippingAddress.fullName"
+                                                       name="shippingAddress.fullName" required
+                                                       th:value="*{shippingAddress.fullName}"
+                                                       placeholder="John More Doe">
+                                                <span class="error validation-message"
+                                                      th:errors="*{shippingAddress.fullName}"
+                                                      th:if="${#fields.hasErrors('shippingAddress.fullName')}"></span>
+
+                                                <label for="shippingAddress.email">
+                                                    <i class="fa fa-user"></i> Email</label>
+                                                <input type="text" id="shippingAddress.email"
+                                                       name="shippingAddress.email" required
+                                                       th:value="*{shippingAddress.email}"
+                                                       placeholder="example@miu.edu">
+                                                <span class="error validation-message"
+                                                      th:errors="*{shippingAddress.email}"
+                                                      th:if="${#fields.hasErrors('shippingAddress.email')}"></span>
+
+                                                <label for="shippingAddress.street">
+                                                    <i class="fa fa-institution"></i> Street</label>
+                                                <input type="text" id="shippingAddress.street"
+                                                       name="shippingAddress.street" required
+                                                       th:value="*{shippingAddress.street}"
+                                                       placeholder="542 W. 15th Street">
+                                                <span class="error validation-message"
+                                                      th:errors="*{shippingAddress.street}"
+                                                      th:if="${#fields.hasErrors('shippingAddress.street')}"></span>
+
+                                                <label for="shippingAddress.city">
+                                                    <i class="fa fa-address-card-o"></i> City</label>
+                                                <input type="text" id="shippingAddress.city"
+                                                       name="shippingAddress.city" required
+                                                       th:value="*{shippingAddress.city}"
+                                                       placeholder="Fairfield">
+                                                <span class="error validation-message"
+                                                      th:errors="*{shippingAddress.city}"
+                                                      th:if="${#fields.hasErrors('shippingAddress.city')}"></span>
+
+                                                <div class="row">
+                                                    <div class="col-50">
+                                                        <i class="fa fa-envelope"></i> State</label>
+                                                        <input type="text" id="shippingAddress.state"
+                                                               name="shippingAddress.state" required
+                                                               th:value="*{shippingAddress.state}"
+                                                               placeholder="NY">
+                                                        <span class="error validation-message"
+                                                              th:errors="*{shippingAddress.state}"
+                                                              th:if="${#fields.hasErrors('shippingAddress.state')}"></span>
+                                                    </div>
+                                                    <div class="col-50">
+                                                        <i class="fa fa-user"></i> ZIP Code</label>
+                                                        <input type="text" id="shippingAddress.zip"
+                                                               name="shippingAddress.zip" required
+                                                               th:value="*{shippingAddress.zip}"
+                                                               placeholder="10001">
+                                                        <span class="error validation-message"
+                                                              th:errors="*{shippingAddress.zip}"
+                                                              th:if="${#fields.hasErrors('shippingAddress.zip')}"></span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <label>
+                                                <input type="checkbox" checked="checked"
+                                                       id="rememberMe" name="rememberMe"
+                                                       th:value="*{rememberMe}">
+                                                Remember Me?
+                                            </label>
+
+                                            <input type="hidden" id="cartItem.cartId"
+                                                   name="cartItem.cartId"
+                                                   th:value="*{cartItem.cartId}">
+
+                                            <input type="hidden" id="totalPrice"
+                                                   name="totalPrice"
+                                                   th:value="*{totalPrice}">
+
+                                            <input type="submit" value="Continue Payment With Coupon" class="btn">
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="w-100"></div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

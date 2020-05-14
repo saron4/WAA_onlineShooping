@@ -30,7 +30,7 @@ public class Buyer {
     @Email(message = "{email.validation}")
     @ValidEmail(message = "{email.customerValidation}")
     private String email;
-    private int coupons = 0;
+    private Integer coupons = 0;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_Id")

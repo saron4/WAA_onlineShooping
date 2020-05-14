@@ -14,14 +14,14 @@
         <div class="card" style="width: 100%;" layout:fragment="main-content">
             <div class="card-body">
                 <div class="success-page">
-
                     <div class="col-25">
                     </div>
 
                     <div class="col-50">
                         <img src="http://share.ashiknesin.com/green-checkmark.png" class="center" alt=""/>
-                        <h2>Payment Successful !</h2>
-                        <p>We are delighted to inform you that we received your payments</p>
+                        <h2>Payment with Coupon is Successful !</h2>
+                        <p>We are delighted to inform you that we received your payments.</p>
+                        <p><b><u>Your coupon is deducted from your profile</u></b></p>
                         <a href="/order" class="btn-view-orders btn btn-primary">View Orders</a>
                         <a href="/cartItem/productList" class="btn btn-primary">Continue Shopping</a>
                         <a th:href="@{/orderreceipt/{id}(id=${order.getId()})}"

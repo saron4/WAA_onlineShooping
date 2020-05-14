@@ -10,6 +10,8 @@ public interface PaymentService {
 
     List<Payment> getAll();
 
+    List<Payment> getAllByUserName(String username);
+
     Payment getPayment(Long id);
 
     Payment editPayment(Payment payment);
