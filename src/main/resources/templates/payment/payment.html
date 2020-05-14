@@ -5,69 +5,15 @@
 
 <head>
     <title>Payment Page</title>
-    <link rel="stylesheet" href="/css/payment.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .error {
-            color: red;
-        }
-    </style>
 
-    <script>
-        $(document).ready(function () {
-
-            // shippingAddress.billingAddress.billFullName
-            // shippingAddress.billingAddress.billEmail
-            // shippingAddress.billingAddress.billStreet
-            // shippingAddress.billingAddress.billCity
-            // shippingAddress.billingAddress.billState
-            // shippingAddress.billingAddress.billZip
-
-            $('input[id^="sameadr"]').click(function () {
-                if ($(this).prop('checked')) {
-                    var billFullName = $("#shippingAddress\\.billingAddress\\.billFullName").val();
-                    var billEmail = $("#shippingAddress\\.billingAddress\\.billEmail").val();
-                    var billStreet = $("#shippingAddress\\.billingAddress\\.billStreet").val();
-                    var billCity = $("#shippingAddress\\.billingAddress\\.billCity").val();
-                    var billState = $("#shippingAddress\\.billingAddress\\.billState").val();
-                    var billZip = $("#shippingAddress\\.billingAddress\\.billZip").val();
-                    //alert(billFullName + "|" + billEmail + "|" + billStreet + "|" + billCity + "|" + billState + "|" + billZip);
-
-                    $("#shippingAddress\\.fullName").val(billFullName);
-                    $("#shippingAddress\\.email").val(billEmail);
-                    $("#shippingAddress\\.street").val(billStreet);
-                    $("#shippingAddress\\.city").val(billCity);
-                    $("#shippingAddress\\.state").val(billState);
-                    $("#shippingAddress\\.zip").val(billZip);
-                } else {
-                    $("#shippingAddress\\.fullName").val('');
-                    $("#shippingAddress\\.email").val('');
-                    $("#shippingAddress\\.street").val('');
-                    $("#shippingAddress\\.city").val('');
-                    $("#shippingAddress\\.state").val('');
-                    $("#shippingAddress\\.zip").val('');
-                }
-            });
-
-        });
-    </script>
+    <script type="text/javascript" th:src="@{/js/payment.js}"></script>
+        
+    <link th:href="@{/css/payment.css}" rel="stylesheet"/>
 
 </head>
 
 <body>
-
-<div layout:fragment="main-content" class="row" style="margin-left: 4%">
-    <h1>Shopping Cart</h1>
-    <div class="card" style="width: 80%;">
-        <div class="card-body">
-            <p>
-                You have items in your shopping cart.
-                <button class="float-right btn btn-light btn-sm">Clear Shopping Cart</button>
-            </p>
-        </div>
-    </div>
-
-</div>
 
 <div class="row">
     <div class="container">

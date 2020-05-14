@@ -5,6 +5,8 @@ import java.util.Objects;
 
 @Embeddable
 public class BillingAddress {
+    private String billFullName;
+    private String billEmail;
     private String billStreet;
     private String billCity ;
     private String billState ;
@@ -24,6 +26,22 @@ public class BillingAddress {
     @Override
     public int hashCode() {
         return Objects.hash(billStreet, billCity, billState, billZip);
+    }
+
+    public String getBillFullName() {
+        return billFullName;
+    }
+
+    public void setBillFullName(String billFullName) {
+        this.billFullName = billFullName;
+    }
+
+    public String getBillEmail() {
+        return billEmail;
+    }
+
+    public void setBillEmail(String billEmail) {
+        this.billEmail = billEmail;
     }
 
     public String getBillStreet() {
