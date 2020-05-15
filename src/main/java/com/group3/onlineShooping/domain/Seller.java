@@ -1,10 +1,14 @@
 package com.group3.onlineShooping.domain;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
-
+@Getter
+@Setter
 @Entity
 public class Seller {
     @Id
@@ -28,9 +32,9 @@ public class Seller {
   //  private List<Product> products;
 
 
-
+/*
     @ManyToMany(mappedBy = "seller")
-    private List<Buyer> buyer;
+    private List<Buyer> buyer;*/
 
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -67,6 +71,23 @@ public class Seller {
         this.email = email;
     }
 
+    public Long getSerllerId() {
+        return serllerId;
+    }
+
+    public void setSerllerId(Long serllerId) {
+        this.serllerId = serllerId;
+    }
+
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {

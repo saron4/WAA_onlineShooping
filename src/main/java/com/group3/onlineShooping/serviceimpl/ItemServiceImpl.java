@@ -60,5 +60,10 @@ public class ItemServiceImpl implements ItemService {
       return itemRepository.findAllByItemStatusAndProduct(itemStatus,product);
    }
 
+   @Override
+   public void setItemStatus(Item.ItemStatus itemStatus, Long cartID) {
+      itemRepository.setItemStatus(itemStatus,cartID);
+   }
+
 
 }

@@ -22,7 +22,7 @@ import java.util.Map;
 @RequestMapping("/seller")
 public class ProductController {
 
-    private static String UPLOADED_FOLDER = "/Users/mahlet/Documents/GitHub/GroupProject/4WAA/WAA_onlineShooping/images/";
+    private static String UPLOADED_FOLDER = "/Users/mahlet/Documents/GitHub/GroupProject/15/WAA_onlineShooping/images/";
 
     private ProductService productService;
     private CategoryService categoryService;
@@ -58,7 +58,10 @@ public class ProductController {
     }
 
     @GetMapping("/addProduct")
-    public String showFormForAdd(@ModelAttribute("product") Product product, Model model) {
+    public String showFormForAdd( Model model) {
+        Product product= new Product();
+        product.setId(null);
+        model.addAttribute("product",product);
         List<Category> categoryList = (List<Category>) categoryService.findAll();
         model.addAttribute("categoryList", categoryList);
         return "product/productForm";
@@ -79,7 +82,6 @@ public class ProductController {
         return "product/productForm";
     }
 
-
     @RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
     public String saveProduct(@ModelAttribute("product") Product product, Model model, Principal principal, RedirectAttributes redirectAttributes) {
         Seller seller = sellerService.findByEmail(principal.getName());
@@ -94,6 +96,10 @@ public class ProductController {
             }
         }
         redirectAttributes.addFlashAttribute("successMessage", "Product Saved Successfully ");
+       System.out.println(
+               "*************"+product
+       );
+       //product.getReviews().clear();
         productService.save(product);
         return "redirect:/seller/productsList";
     }

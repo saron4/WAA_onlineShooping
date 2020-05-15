@@ -16,10 +16,18 @@
                             class="fad fa-shopping-cart"></i>Shopping Cart</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Order</a>
+                    <a class="nav-link" href="#" th:href="@{/order/buyer}">Order</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown7" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Follow/UnFollow
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" th:href="@{/follower/getSeller}">List of Seller </a>
+                        <a class="dropdown-item" href="#" th:href="@{/follower/getFollowed}">Following</a>
+                    </div>
                 </li>
 
                 <li class="nav-item dropdown" sec:authorize="hasAuthority('BUYER')">
@@ -80,6 +88,37 @@
                     <div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
 
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <span sec:authentication="name"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-item" href="#"><span sec:authentication="principal.authorities"></span>
+                            </div>
+                            <div class="dropdown-item" href="#">
+                                <form action="#" th:action="@{/logout}" method="post">
+                                    <input type="submit" value="Logout"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div sec:authorize="hasAuthority('ADMIN')">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" th:href="@{/admin/seller_approval}">Seller Approval</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/admin/commet_approval}">
+                        <i class="fad fa-shopping-cart"></i>Review Approval</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
+
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown9" role="button"
                            data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
                             <span sec:authentication="name"></span>

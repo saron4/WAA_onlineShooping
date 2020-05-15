@@ -1,5 +1,6 @@
 package com.group3.onlineShooping.serviceimpl;
 import com.group3.onlineShooping.domain.Buyer;
+import com.group3.onlineShooping.domain.Follower;
 import com.group3.onlineShooping.domain.Seller;
 import com.group3.onlineShooping.repository.SellerRepository;
 import com.group3.onlineShooping.service.SellerService;
@@ -27,14 +28,15 @@ public class SellerServiceImpl implements SellerService{
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+   // @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<Seller> getAll() {
-        Iterable<Seller> sellersIterable = sellerRepository.findAll();
+        /*Iterable<Seller> sellersIterable = sellerRepository.findAll();
         List<Seller> sellers = new ArrayList<>();
         while (sellersIterable.iterator().hasNext()) {
             sellers.add(sellersIterable.iterator().next());
         }
-        return sellers;
+        return sellers;*/
+        return (List<Seller>) sellerRepository.findAll();
     }
 
     @Override
@@ -61,5 +63,27 @@ public class SellerServiceImpl implements SellerService{
 
         return sellerRepository.findByEmail(email);
     }
+
+    @Override
+    public List<Seller> findAll() {
+        return (List<Seller>) sellerRepository.findAll();
+    }
+
+    @Override
+    public Seller find(Long id) {
+        return sellerRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Seller> findAllBySeller(Long id, Follower.FollowerStatus followerStatus) {
+        System.out.println("########################"+id);
+        return sellerRepository.findAllBySeller(followerStatus);
+    }
+
+    @Override
+    public Seller findById(Long id) {
+        return sellerRepository.findById(id).get();
+    }
+
 
 }

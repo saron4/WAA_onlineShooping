@@ -6,27 +6,28 @@
     <title>Shopping Cart</title>
 </head>
 <body>
-<div layout:fragment="main-content" class="row" style="margin:2%;margin-left: 4%">
-
-    <div class="col-3" style="width: 15rem;">
-        <a class="list-group-item list-group-item-action">
-            Category
-        </a>
-        <div class="list-group" th:each="category :${categoryList}">
-            <a class="list-group-item list-group-item-action" th:href="${category.categoryId}"
-               th:text="${category.categoryName}"></a>
-        </div>
-    </div>
+<div layout:fragment="main-content" class="row" style="margin:2%;margin-left: 15%">
     <!-- for each part using expression language  Iteration th:each   -->
     <div class="col">
+        <div th:if="${successMessage}" >
+            <p class="alert alert-success" > <span th:text="${successMessage}" th:remove="tag" ></span></p>
+        </div>
+        <div  th:if="${errorMessage}">
+            <p class="alert alert-danger" > <span th:text="${errorMessage}" th:remove="tag" ></span></p>
+        </div>
         <div class="row">
-            <div th:each="product,iStat : ${productList}">
+
+            <div th:each="seller,iStat : ${sellerList}">
                 <div th:class="${iStat.even}? 'col' : 'w-100' " style="margin:2%;">
                     <div class="card" style="width:15rem;">
-                        <img th:src="@{'/img/' + ${product.productNumber}+'.png'}" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${product.title}">Card title</h5>
-                            <p class="card-text" th:text="${product.description}">Some quick example text to build
+                            <h5 class="card-title" th:text="${seller.fullName}">Card title</h5>
+
+                            <p class="card-text" th:text="${seller.email}">Some quick example text to build
+                                on the
+                                card title and make up the bulk of the card's content.</p>
+
+                            <!--<p class="card-text" th:text="${seller.phoneNumber}">Some quick example text to build
                                 on the
                                 card title and make up the bulk of the card's content.</p>
 
@@ -34,13 +35,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon3">$</span>
                                 </div>
-                                <input type="text" readonly
-                                       th:value="${product.price}" class="form-control"
+                                <input type="text"
+                                       th:value="${seller.getSerllerId()}" class="form-control"
                                        aria-describedby="basic-addon3"></input>
-                            </div>
+                            </div>-->
                             <a class="btn btn-primary"
-                               th:href="@{'/cartItem/viewDetails' (productId=${product.id})}">
-                                View Details &raquo;</a>
+                               th:href="@{'/follower/followerSave' (sellerId=${seller.serllerId})}">
+                                Follow &raquo;</a>
                         </div>
 
                     </div>

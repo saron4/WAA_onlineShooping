@@ -16,6 +16,8 @@
 <body>
 <div layout:fragment="main-content" class="row" style="margin:2%;margin-left: 4%">
 
+
+
     <div class="col-3" style="width: 15rem;">
         <div class="row">
             <div>
@@ -67,6 +69,9 @@
     <div class="col">
         <div class="card-body">
             <div id="feedback"></div>
+            <div  th:if="${successMessageReview}">
+                <p class="alert alert-success" > <span th:text="${successMessageReview}" th:remove="tag" ></span></p>
+            </div>
             <form class="form-horizontal" th:action="@{/review/listReview}"  method="post" th:object="${review}">
              <h4>
                 Comments
@@ -78,7 +83,6 @@
                        style="height:70px; width:20px;"></div>
               <button class="btn btn-primary btn-sm" id="btn-comment" >Submit &raquo;</button>
             </form>
-
             <table class="table table-borderless">
                 <thead>
                 <tr>

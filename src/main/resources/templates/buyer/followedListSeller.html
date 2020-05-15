@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/dashboard_layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+    <title>Shopping Cart</title>
+</head>
+<body>
+<div layout:fragment="main-content" class="row" style="margin:2%;margin-left: 4%">
+    <!-- for each part using expression language  Iteration th:each   -->
+    <div class="col">
+        <div th:if="${successMessage}" >
+            <p class="alert alert-success" > <span th:text="${successMessage}" th:remove="tag" ></span></p>
+        </div>
+        <div  th:if="${errorMessage}">
+            <p class="alert alert-danger" > <span th:text="${errorMessage}" th:remove="tag" ></span></p>
+        </div>
+        <div class="row">
+
+            <div th:each="seller,iStat : ${sellerList}">
+                <div th:class="${iStat.even}? 'col' : 'w-100' " style="margin:2%;">
+                    <div class="card" style="width:15rem;">
+                        <div class="card-body" style="width: 300px;">
+                            <h5 class="card-title" th:text="${seller.fullName}">Card title</h5>
+
+                            <p class="card-text" th:text="${seller.email}">Some quick example text to build
+                                on the
+                                card title and make up the bulk of the card's content.</p>
+
+                                <p>
+
+                                <a class="btn btn-primary btn-sm"
+                                   th:href="@{'/follower/followerSave' (sellerId=${seller.serllerId})}">
+                                    &laquo; View Details </a>
+                                    <a class="btn btn-primary btn-sm"
+                                       th:href="@{'/follower/UnfollowerSave' (sellerId=${seller.serllerId})}">
+                                        UnFollow &raquo;</a>
+                                </p>
+
+                        </div>
+
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

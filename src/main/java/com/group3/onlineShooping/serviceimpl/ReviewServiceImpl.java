@@ -2,6 +2,7 @@ package com.group3.onlineShooping.serviceimpl;
 
 import com.group3.onlineShooping.domain.Product;
 import com.group3.onlineShooping.domain.Review;
+import com.group3.onlineShooping.domain.ReviewStatus;
 import com.group3.onlineShooping.repository.ReviewRepository;
 import com.group3.onlineShooping.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +48,14 @@ private ReviewRepository reviewRepository ;
     @Override
     public List<Review> findAllByProduct(Product product) {
         return reviewRepository.findAllByProduct(product);
+
+
+
     }
 
     @Override
-    public List<Review> findAllByProductAndReviewStatus(Product product, Review.ReviewStatus reviewStatus) {
+    public List<Review> findAllByProductAndReviewStatus(Product product, ReviewStatus reviewStatus) {
         return reviewRepository.findAllByProductAndReviewStatus(product,reviewStatus);
+
     }
 }

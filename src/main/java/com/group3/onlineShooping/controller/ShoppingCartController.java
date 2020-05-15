@@ -36,12 +36,15 @@ public class ShoppingCartController {
         double total;
         String email = principal.getName();
         Buyer buyer = buyerService.findByEmail(email);
+
         CartItem cartItemBuyer = cartItemService.findByBuyerAndCartStatus(buyer, CartItem.CartItemStatus.Created);
+        System.out.println("#############"+cartItemBuyer);
         if (cartItemBuyer != null) {
             total = getTotalAmount(cartItemBuyer);
             cartItemBuyer.setTotalPrice(total);
             cartItemService.save(cartItemBuyer);
             List<Item> itemsList = cartItemBuyer.getItem();
+            model.addAttribute("cartItemBuyer",cartItemBuyer);
             model.addAttribute("itemsList", itemsList);
         }
         return "cart/shoppingCart";

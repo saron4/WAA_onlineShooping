@@ -14,10 +14,10 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Review {
-	public enum ReviewStatus {
+	/*public enum ReviewStatus {
 		Created,
 		approved,
-	}
+	}*/
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long reviewId;
@@ -25,10 +25,10 @@ public class Review {
 	@ManyToOne
 	@JoinColumn(name="buyer_id")
 	private Buyer buyer ;
-	
+
 	@ManyToOne
 	@JoinColumn(name="product_id")
-	private Product product ;
+	 private Product product ;
 
 	@NotBlank(message = "comment can't empty!")
 	private String comment ;

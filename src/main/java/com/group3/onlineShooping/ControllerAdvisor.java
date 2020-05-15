@@ -37,11 +37,11 @@ public class ControllerAdvisor {
     public String badRequest(Exception e) throws Exception {
         return "/pagenotfound";
     }
-
+/*
     @ExceptionHandler(Exception.class)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public String exception(Exception e) throws Exception {
         return "/error";
-    }
+    }*/
 
 }

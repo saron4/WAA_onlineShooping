@@ -1,25 +1,24 @@
 package com.group3.onlineShooping.domain;
 
+
 import com.group3.onlineShooping.customvalidation.PasswordMatches;
 import com.group3.onlineShooping.customvalidation.ValidEmail;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @NoArgsConstructor
 @Setter
 @Getter
 @ToString
 @Entity
-@PasswordMatches
-public class Buyer {
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -30,18 +29,9 @@ public class Buyer {
     @Email(message = "{email.validation}")
     @ValidEmail(message = "{email.customerValidation}")
     private String email;
-    private Integer coupons = 0;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_Id")
     @Valid
     private User user;
-/*
-    @ManyToMany
-    @JoinTable (name="Follower")
-    private List<Seller> seller;*/
-
-    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Review> reviews;
-
 }

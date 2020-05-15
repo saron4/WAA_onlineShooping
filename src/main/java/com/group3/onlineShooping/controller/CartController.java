@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -69,7 +70,7 @@ public class CartController {
             Product product) {
         Product productResult = productService.find(productId);
         List<Review> reviewList;
-        reviewList=reviewService.findAllByProductAndReviewStatus(productResult, Review.ReviewStatus.approved);
+        reviewList=reviewService.findAllByProductAndReviewStatus(productResult, ReviewStatus.approved);
         model.addAttribute("reviewList",reviewList);
         Review review = new Review();
         review.setProduct(productResult);
@@ -79,10 +80,13 @@ public class CartController {
     }
 
     @PostMapping(value = "/addCart")
-    public String saveCart(Product product, Model model, Principal principal) {
+    public String saveCart(Product product, Model model, Principal principal, RedirectAttributes redirectAttributes) {
 
         if (!checkProduct(product, model, principal)) {
-            return "cart/listProductCategory";
+            Product productResult = productService.find(product.getId());
+            redirectAttributes.addFlashAttribute("errorMessage","Unfortunately, the following << " +  productResult.getTitle()+ " >>  item that you ordered are now out-of-stock." );
+            return "redirect:/shoppingCart/cartList";
+
         }
         Long quantityCart;
         double totalAmount;
@@ -149,7 +153,8 @@ public class CartController {
             if (item.getProduct().getId() == product.getId()) {
                 quantity = item.getQuantity() + product.getCartQuantity();
                 if (quantity > item.getProduct().getAvailableInStor()) {
-                    throw new ProductUnavailableException("Unfortunately, the following << " + item.getProduct().getTitle() + " >>  item(s) that you ordered are now out-of-stock.");
+                    return false;
+                    //throw new ProductUnavailableException("Unfortunately, the following << " + item.getProduct().getTitle() + " >>  item(s) that you ordered are now out-of-stock.");
                 }
             }
         }
