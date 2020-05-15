@@ -5,6 +5,7 @@ import com.group3.onlineShooping.domain.OrderStatus;
 import com.group3.onlineShooping.domain.Payment;
 import com.group3.onlineShooping.service.OrderHistoryService;
 import com.group3.onlineShooping.service.OrderService;
+import com.group3.onlineShooping.util.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,10 +31,18 @@ public class OrderController {
         this.orderHistoryService = orderHistoryService;
     }
 
-    @GetMapping
+    @GetMapping("/seller")
 //    @PreAuthorize(value = "hasRole(SELLER) and hasRole(BUYER)")
-    public String index(Model model) {
-        List<Order> orders = orderService.getAll();
+    public String indexSeller(Model model) {
+        List<Order> orders = orderService.getAllBySeller(CurrentUser.loggedInUserName());
+        model.addAttribute("orders", orders);
+        return "order/index";
+    }
+
+    @GetMapping("/buyer")
+//    @PreAuthorize(value = "hasRole(SELLER) and hasRole(BUYER)")
+    public String indexBuyer(Model model) {
+        List<Order> orders = orderService.getAllByBuyer(CurrentUser.loggedInUserName());
         model.addAttribute("orders", orders);
         return "order/index";
     }
@@ -64,7 +73,7 @@ public class OrderController {
     }
 
     @GetMapping("/edit/{id}")
-   // @PreAuthorize(value = "hasRole(SELLER)")
+    // @PreAuthorize(value = "hasRole(SELLER)")
     public ModelAndView changeStatus(@PathVariable("id") Long id) {
         Order order = orderService.getOrder(id);
         ModelAndView modelAndView = new ModelAndView("order/edit");
@@ -75,7 +84,7 @@ public class OrderController {
     }
 
     @PostMapping("/edit")
-   // @PreAuthorize(value = "hasRole(SELLER)")
+    // @PreAuthorize(value = "hasRole(SELLER)")
     public String changeStatus(Order order) {
         Order orderUpdated = orderService.editOrder(order);
         return "redirect:/order";

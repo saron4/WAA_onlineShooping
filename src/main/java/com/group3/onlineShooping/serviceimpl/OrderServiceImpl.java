@@ -43,6 +43,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getAllBySeller(String username) {
+        return orderRepository.getAllBySeller(username);
+    }
+
+    @Override
+    public List<Order> getAllByBuyer(String username) {
+        return orderRepository.getAllByBuyer(username);
+    }
+
+    @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Order getOrder(Long id) {
         Optional<Order> order = orderRepository.findById(id);
