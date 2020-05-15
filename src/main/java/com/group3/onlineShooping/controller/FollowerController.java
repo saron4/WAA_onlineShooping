@@ -9,7 +9,6 @@ import com.group3.onlineShooping.service.BuyerService;
 import com.group3.onlineShooping.service.FollowerService;
 import com.group3.onlineShooping.service.ProductService;
 import com.group3.onlineShooping.service.SellerService;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
