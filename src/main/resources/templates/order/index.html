@@ -28,6 +28,7 @@
                                         <th>Order Date</th>
                                         <th>Total Price</th>
                                         <th>Order Status</th>
+                                        <th>History</th>
 
                                         <th>Actions</th>
                                     </tr>
@@ -40,6 +41,7 @@
                                         <td th:if="${order.couponPayment!=null}"
                                             th:text="${order.couponPayment.getTotalPrice()}"></td>
                                         <td th:text="${order.orderStatus}"></td>
+<!--                                        <td th:text="${order.orderHistory}"></td>-->
 
                                         <td>
                                             <a sec:authorize="hasAuthority('SELLER')"

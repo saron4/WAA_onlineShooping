@@ -18,7 +18,6 @@ import java.util.List;
 @Getter
 @ToString
 @Entity
-@PasswordMatches
 public class Buyer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

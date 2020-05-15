@@ -43,12 +43,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getAllBySeller(String username) {
-        return orderRepository.getAllBySeller(username);
+        List<Order> orders = orderRepository.getAllBySeller(username)
+                .stream().filter(o -> o.getOrderHistory() == null)
+                .collect(Collectors.toList());
+        return orders;
     }
 
     @Override
     public List<Order> getAllByBuyer(String username) {
-        return orderRepository.getAllByBuyer(username);
+        List<Order> orders = orderRepository.getAllByBuyer(username)
+                .stream().filter(o -> o.getOrderHistory() == null)
+                .collect(Collectors.toList());
+        return orders;
     }
 
     @Override

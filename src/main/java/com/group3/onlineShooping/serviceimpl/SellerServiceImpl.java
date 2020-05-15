@@ -1,4 +1,5 @@
 package com.group3.onlineShooping.serviceimpl;
+
 import com.group3.onlineShooping.domain.Buyer;
 import com.group3.onlineShooping.domain.Follower;
 import com.group3.onlineShooping.domain.Seller;
@@ -17,19 +18,19 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class SellerServiceImpl implements SellerService{
+public class SellerServiceImpl implements SellerService {
 
     @Autowired
     private SellerRepository sellerRepository;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void addSerller(Seller seller) {
-        sellerRepository.save(seller);
+    public Seller addSeller(Seller seller) {
+        return sellerRepository.save(seller);
     }
 
     @Override
-   // @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<Seller> getAll() {
         /*Iterable<Seller> sellersIterable = sellerRepository.findAll();
         List<Seller> sellers = new ArrayList<>();
@@ -62,7 +63,7 @@ public class SellerServiceImpl implements SellerService{
     @Override
     public Seller findByEmail(String email) throws SellerNotFoundException {
         Seller seller = sellerRepository.findByEmail(email);
-        if(seller == null)
+        if (seller == null)
             throw new SellerNotFoundException("Seller with the provided email doesn't exist");
 
         return seller;
@@ -76,7 +77,7 @@ public class SellerServiceImpl implements SellerService{
     @Override
     public Seller find(Long id) {
         Optional<Seller> seller = sellerRepository.findById(id);
-        if(!seller.isPresent())
+        if (!seller.isPresent())
             throw new SellerNotFoundException("Seller with the provided email doesn't exist");
         return seller.get();
     }
@@ -93,7 +94,7 @@ public class SellerServiceImpl implements SellerService{
 
     @Override
     public List<Seller> findAllBySeller(Long id, Follower.FollowerStatus followerStatus) {
-        System.out.println("########################"+id);
+        System.out.println("########################" + id);
         return sellerRepository.findAllBySeller(followerStatus);
     }
 

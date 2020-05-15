@@ -10,7 +10,10 @@ import java.util.List;
 
 @Repository
 public interface SellerRepository extends CrudRepository<Seller, Long> {
-    public Seller findByEmail(String email  );
+    Seller findByEmail(String email);
+
+    @Query(value = "select s from Seller s left join fetch s.user")
+    List<Seller> getAllSeller();
 
     //@Query(value = "SELECT s FROM  Seller s  LEFT  JOIN  Follower f  on f.seller.serllerId=s.serllerId  where   " +
        //     " f.seller.serllerId  IS NULL or f.followerStatus=: followerStatus")
