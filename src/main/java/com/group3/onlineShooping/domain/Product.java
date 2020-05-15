@@ -7,6 +7,9 @@ import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -20,18 +23,24 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Size(min = 4, max = 100, message = "{Size.validation}")
 	private String productNumber;
 
+	@Size(min = 4, max = 100, message = "{Size.validation}")
 	private String title;
 
+	@Size(min = 4, max = 100, message = "{Size.validation}")
 	private String summary;
 
+	@Size(min = 4, max = 200, message = "{Size.validation}")
 	private String description;
-
+	@NotNull
 	private BigDecimal price;
+
 
 	private boolean isAvailable = true;
 
+	@NotNull
 	private long availableInStor;
 
 	@Transient

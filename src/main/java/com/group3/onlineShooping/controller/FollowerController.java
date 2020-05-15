@@ -3,10 +3,13 @@ package com.group3.onlineShooping.controller;
 
 import com.group3.onlineShooping.domain.Buyer;
 import com.group3.onlineShooping.domain.Follower;
+import com.group3.onlineShooping.domain.Product;
 import com.group3.onlineShooping.domain.Seller;
 import com.group3.onlineShooping.service.BuyerService;
 import com.group3.onlineShooping.service.FollowerService;
+import com.group3.onlineShooping.service.ProductService;
 import com.group3.onlineShooping.service.SellerService;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +28,14 @@ public class FollowerController {
     private FollowerService followerService;
     private SellerService sellerService;
     private BuyerService buyerService;
+    private ProductService productService;
+
     @Autowired
-    public FollowerController(FollowerService followerService, SellerService sellerService, BuyerService buyerService) {
+    public FollowerController(ProductService productService,FollowerService followerService, SellerService sellerService, BuyerService buyerService) {
         this.followerService = followerService;
         this.sellerService = sellerService;
         this.buyerService = buyerService;
+        this.productService=productService;
     }
 
 
@@ -43,6 +49,21 @@ public class FollowerController {
         sellerList.forEach(x->System.out.println(x));
         model.addAttribute("sellerList",sellerList);
          return "buyer/followerSeller";
+    }
+
+    @GetMapping("ListProduct")
+    public String getSellerListProduct(Model model,Principal principal,@RequestParam("sellerId") Long sellerId){
+        List<Product> productList;
+        String email = principal.getName();
+        Seller seller=sellerService.find(sellerId);
+        productList=productService.findProductBySeller(seller);
+        if(productList!=null){
+            model.addAttribute("productList",productList);
+            //findProductBySeller
+
+        }
+        return "buyer/listProductSeller";
+
     }
 
     @GetMapping("/followerSave")

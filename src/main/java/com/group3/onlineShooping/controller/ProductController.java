@@ -8,6 +8,8 @@ import com.group3.onlineShooping.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,7 +24,7 @@ import java.util.Map;
 @RequestMapping("/seller")
 public class ProductController {
 
-    private static String UPLOADED_FOLDER = "/Users/mahlet/Documents/GitHub/GroupProject/15/WAA_onlineShooping/images/";
+    private static String UPLOADED_FOLDER = "/Users/mahlet/Documents/GitHub/WAA_onlineShooping/images/";
 
     private ProductService productService;
     private CategoryService categoryService;
@@ -83,7 +85,10 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
-    public String saveProduct(@ModelAttribute("product") Product product, Model model, Principal principal, RedirectAttributes redirectAttributes) {
+    public String saveProduct(@Validated @ModelAttribute("product") Product product, BindingResult result, Model model, Principal principal, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            return "product/productForm";
+        }
         Seller seller = sellerService.findByEmail(principal.getName());
         product.setSeller(seller);
         MultipartFile productImage = product.getProductImage();
