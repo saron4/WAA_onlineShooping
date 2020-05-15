@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface ReviewRepository extends CrudRepository<Review, Long> {
 
-    @Query(value = "SELECT r FROM  Review r WHERE r.product=:product ")
+   @Query(value = "SELECT r FROM  Review r WHERE r.product=:product ")
     public List<Review> findAllByProduct(Product product);
 
 

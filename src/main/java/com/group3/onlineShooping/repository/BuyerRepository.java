@@ -14,4 +14,6 @@ public interface BuyerRepository extends CrudRepository <Buyer, Long> {
     @Query(value = "select b from Buyer b left join fetch b.user")
     List<Buyer> getAllBuyer();
 
+
+
 }

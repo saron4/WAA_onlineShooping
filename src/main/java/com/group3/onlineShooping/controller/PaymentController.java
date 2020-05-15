@@ -27,14 +27,17 @@ public class PaymentController {
     private final CartItemService cartItemService;
     private final BuyerService buyerService;
     private CouponPaymentService couponPaymentService;
+    private ItemService itemService;
 
     @Autowired
-    public PaymentController(PaymentService paymentService, @Qualifier("OrderServiceImpl") OrderService orderService, CartItemService cartItemService, BuyerService buyerService, CouponPaymentService couponPaymentService) {
+    public PaymentController(ItemService itemService,PaymentService paymentService, @Qualifier("OrderServiceImpl") OrderService orderService,
+                             CartItemService cartItemService, BuyerService buyerService, CouponPaymentService couponPaymentService) {
         this.paymentService = paymentService;
         this.orderService = orderService;
         this.cartItemService = cartItemService;
         this.buyerService = buyerService;
         this.couponPaymentService = couponPaymentService;
+        this.itemService=itemService;
     }
 
     @GetMapping("/{id}")
@@ -62,13 +65,11 @@ public class PaymentController {
         Long id = payment.getCartItem().getCartId();
         CartItem cartItem = cartItemService.findById(id);
         payment.setTotalPrice(cartItem.getTotalPrice());
-
         if (result.hasErrors()) {
             payment.setCartItem(cartItem);
             model.addAttribute("payment", payment);
             return "payment/payment";
         }
-
         Payment paymentResult = paymentService.addPayment(payment);
         Order order = new Order();
         order.setOrderDate(LocalDateTime.now());
@@ -83,9 +84,21 @@ public class PaymentController {
         buyerService.put(buyer);
 
         order.setCartItem(cartItem);
+        updateItemStatus(cartItem);
+
         orderService.addOrder(order);
         return "redirect:/payment/paymentsuccess/" + order.getId();
     }
+
+
+    public void updateItemStatus(CartItem cartItem){
+        cartItem.setCartItemStatus(CartItem.CartItemStatus.ORDERED);
+        cartItemService.save(cartItem);
+       itemService.setItemStatus(Item.ItemStatus.ORDERED, cartItem.getCartId());
+
+
+    }
+
 
     @GetMapping("/paymentsuccess/{id}")
     public String paymentSuccess(@PathVariable("id") Long id, Model model) {

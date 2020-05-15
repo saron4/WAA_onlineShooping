@@ -14,5 +14,5 @@ public interface ItemService {
     public void delete(Item item);
     public void  deleteItemByCartItem(Long cartId);
     List<Product> findAllByItemStatusAndProduct(Item.ItemStatus itemStatus , Product product);
-
+    public void setItemStatus(Item.ItemStatus itemStatus, Long cartID);
 }

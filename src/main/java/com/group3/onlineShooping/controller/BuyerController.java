@@ -50,6 +50,7 @@ public class BuyerController {
         buyer.getUser().setRoles(roles);
         userService.save(buyer.getUser());
         Buyer buyerResult = buyerService.save(buyer);
+        System.out.println("*****************"+buyer);
         redirectAttributes.addFlashAttribute("firstName",buyer.getFirstName());
         return "redirect:/login";
     }

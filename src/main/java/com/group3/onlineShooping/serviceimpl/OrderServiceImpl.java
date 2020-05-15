@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 @Service("OrderServiceImpl")
 @Transactional
 public class OrderServiceImpl implements OrderService {
@@ -40,6 +39,16 @@ public class OrderServiceImpl implements OrderService {
         List<Order> orders = new ArrayList<>();
         orderIterable.forEach(orders::add);
         return orders.stream().filter(order -> order.getOrderHistory() == null).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Order> getAllBySeller(String username) {
+        return orderRepository.getAllBySeller(username);
+    }
+
+    @Override
+    public List<Order> getAllByBuyer(String username) {
+        return orderRepository.getAllByBuyer(username);
     }
 
     @Override

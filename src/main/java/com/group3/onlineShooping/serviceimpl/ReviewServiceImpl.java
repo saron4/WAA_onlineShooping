@@ -48,10 +48,14 @@ private ReviewRepository reviewRepository ;
     @Override
     public List<Review> findAllByProduct(Product product) {
         return reviewRepository.findAllByProduct(product);
+
+
+
     }
 
     @Override
     public List<Review> findAllByProductAndReviewStatus(Product product, ReviewStatus reviewStatus) {
         return reviewRepository.findAllByProductAndReviewStatus(product,reviewStatus);
+
     }
 }

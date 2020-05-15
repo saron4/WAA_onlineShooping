@@ -7,7 +7,9 @@
 </head>
 <body>
 <div layout:fragment="main-content" class="row" style="margin-left: 4%">
-
+    <div  th:if="${errorMessage}">
+        <p class="alert alert-danger" > <span th:text="${errorMessage}" th:remove="tag" ></span></p>
+    </div>
     <div class="card"  style="width: 80%;">
 
         <div class="card-body">
@@ -51,7 +53,9 @@
             </tr>
             <tr>
                 <th colspan="4">
-                    <a  routerLink="/check-out" class="btn btn-primary">Check Out</a>
+
+                    <a class="btn btn-primary" th:if="${cartItemBuyer != null}"  th:href="@{'/payment/{id}' (id=${cartItemBuyer.cartId})}"  >
+                        Check Out &raquo;</a>
                 </th>
             </tr>
             </tfoot>

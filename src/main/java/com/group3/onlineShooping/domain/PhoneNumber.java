@@ -1,10 +1,7 @@
 package com.group3.onlineShooping.domain;
 
-import lombok.ToString;
-
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
-
 @Embeddable
 public class PhoneNumber {
 
@@ -17,4 +14,5 @@ public class PhoneNumber {
     public String toString() {
         return areaCode + " " + phoneNumber;
     }
+
 }

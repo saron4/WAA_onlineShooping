@@ -29,7 +29,12 @@ public class CartItem {
 	private  CartItemStatus cartItemStatus = CartItemStatus.Created;
 
 	public enum CartItemStatus {
-		Created, Processing, Paid, Finished, Cancelled
+		Created,
+		ORDERED,
+		SHIPPED,
+		TRANSIT,
+		DELIVERED,
+		CANCELD
 	}
 
 

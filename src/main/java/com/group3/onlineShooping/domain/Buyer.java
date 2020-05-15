@@ -36,10 +36,10 @@ public class Buyer {
     @JoinColumn(name = "user_Id")
     @Valid
     private User user;
-
+/*
     @ManyToMany
     @JoinTable (name="Follower")
-    private List<Seller> seller;
+    private List<Seller> seller;*/
 
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Review> reviews;

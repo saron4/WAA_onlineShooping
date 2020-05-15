@@ -18,6 +18,8 @@ import javax.validation.constraints.Size;
 @Getter
 @ToString
 @Entity
+
+@PasswordMatches
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,3 +37,4 @@ public class Admin {
     @Valid
     private User user;
 }
+

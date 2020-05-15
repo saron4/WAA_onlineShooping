@@ -33,8 +33,8 @@ public class Seller {
     @Email
     private String email;
 
-    @ManyToMany(mappedBy = "seller")
-    private List<Buyer> buyer;
+//    @ManyToMany(mappedBy = "seller")
+//    private List<Buyer> buyer;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_Id")
