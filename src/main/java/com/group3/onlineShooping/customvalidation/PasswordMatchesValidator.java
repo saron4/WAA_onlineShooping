@@ -22,7 +22,7 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
         if (!isValid) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
-                    .addPropertyNode("user.matchingPassword").addConstraintViolation();
+                    .addPropertyNode("matchingPassword").addConstraintViolation();
         }
 
         return isValid;
