@@ -31,6 +31,16 @@ public class OrderController {
         this.orderHistoryService = orderHistoryService;
     }
 
+    @GetMapping
+    public String index(Model model) {
+        List<String> roles = CurrentUser.loggedInRoles();
+        if (roles.contains("SELLER"))
+            return "redirect:/order/seller";
+        else if (roles.contains("BUYER"))
+            return "redirect:/order/buyer";
+        return "index";
+    }
+
     @GetMapping("/seller")
 //    @PreAuthorize(value = "hasRole(SELLER) and hasRole(BUYER)")
     public String indexSeller(Model model) {

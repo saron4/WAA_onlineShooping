@@ -8,9 +8,9 @@ import javax.validation.constraints.NotBlank;
 @Embeddable
 public class PhoneNumber {
 
-    @NotBlank
+    //@NotBlank
     private String areaCode;
-    @NotBlank
+    //@NotBlank
     private String phoneNumber;
 
     @Override

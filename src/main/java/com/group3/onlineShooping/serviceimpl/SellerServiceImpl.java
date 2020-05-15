@@ -18,13 +18,16 @@ import java.util.Optional;
 @Transactional
 public class SellerServiceImpl implements SellerService {
 
-    @Autowired
-    private SellerRepository sellerRepository;
+    private final SellerRepository sellerRepository;
+
+    public SellerServiceImpl(SellerRepository sellerRepository) {
+        this.sellerRepository = sellerRepository;
+    }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void addSerller(Seller seller) {
-        sellerRepository.save(seller);
+    public Seller addSeller(Seller seller) {
+        return sellerRepository.save(seller);
     }
 
     @Override
@@ -33,10 +36,6 @@ public class SellerServiceImpl implements SellerService {
         Iterable<Seller> sellersIterable = sellerRepository.findAll();
         List<Seller> sellers = new ArrayList<>();
         sellersIterable.forEach(sellers::add);
-
-//        while (sellersIterable.iterator().hasNext()) {
-//            sellers.add(sellersIterable.iterator().next());
-//        }
         return sellers;
     }
 
@@ -55,13 +54,12 @@ public class SellerServiceImpl implements SellerService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Seller editSeller(Seller seller) {
-        Seller updatedSerller = sellerRepository.save(seller);
-        return updatedSerller;
+        Seller updatedSeller = sellerRepository.save(seller);
+        return updatedSeller;
     }
 
     @Override
     public Seller findByEmail(String email) {
-
         return sellerRepository.findByEmail(email);
     }
 
