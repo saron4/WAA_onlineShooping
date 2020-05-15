@@ -3,6 +3,7 @@ import com.group3.onlineShooping.domain.Buyer;
 import com.group3.onlineShooping.domain.Seller;
 import com.group3.onlineShooping.repository.SellerRepository;
 import com.group3.onlineShooping.service.SellerService;
+import exception.SellerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -57,9 +58,30 @@ public class SellerServiceImpl implements SellerService{
     }
 
     @Override
-    public Seller findByEmail(String email) {
+    public Seller findByEmail(String email) throws SellerNotFoundException {
+        Seller seller = sellerRepository.findByEmail(email);
+        if(seller == null)
+            throw new SellerNotFoundException("Seller with the provided email doesn't exist");
 
-        return sellerRepository.findByEmail(email);
+        return seller;
+    }
+
+    @Override
+    public Seller save(Seller seller) {
+        return sellerRepository.save(seller);
+    }
+
+    @Override
+    public Seller find(Long id) {
+        Optional<Seller> seller = sellerRepository.findById(id);
+        if(!seller.isPresent())
+            throw new SellerNotFoundException("Seller with the provided email doesn't exist");
+        return seller.get();
+    }
+
+    @Override
+    public Seller put(Seller seller) {
+        return sellerRepository.save(seller);
     }
 
 }

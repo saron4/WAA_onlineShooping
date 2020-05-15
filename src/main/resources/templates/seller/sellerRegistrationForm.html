@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Seller = Registration</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+</head>
+<style>
+    row {
+        padding-top: 80px;
+        margin: 10%;
+    }
+</style>
+<body >
+<div  class="container" style="margin:3%; margin-left:20%;">
+    <div class="row">
+        <div class="col-md-6"  style="background-color: #f2f2f2;padding: 20px;">
+            <form action="#" th:action="@{/seller/registration}" th:object="${seller}"
+                  method="post" 　>
+                <h4> Registration</h4>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-lock"></i></span>
+                    </div>
+                    <label>
+                        <input type="text" th:field="*{firstName}"
+                               placeholder="First Name" class="form-control" aria-describedby="basic-addon1"/>
+                    </label>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}">
+                    <span th:if="${#fields.hasErrors('firstName')}"
+                          th:errors="*{firstName}" class="validation-message"> </span>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon2"><i class="fas fa-user-lock"></i></span>
+                    </div>
+                    <input type="text" th:field="*{lastName}"
+                           placeholder="Last Name" class="form-control" aria-describedby="basic-addon2"/>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}">
+                    <span th:if="${#fields.hasErrors('lastName')}"
+                          th:errors="*{lastName}" class="validation-message" ></span>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">@</span>
+                    </div>
+                    <input type="text" th:field="*{email}"
+                           placeholder="Email" class="form-control" aria-describedby="basic-addon3" />
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}">
+                    <span th:if="${#fields.hasErrors('email')}"
+                          th:errors="*{email}" class="validation-message"></span>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon5"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input type="password" th:field="*{user.password}"
+                           placeholder="Password" class="form-control"  aria-describedby="basic-addon5"/>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('user.password')}">
+                    <span th:if="${#fields.hasErrors('user.password')}"
+                          th:errors="*{user.password}" class="validation-message"></span>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon4"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input type="password" th:field="*{user.matchingPassword}"
+                           placeholder="Confirm Password" class="form-control" aria-describedby="basic-addon3"/>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('user.matchingPassword')}">
+                    <span th:if="${#fields.hasErrors('user.matchingPassword')}"
+                          th:errors="*{user.matchingPassword}" class="validation-message"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">Save</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
