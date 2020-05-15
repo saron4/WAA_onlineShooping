@@ -69,7 +69,7 @@ public class CartController {
             Product product) {
         Product productResult = productService.find(productId);
         List<Review> reviewList;
-        reviewList=reviewService.findAllByProductAndReviewStatus(productResult, Review.ReviewStatus.approved);
+        reviewList=reviewService.findAllByProductAndReviewStatus(productResult, ReviewStatus.approved);
         model.addAttribute("reviewList",reviewList);
         Review review = new Review();
         review.setProduct(productResult);

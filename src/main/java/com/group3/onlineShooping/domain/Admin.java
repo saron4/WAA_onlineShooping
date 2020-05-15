@@ -18,7 +18,6 @@ import javax.validation.constraints.Size;
 @Getter
 @ToString
 @Entity
-@PasswordMatches
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +30,7 @@ public class Admin {
     @ValidEmail(message = "{email.customerValidation}")
     private String email;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_Id")
     @Valid
     private User user;

@@ -3,6 +3,7 @@ package com.group3.onlineShooping.controller;
 import com.group3.onlineShooping.domain.Buyer;
 import com.group3.onlineShooping.domain.Product;
 import com.group3.onlineShooping.domain.Review;
+import com.group3.onlineShooping.domain.ReviewStatus;
 import com.group3.onlineShooping.service.BuyerService;
 import com.group3.onlineShooping.service.ProductService;
 import com.group3.onlineShooping.service.ReviewService;
@@ -40,7 +41,7 @@ public class CommentController {
         review.setProduct(productResult);
         review.setBuyer(buyer);
         reviewService.save(review);
-        reviewList=reviewService.findAllByProductAndReviewStatus(productResult, Review.ReviewStatus.approved);
+        reviewList=reviewService.findAllByProductAndReviewStatus(productResult, ReviewStatus.approved);
         model.addAttribute(review);
         model.addAttribute("reviewList",reviewList);
         model.addAttribute("product",productResult);

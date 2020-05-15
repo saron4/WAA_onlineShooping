@@ -1,5 +1,6 @@
 package com.group3.onlineShooping.domain;
 
+import com.group3.onlineShooping.customvalidation.PasswordMatches;
 import lombok.*;
 import org.hibernate.validator.constraints.Email;
 
@@ -15,6 +16,7 @@ import java.util.Set;
 @Getter
 @ToString
 @Entity
+@PasswordMatches
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

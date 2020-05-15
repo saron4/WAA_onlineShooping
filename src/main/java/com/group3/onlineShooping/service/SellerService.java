@@ -14,4 +14,5 @@ public interface SellerService {
 
     public Seller editSeller(Seller seller);
     public Seller findByEmail(String email);
+    public Seller findById(Long id);
 }

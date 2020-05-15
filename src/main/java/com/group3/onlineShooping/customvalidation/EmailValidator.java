@@ -15,7 +15,10 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
     public EmailValidator(BuyerService buyerService) {
         this.buyerService = buyerService;
     }
-    public EmailValidator(){}
+
+    public EmailValidator() {
+    }
+
     @Override
     public void initialize(ValidEmail constraintAnnotation) {
     }
@@ -25,7 +28,8 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
         return validateEmail(email);
     }
-     public  boolean validateEmail(String email) {
+
+    public boolean validateEmail(String email) {
         Buyer buyer = null;
 
         try {
