@@ -7,6 +7,13 @@ import com.group3.onlineShooping.service.BuyerService;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import com.group3.onlineShooping.domain.Buyer;
+import com.group3.onlineShooping.domain.User;
+import com.group3.onlineShooping.service.BuyerService;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
     //private BuyerService buyerService;
 
@@ -22,10 +29,11 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
         if (!isValid) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
-                    .addPropertyNode("user.matchingPassword").addConstraintViolation();
+                    .addPropertyNode("matchingPassword").addConstraintViolation();
         }
 
         return isValid;
     }
+
 
 }

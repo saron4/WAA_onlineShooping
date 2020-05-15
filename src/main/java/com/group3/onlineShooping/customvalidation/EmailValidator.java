@@ -35,7 +35,7 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
         try {
             buyer = buyerService.findByEmail(email);
         } catch (Exception e) {
-            System.out.println("Couldn't find product...");
+
         }
         return buyer == null ? true : false;
     }
