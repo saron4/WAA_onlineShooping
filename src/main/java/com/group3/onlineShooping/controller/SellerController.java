@@ -49,7 +49,7 @@ public class SellerController {
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         seller.getUser().setUsername(seller.getEmail());
-        seller.getUser().setActive(1);
+        seller.getUser().setActive(0);
         seller.getUser().setRoles(roles);
         userService.save(seller.getUser());
         Seller sellerResult = sellerService.addSeller(seller);

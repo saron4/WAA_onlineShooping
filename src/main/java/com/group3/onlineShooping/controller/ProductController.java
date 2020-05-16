@@ -6,6 +6,8 @@ import com.group3.onlineShooping.service.ItemService;
 import com.group3.onlineShooping.service.ProductService;
 import com.group3.onlineShooping.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -58,7 +60,8 @@ public class ProductController {
         }
         return "product/productList";
     }
-
+    @Secured("SELLER")
+    @PreAuthorize("hasAuthority('SELLER')")
     @GetMapping("/addProduct")
     public String showFormForAdd( Model model) {
         Product product= new Product();
@@ -87,6 +90,8 @@ public class ProductController {
     @RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
     public String saveProduct(@Validated @ModelAttribute("product") Product product, BindingResult result, Model model, Principal principal, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
+            List<Category> categoryList = (List<Category>) categoryService.findAll();
+            model.addAttribute("categoryList", categoryList);
             return "product/productForm";
         }
         Seller seller = sellerService.findByEmail(principal.getName());

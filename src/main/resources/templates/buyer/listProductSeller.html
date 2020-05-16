@@ -28,6 +28,9 @@
                                        th:value="${product.price}" class="form-control"
                                        aria-describedby="basic-addon3"></input>
                             </div>
+                            <a class="btn btn-primary"
+                               th:href="@{'/cartItem/viewDetails' (productId=${product.id})}">
+                                View Details &raquo;</a>
                         </div>
 
                     </div>

@@ -80,7 +80,11 @@
             <div class="input-group mb-3" style="height:70px; width:500px;">
                 <input type="text" id="comment" th:field="${review.comment}"
                        class="form-control" aria-describedby="basic-addon4" placeholder="Write something.."
-                       style="height:70px; width:20px;"></div>
+                       style="height:70px; width:20px;">
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('comment')}">
+                        <span th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"
+                              class="validation-message"> </span></div>
+            </div>
               <button class="btn btn-primary btn-sm" id="btn-comment" >Submit &raquo;</button>
             </form>
             <table class="table table-borderless">

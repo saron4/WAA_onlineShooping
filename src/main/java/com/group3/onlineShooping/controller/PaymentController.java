@@ -52,9 +52,11 @@ public class PaymentController {
         else {
             payment.setBillingAddress(new BillingAddress());
             payment.setShippingAddress(new ShippingAddress());
-            payment.setCartItem(cartItem);
-            payment.setTotalPrice(cartItem.getTotalPrice());
+            System.out.println("###########"+ cartItem.getCartId());
         }
+
+        payment.setCartItem(cartItem);
+        payment.setTotalPrice(cartItem.getTotalPrice());
         model.addAttribute("payment", payment);
 
         return "payment/payment";
@@ -123,9 +125,11 @@ public class PaymentController {
                 payment.setShippingAddress(paymentHistory.get().getShippingAddress());
             else
                 payment.setShippingAddress(new ShippingAddress());
-            payment.setCartItem(cartItem);
-            payment.setTotalPrice(1d);
+
         }
+        payment.setCartItem(cartItem);
+        payment.setTotalPrice(1d);
+
         model.addAttribute("payment", payment);
 
         return "payment/couponpayment";
@@ -161,7 +165,7 @@ public class PaymentController {
 
         order.setCartItem(cartItem);
         orderService.addOrder(order);
-
+        updateItemStatus(cartItem);
         return "redirect:/payment/couponsuccess/" + order.getId();
     }
 

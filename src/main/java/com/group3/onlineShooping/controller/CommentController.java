@@ -33,20 +33,28 @@ public class CommentController {
     }
 
     @PostMapping("/listReview")
-    public String  getComment(Review review, Model model, RedirectAttributes redirectAttributes, Principal principal) {
+    public String  getComment(@Validated @ModelAttribute("review") Review review, BindingResult result, Model model, RedirectAttributes redirectAttributes, Principal principal) {
         String email = principal.getName();
-
         List<Review> reviewList= new ArrayList<>();
         Buyer buyer = buyerService.findByEmail(email);
         Product productResult = productService.find(review.getProduct().getId());
         System.out.println("#################"+productResult);
-         review.setProduct(productResult);
+        if (result.hasErrors()) {
+            reviewList=reviewService.findAllByProductAndReviewStatus(productResult, ReviewStatus.approved);
+            model.addAttribute(review);
+            model.addAttribute("reviewList",reviewList);
+            model.addAttribute("product",productResult);
+
+            return "cart/addShoppingCart";
+
+        }
+        review.setProduct(productResult);
         review.setBuyer(buyer);
         reviewList.add(review);
         review.getProduct().setReviewsProduct(reviewList);
         System.out.println("#################"+review);
         reviewService.save(review);
-       reviewList=reviewService.findAllByProductAndReviewStatus(productResult, ReviewStatus.approved);
+        reviewList=reviewService.findAllByProductAndReviewStatus(productResult, ReviewStatus.approved);
         model.addAttribute(review);
         model.addAttribute("reviewList",reviewList);
         model.addAttribute("product",productResult);
