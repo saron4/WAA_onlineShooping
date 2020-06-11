@@ -62,7 +62,13 @@
                             <span sec:authentication="name"></span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <div class="dropdown-item" href="#"><span sec:authentication="principal.authorities"></span>
+                            <div class="dropdown-item" href="#">
+                                <p>
+                                    <span sec:authentication="principal.authorities"></span>
+                                    <a th:href="@{/buyer/update}">
+                                        Edit
+                                    </a>
+                                </p>
                             </div>
                             <div class="dropdown-item" href="#">
                                 <form action="#" th:action="@{/logout}" method="post">

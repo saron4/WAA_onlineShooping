@@ -7,10 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import javax.validation.constraints.Email;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -22,14 +23,15 @@ import java.util.List;
 public class Buyer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull(groups = {ValidationGroups.UpdateValidation.class})
     private Long id;
-    @Size(min = 4, max = 100, message = "{Size.validation}")
+    @Size(min = 4, max = 100, message = "{Size.validation}", groups = {ValidationGroups.CreateValidation.class, ValidationGroups.UpdateValidation.class})
     private String firstName;
-    @Size(min = 4, max = 100, message = "{Size.validation}")
+    @Size(min = 4, max = 100, message = "{Size.validation}", groups = {ValidationGroups.CreateValidation.class, ValidationGroups.UpdateValidation.class})
     private String lastName;
 
-    @Email(message = "{email.validation}")
-    @ValidEmail(message = "{email.customerValidation}")
+    @Email(message = "{email.validation}", groups = {ValidationGroups.CreateValidation.class, ValidationGroups.UpdateValidation.class})
+    @ValidEmail(message = "{email.customerValidation}", groups = {ValidationGroups.CreateValidation.class})
     private String email;
     private Integer coupons = 0;
 
@@ -42,7 +44,7 @@ public class Buyer {
     @JoinTable (name="Follower")
     private List<Seller> seller;*/
 
-    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
 
 }
